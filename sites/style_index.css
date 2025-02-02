@@ -7,6 +7,7 @@
 	background-color: #343a40;
 	padding-top: 20px;
 	color: white;
+	transition: width 0.3s;
 }
 .sidebar a {
 	padding: 10px 15px;
@@ -16,6 +17,24 @@
 }
 .sidebar a:hover {
 	background-color: #495057;
+}
+.sidebar .user-info {
+	margin-top: auto;
+	padding: 10px 15px;
+	background-color: #495057;
+	text-align: center;
+}
+.sidebar .user-info p {
+	margin: 0;
+}
+.sidebar .user-info .links {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-top: 5px;
+}
+.sidebar .user-info a {
+	color: white;
 }
 .content {
 	margin-left: 310px; /* Adjusted margin to match the increased sidebar width */
@@ -64,4 +83,14 @@
 }
 .card-body {
 	color: #343a40;
+}
+@media (max-width: 768px) {
+	.sidebar {
+		width: 100%;
+		height: auto;
+		position: relative;
+	}
+	.content {
+		margin-left: 0;
+	}
 }

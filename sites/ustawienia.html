@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Nadgodziny</title>
+		<title>Ustawienia</title>
 		<link
 			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 			rel="stylesheet"
@@ -117,162 +117,45 @@
 			<div class="user-info mt-auto">
 				<p>Zalogowany jako: Jan Kowalski</p>
 				<div class="links">
-					<a href="ustawienia.html">Ustawienia</a>
+					<a href="#">Ustawienia</a>
 					<a href="#">Zaloguj</a>
 				</div>
 			</div>
 		</div>
 		<div class="content">
-			<h2 class="text-center">Nadgodziny</h2>
-			<div class="d-flex justify-content-center my-3 flex-wrap">
-				<label for="searchUser" class="me-2">Wyszukaj użytkownika:</label>
-				<input
-					type="text"
-					id="searchUser"
-					class="me-3"
-					onkeyup="searchUser()"
-					placeholder="Wpisz nazwę użytkownika"
-				/>
-			</div>
-			<div id="overtimeContainer" class="row">
-				<div class="col-md-4 mb-4 user-overtime" data-username="Jan Kowalski">
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Jan Kowalski</h5>
-							<p class="card-text">Całkowite nadgodziny: 20</p>
-							<div class="table-responsive">
-								<table class="table schedule-table mt-4">
-									<thead>
-										<tr>
-											<th>Data</th>
-											<th>Liczba godzin</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>2023-10-01</td>
-											<td>4</td>
-										</tr>
-										<tr>
-											<td>2023-10-05</td>
-											<td>6</td>
-										</tr>
-										<tr>
-											<td>2023-10-10</td>
-											<td>10</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
+			<h2 class="text-center">Ustawienia</h2>
+			<form>
+				<div class="mb-3">
+					<label for="currentLogin" class="form-label">Obecny Login</label>
+					<input type="text" class="form-control" id="currentLogin" required />
 				</div>
-				<div class="col-md-4 mb-4 user-overtime" data-username="Anna Nowak">
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Anna Nowak</h5>
-							<p class="card-text">Całkowite nadgodziny: 15</p>
-							<div class="table-responsive">
-								<table class="table schedule-table mt-4">
-									<thead>
-										<tr>
-											<th>Data</th>
-											<th>Liczba godzin</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>2023-10-02</td>
-											<td>5</td>
-										</tr>
-										<tr>
-											<td>2023-10-07</td>
-											<td>10</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
+				<div class="mb-3">
+					<label for="newLogin" class="form-label">Nowy Login</label>
+					<input type="text" class="form-control" id="newLogin" required />
 				</div>
-				<div
-					class="col-md-4 mb-4 user-overtime"
-					data-username="Piotr Zieliński"
-				>
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Piotr Zieliński</h5>
-							<p class="card-text">Całkowite nadgodziny: 8</p>
-							<div class="table-responsive">
-								<table class="table schedule-table mt-4">
-									<thead>
-										<tr>
-											<th>Data</th>
-											<th>Liczba godzin</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>2023-10-03</td>
-											<td>8</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
+				<div class="mb-3">
+					<label for="currentPassword" class="form-label">Obecne Hasło</label>
+					<input
+						type="password"
+						class="form-control"
+						id="currentPassword"
+						required
+					/>
 				</div>
-				<div
-					class="col-md-4 mb-4 user-overtime"
-					data-username="Maria Lewandowska"
-				>
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Maria Lewandowska</h5>
-							<p class="card-text">Całkowite nadgodziny: 12</p>
-							<div class="table-responsive">
-								<table class="table schedule-table mt-4">
-									<thead>
-										<tr>
-											<th>Data</th>
-											<th>Liczba godzin</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>2023-10-04</td>
-											<td>4</td>
-										</tr>
-										<tr>
-											<td>2023-10-08</td>
-											<td>8</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
+				<div class="mb-3">
+					<label for="newPassword" class="form-label">Nowe Hasło</label>
+					<input
+						type="password"
+						class="form-control"
+						id="newPassword"
+						required
+					/>
 				</div>
-			</div>
+				<button type="submit" class="btn btn-primary">
+					Zmień Login i Hasło
+				</button>
+			</form>
 		</div>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-		<script>
-			function searchUser() {
-				const input = document.getElementById('searchUser');
-				const filter = input.value.toLowerCase();
-				const overtimeContainer = document.getElementById('overtimeContainer');
-				const userOvertimes =
-					overtimeContainer.getElementsByClassName('user-overtime');
-
-				for (let i = 0; i < userOvertimes.length; i++) {
-					const username = userOvertimes[i].getAttribute('data-username');
-					if (username.toLowerCase().indexOf(filter) > -1) {
-						userOvertimes[i].style.display = '';
-					} else {
-						userOvertimes[i].style.display = 'none';
-					}
-				}
-			}
-		</script>
 	</body>
 </html>
