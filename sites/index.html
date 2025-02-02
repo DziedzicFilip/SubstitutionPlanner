@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Harmonogram Grup</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="style_index.css" />
+	</head>
+	<body>
+		<div class="sidebar text-center">
+			<h4>Menu</h4>
+			<a href="#">Harmonogram Grup</a>
+			<a href="#">Aktualne zastępstwa</a>
+			<a href="#">Nadgodziny</a>
+		</div>
+		<div class="content">
+			<h2 class="text-center">Harmonogram Grup</h2>
+			<div class="d-flex justify-content-center my-3 flex-wrap">
+				<label for="startDate" class="me-2">Wybierz datę od:</label>
+				<input type="date" id="startDate" class="me-3" />
+				<button class="btn btn-primary ms-3">Zastosuj</button>
+			</div>
+			<div class="table-responsive">
+				<table class="table schedule-table mt-4">
+					<thead>
+						<tr>
+							<th>Grupa</th>
+							<th>Poniedziałek<br />27 sty</th>
+							<th>Wtorek<br />28 sty</th>
+							<th>Środa<br />29 sty</th>
+							<th>Czwartek<br />30 sty</th>
+							<th>Piątek<br />31 sty</th>
+							<th>Sobota<br />1 lut</th>
+							<th>Niedziela<br />2 lut</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Grupa 1</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Jan Kowalski: 08:00 - 12:00')"
+								>
+									<strong>Jan Kowalski</strong><br />08:00 - 12:00
+								</div>
+								<div
+									class="user-box"
+									onclick="alert('Anna Nowak: 12:00 - 16:00')"
+								>
+									<strong>Anna Nowak</strong><br />12:00 - 16:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Anna Nowak: 10:00 - 14:00')"
+								>
+									<strong>Anna Nowak</strong><br />10:00 - 14:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Piotr Zieliński: 12:00 - 16:00')"
+								>
+									<strong>Piotr Zieliński</strong><br />12:00 - 16:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Maria Lewandowska: 09:00 - 13:00')"
+								>
+									<strong>Maria Lewandowska</strong><br />09:00 - 13:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Adam Wiśniewski: 14:00 - 18:00')"
+								>
+									<strong>Adam Wiśniewski</strong><br />14:00 - 18:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Jan Kowalski: 08:00 - 12:00')"
+								>
+									<strong>Jan Kowalski</strong><br />08:00 - 12:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Anna Nowak: 10:00 - 14:00')"
+								>
+									<strong>Anna Nowak</strong><br />10:00 - 14:00
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>Grupa 2</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Katarzyna Dąbrowska: 08:00 - 12:00')"
+								>
+									<strong>Katarzyna Dąbrowska</strong><br />08:00 - 12:00
+								</div>
+								<div
+									class="user-box"
+									onclick="alert('Tomasz Wójcik: 12:00 - 16:00')"
+								>
+									<strong>Tomasz Wójcik</strong><br />12:00 - 16:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Monika Pawlak: 10:00 - 14:00')"
+								>
+									<strong>Monika Pawlak</strong><br />10:00 - 14:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Robert Jankowski: 12:00 - 16:00')"
+								>
+									<strong>Robert Jankowski</strong><br />12:00 - 16:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Karolina Woźniak: 09:00 - 13:00')"
+								>
+									<strong>Karolina Woźniak</strong><br />09:00 - 13:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Grzegorz Lis: 14:00 - 18:00')"
+								>
+									<strong>Grzegorz Lis</strong><br />14:00 - 18:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Magdalena Kowalczyk: 08:00 - 12:00')"
+								>
+									<strong>Magdalena Kowalczyk</strong><br />08:00 - 12:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Łukasz Nowicki: 10:00 - 14:00')"
+								>
+									<strong>Łukasz Nowicki</strong><br />10:00 - 14:00
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>Grupa 3</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Patryk Mazur: 08:00 - 12:00')"
+								>
+									<strong>Patryk Mazur</strong><br />08:00 - 12:00
+								</div>
+								<div
+									class="user-box"
+									onclick="alert('Justyna Górska: 12:00 - 16:00')"
+								>
+									<strong>Justyna Górska</strong><br />12:00 - 16:00
+								</div>
+								<div
+									class="user-box"
+									onclick="alert('Justyna Górska: 12:00 - 16:00')"
+								>
+									<strong>Justyna Górska</strong><br />12:00 - 16:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Wojciech Malinowski: 10:00 - 14:00')"
+								>
+									<strong>Wojciech Malinowski</strong><br />10:00 - 14:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Elżbieta Czarnecka: 12:00 - 16:00')"
+								>
+									<strong>Elżbieta Czarnecka</strong><br />12:00 - 16:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Kamil Szymański: 09:00 - 13:00')"
+								>
+									<strong>Kamil Szymański</strong><br />09:00 - 13:00
+								</div>
+								<div
+									class="user-box"
+									onclick="alert('Wojciech Malinowski: 10:00 - 14:00')"
+								>
+									<strong>Wojciech Malinowski</strong><br />10:00 - 14:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Paweł Włodarczyk: 14:00 - 18:00')"
+								>
+									<strong>Paweł Włodarczyk</strong><br />14:00 - 18:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Marta Olejniczak: 08:00 - 12:00')"
+								>
+									<strong>Marta Olejniczak</strong><br />08:00 - 12:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Barbara Kaczmarek: 10:00 - 14:00')"
+								>
+									<strong>Barbara Kaczmarek</strong><br />10:00 - 14:00
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	</body>
+</html>
