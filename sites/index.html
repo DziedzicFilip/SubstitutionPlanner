@@ -8,6 +8,10 @@
 			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 			rel="stylesheet"
 		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+		/>
 		<link rel="stylesheet" href="style_index.css" />
 	</head>
 	<body>
@@ -123,7 +127,9 @@
 			</div>
 		</div>
 		<div class="content">
-			<h2 class="text-center">Harmonogram Grup</h2>
+			<div class="d-flex justify-content-between align-items-center">
+				<h2 class="text-center flex-grow-1">Harmonogram Grup</h2>
+			</div>
 			<div class="d-flex justify-content-center my-3 flex-wrap">
 				<label for="startDate" class="me-2">Wybierz datę od:</label>
 				<input type="date" id="startDate" class="me-3" />
@@ -355,6 +361,82 @@
 				</table>
 			</div>
 		</div>
+		<!-- Modal -->
+		<div
+			class="modal fade"
+			id="substitutionModal"
+			tabindex="-1"
+			aria-labelledby="substitutionModalLabel"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="substitutionModalLabel">
+							Dostępne Zastępstwa
+						</h5>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<div class="modal-body">
+						<!-- Content will be dynamically loaded here -->
+						<div id="substitutionContent">
+							<!-- Example content with checkboxes and available substitutes -->
+							<div class="form-check">
+								<input
+									class="form-check-input"
+									type="checkbox"
+									value="Anna Nowak"
+									id="substitution1"
+								/>
+
+								<p>Możliwe zastępstwa: Jan Kowalski</p>
+							</div>
+							<div class="form-check">
+								<input
+									class="form-check-input"
+									type="checkbox"
+									value="Jan Kowalski"
+									id="substitution2"
+								/>
+
+								<p>Możliwe zastępstwa: Maria Lewandowska</p>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button
+							type="button"
+							class="btn btn-secondary"
+							data-bs-dismiss="modal"
+						>
+							Anuluj
+						</button>
+						<button type="button" class="btn btn-primary">Wyślij</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Add this script at the end of the <body> tag -->
+		<script>
+			document.querySelectorAll('.user-box').forEach((box) => {
+				box.addEventListener('click', function () {
+					// Load dynamic content here if needed
+					// For example, you can use AJAX to fetch data based on the user
+
+					// Show the modal
+					const substitutionModal = new bootstrap.Modal(
+						document.getElementById('substitutionModal')
+					);
+					substitutionModal.show();
+				});
+			});
+		</script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	</body>
 </html>
