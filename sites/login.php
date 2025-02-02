@@ -1,3 +1,9 @@
+<!-- filepath: /c:/xampp/htdocs/SubstitutionPlanner/SubstitutionPlanner/sites/login.php -->
+<?php
+session_start();
+$error = isset($_SESSION['error']) ? $_SESSION['error'] : '';
+unset($_SESSION['error']);
+?>
 
 <!DOCTYPE html>
 <html lang="pl">
@@ -13,7 +19,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <h2 class="text-center mt-5">Logowanie</h2>
-                <form action="authenticate.php" method="post">
+                <form method="post" action="../PHP_Logic/login_logic.php">
                     <div class="mb-3">
                         <label for="username" class="form-label">Nazwa użytkownika</label>
                         <input type="text" class="form-control" id="username" name="username" required>
@@ -22,6 +28,11 @@
                         <label for="password" class="form-label">Hasło</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
+                    <?php if ($error): ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?php echo $error; ?>
+                        </div>
+                    <?php endif; ?>
                     <button type="submit" class="btn btn-primary w-100">Zaloguj się</button>
                 </form>
             </div>
