@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Harmonogram Grup</title>
+		<title>Aktualne Zastępstwa</title>
 		<link
 			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 			rel="stylesheet"
@@ -40,15 +40,15 @@
 						<div class="accordion-body">
 							<p>Nowe zastępstwo na 2023-10-06 od 10:00 do 14:00</p>
 							<button class="btn btn-sm btn-warning">Akceptuj</button>
-							<button class="btn btn-sm btn-danger">Usuń</button>
+							<button class="btn btn-sm btn-danger">Odrzuć</button>
 							<hr />
 							<p>Nowe zastępstwo na 2023-10-07 od 09:00 do 13:00</p>
 							<button class="btn btn-sm btn-warning">Akceptuj</button>
-							<button class="btn btn-sm btn-danger">Usuń</button>
+							<button class="btn btn-sm btn-danger">Odrzuć</button>
 							<hr />
 							<p>Nowe zastępstwo na 2023-10-08 od 12:00 do 16:00</p>
 							<button class="btn btn-sm btn-warning">Akceptuj</button>
-							<button class="btn btn-sm btn-danger">Usuń</button>
+							<button class="btn btn-sm btn-danger">Odrzuć</button>
 						</div>
 					</div>
 				</div>
@@ -104,39 +104,44 @@
 						<div class="accordion-body">
 							<p>Brak osoby do zastępstwa na 2023-10-07 od 09:00 do 13:00</p>
 							<button class="btn btn-sm btn-warning">Akceptuj</button>
-							<button class="btn btn-sm btn-danger">Usuń</button>
+							<button class="btn btn-sm btn-danger">Odrzuć</button>
 							<hr />
 							<p>Brak osoby do zastępstwa na 2023-10-10 od 11:00 do 15:00</p>
 							<button class="btn btn-sm btn-warning">Akceptuj</button>
-							<button class="btn btn-sm btn-danger">Usuń</button>
+							<button class="btn btn-sm btn-danger">Odrzuć</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="content">
-			<h2 class="text-center">Harmonogram Grup</h2>
+			<h2 class="text-center">Aktualne Zastępstwa</h2>
 			<div class="d-flex justify-content-center my-3 flex-wrap">
-				<label for="startDate" class="me-2">Wybierz datę od:</label>
-				<input type="date" id="startDate" class="me-3" />
-				<button class="btn btn-primary ms-3">Zastosuj</button>
+				<label for="filterGroup" class="me-2">Filtruj według grupy:</label>
+				<select id="filterGroup" class="me-3">
+					<option value="all">Wszystkie</option>
+					<option value="group1">Grupa 1</option>
+					<option value="group2">Grupa 2</option>
+					<option value="group3">Grupa 3</option>
+				</select>
+				<label for="filterDate" class="me-2">Filtruj według daty:</label>
+				<input type="date" id="filterDate" class="me-3" />
+				<button class="btn btn-primary ms-3">Filtruj</button>
 			</div>
 			<div class="table-responsive">
 				<table class="table schedule-table mt-4">
 					<thead>
 						<tr>
+							<th>Data</th>
 							<th>Grupa</th>
-							<th>Poniedziałek<br />27 sty</th>
-							<th>Wtorek<br />28 sty</th>
-							<th>Środa<br />29 sty</th>
-							<th>Czwartek<br />30 sty</th>
-							<th>Piątek<br />31 sty</th>
-							<th>Sobota<br />1 lut</th>
-							<th>Niedziela<br />2 lut</th>
+							<th>Osoba potrzebująca zastępstwa</th>
+							<th>Osoba zastępująca</th>
+							<th>Opcje zastępstwa</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
+							<td>2023-10-01</td>
 							<td>Grupa 1</td>
 							<td>
 								<div
@@ -145,78 +150,35 @@
 								>
 									<strong>Jan Kowalski</strong><br />08:00 - 12:00
 								</div>
-								<div
-									class="user-box"
-									onclick="alert('Anna Nowak: 12:00 - 16:00')"
-								>
-									<strong>Anna Nowak</strong><br />12:00 - 16:00
-								</div>
 							</td>
 							<td>
 								<div
 									class="user-box"
-									onclick="alert('Anna Nowak: 10:00 - 14:00')"
+									onclick="alert('Anna Nowak: 08:00 - 12:00')"
 								>
-									<strong>Anna Nowak</strong><br />10:00 - 14:00
+									<strong>Anna Nowak</strong><br />08:00 - 12:00
 								</div>
 							</td>
 							<td>
-								<div
-									class="user-box"
-									onclick="alert('Piotr Zieliński: 12:00 - 16:00')"
-								>
-									<strong>Piotr Zieliński</strong><br />12:00 - 16:00
-								</div>
-							</td>
-							<td>
-								<div
-									class="user-box"
-									onclick="alert('Maria Lewandowska: 09:00 - 13:00')"
-								>
-									<strong>Maria Lewandowska</strong><br />09:00 - 13:00
-								</div>
-							</td>
-							<td>
-								<div
-									class="user-box"
-									onclick="alert('Adam Wiśniewski: 14:00 - 18:00')"
-								>
-									<strong>Adam Wiśniewski</strong><br />14:00 - 18:00
-								</div>
-							</td>
-							<td>
-								<div
-									class="user-box"
-									onclick="alert('Jan Kowalski: 08:00 - 12:00')"
-								>
-									<strong>Jan Kowalski</strong><br />08:00 - 12:00
-								</div>
-							</td>
-							<td>
-								<div
-									class="user-box"
-									onclick="alert('Anna Nowak: 10:00 - 14:00')"
-								>
-									<strong>Anna Nowak</strong><br />10:00 - 14:00
+								<div class="mt-2">
+									<button
+										class="btn btn-sm btn-warning"
+										onclick="editUser('Jan Kowalski')"
+									>
+										Edytuj
+									</button>
+									<button
+										class="btn btn-sm btn-danger"
+										onclick="deleteUser('Jan Kowalski')"
+									>
+										Usuń
+									</button>
 								</div>
 							</td>
 						</tr>
 						<tr>
+							<td>2023-10-02</td>
 							<td>Grupa 2</td>
-							<td>
-								<div
-									class="user-box"
-									onclick="alert('Katarzyna Dąbrowska: 08:00 - 12:00')"
-								>
-									<strong>Katarzyna Dąbrowska</strong><br />08:00 - 12:00
-								</div>
-								<div
-									class="user-box"
-									onclick="alert('Tomasz Wójcik: 12:00 - 16:00')"
-								>
-									<strong>Tomasz Wójcik</strong><br />12:00 - 16:00
-								</div>
-							</td>
 							<td>
 								<div
 									class="user-box"
@@ -228,11 +190,67 @@
 							<td>
 								<div
 									class="user-box"
-									onclick="alert('Robert Jankowski: 12:00 - 16:00')"
+									onclick="alert('Robert Jankowski: 10:00 - 14:00')"
 								>
-									<strong>Robert Jankowski</strong><br />12:00 - 16:00
+									<strong>Robert Jankowski</strong><br />10:00 - 14:00
 								</div>
 							</td>
+							<td>
+								<div class="mt-2">
+									<button
+										class="btn btn-sm btn-warning"
+										onclick="editUser('Monika Pawlak')"
+									>
+										Edytuj
+									</button>
+									<button
+										class="btn btn-sm btn-danger"
+										onclick="deleteUser('Monika Pawlak')"
+									>
+										Usuń
+									</button>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>2023-10-03</td>
+							<td>Grupa 3</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Katarzyna Dąbrowska: 12:00 - 16:00')"
+								>
+									<strong>Katarzyna Dąbrowska</strong><br />12:00 - 16:00
+								</div>
+							</td>
+							<td>
+								<div
+									class="user-box"
+									onclick="alert('Tomasz Wójcik: 12:00 - 16:00')"
+								>
+									<strong>Tomasz Wójcik</strong><br />12:00 - 16:00
+								</div>
+							</td>
+							<td>
+								<div class="mt-2">
+									<button
+										class="btn btn-sm btn-warning"
+										onclick="editUser('Katarzyna Dąbrowska')"
+									>
+										Edytuj
+									</button>
+									<button
+										class="btn btn-sm btn-danger"
+										onclick="deleteUser('Katarzyna Dąbrowska')"
+									>
+										Usuń
+									</button>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>2023-10-04</td>
+							<td>Grupa 1</td>
 							<td>
 								<div
 									class="user-box"
@@ -244,102 +262,25 @@
 							<td>
 								<div
 									class="user-box"
-									onclick="alert('Grzegorz Lis: 14:00 - 18:00')"
+									onclick="alert('Grzegorz Lis: 09:00 - 13:00')"
 								>
-									<strong>Grzegorz Lis</strong><br />14:00 - 18:00
+									<strong>Grzegorz Lis</strong><br />09:00 - 13:00
 								</div>
 							</td>
 							<td>
-								<div
-									class="user-box"
-									onclick="alert('Magdalena Kowalczyk: 08:00 - 12:00')"
-								>
-									<strong>Magdalena Kowalczyk</strong><br />08:00 - 12:00
-								</div>
-							</td>
-							<td>
-								<div
-									class="user-box"
-									onclick="alert('Łukasz Nowicki: 10:00 - 14:00')"
-								>
-									<strong>Łukasz Nowicki</strong><br />10:00 - 14:00
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>Grupa 3</td>
-							<td>
-								<div
-									class="user-box"
-									onclick="alert('Patryk Mazur: 08:00 - 12:00')"
-								>
-									<strong>Patryk Mazur</strong><br />08:00 - 12:00
-								</div>
-								<div
-									class="user-box"
-									onclick="alert('Justyna Górska: 12:00 - 16:00')"
-								>
-									<strong>Justyna Górska</strong><br />12:00 - 16:00
-								</div>
-								<div
-									class="user-box"
-									onclick="alert('Justyna Górska: 12:00 - 16:00')"
-								>
-									<strong>Justyna Górska</strong><br />12:00 - 16:00
-								</div>
-							</td>
-							<td>
-								<div
-									class="user-box"
-									onclick="alert('Wojciech Malinowski: 10:00 - 14:00')"
-								>
-									<strong>Wojciech Malinowski</strong><br />10:00 - 14:00
-								</div>
-							</td>
-							<td>
-								<div
-									class="user-box"
-									onclick="alert('Elżbieta Czarnecka: 12:00 - 16:00')"
-								>
-									<strong>Elżbieta Czarnecka</strong><br />12:00 - 16:00
-								</div>
-							</td>
-							<td>
-								<div
-									class="user-box"
-									onclick="alert('Kamil Szymański: 09:00 - 13:00')"
-								>
-									<strong>Kamil Szymański</strong><br />09:00 - 13:00
-								</div>
-								<div
-									class="user-box"
-									onclick="alert('Wojciech Malinowski: 10:00 - 14:00')"
-								>
-									<strong>Wojciech Malinowski</strong><br />10:00 - 14:00
-								</div>
-							</td>
-							<td>
-								<div
-									class="user-box"
-									onclick="alert('Paweł Włodarczyk: 14:00 - 18:00')"
-								>
-									<strong>Paweł Włodarczyk</strong><br />14:00 - 18:00
-								</div>
-							</td>
-							<td>
-								<div
-									class="user-box"
-									onclick="alert('Marta Olejniczak: 08:00 - 12:00')"
-								>
-									<strong>Marta Olejniczak</strong><br />08:00 - 12:00
-								</div>
-							</td>
-							<td>
-								<div
-									class="user-box"
-									onclick="alert('Barbara Kaczmarek: 10:00 - 14:00')"
-								>
-									<strong>Barbara Kaczmarek</strong><br />10:00 - 14:00
+								<div class="mt-2">
+									<button
+										class="btn btn-sm btn-warning"
+										onclick="editUser('Karolina Woźniak')"
+									>
+										Edytuj
+									</button>
+									<button
+										class="btn btn-sm btn-danger"
+										onclick="deleteUser('Karolina Woźniak')"
+									>
+										Usuń
+									</button>
 								</div>
 							</td>
 						</tr>
@@ -348,5 +289,13 @@
 			</div>
 		</div>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+		<script>
+			function editUser(userName) {
+				alert('Edytuj użytkownika: ' + userName);
+			}
+			function deleteUser(userName) {
+				alert('Usuń użytkownika: ' + userName);
+			}
+		</script>
 	</body>
 </html>

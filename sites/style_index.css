@@ -1,6 +1,6 @@
 .sidebar {
 	height: 100vh;
-	width: 250px;
+	width: 300px; /* Increased width */
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -18,7 +18,7 @@
 	background-color: #495057;
 }
 .content {
-	margin-left: 260px;
+	margin-left: 310px; /* Adjusted margin to match the increased sidebar width */
 	padding: 20px;
 }
 .schedule-table {
@@ -44,4 +44,24 @@
 }
 .user-box:hover {
 	background-color: #e9ecef;
+}
+.accordion-button {
+	background-color: #343a40;
+	color: white;
+	padding: 0.5rem 1rem; /* Reduced padding */
+}
+.accordion-button:not(.collapsed) {
+	color: white;
+	background-color: #495057;
+}
+.accordion-body {
+	background-color: #495057;
+	color: white;
+	padding: 0.5rem 1rem; /* Reduced padding */
+}
+.card {
+	background-color: #f8f9fa;
+}
+.card-body {
+	color: #343a40;
 }
