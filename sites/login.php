@@ -1,4 +1,4 @@
-<!-- filepath: /c:/xampp/htdocs/SubstitutionPlanner/SubstitutionPlanner/sites/login.php -->
+
 <?php
 session_start();
 $error = isset($_SESSION['error']) ? $_SESSION['error'] : '';
@@ -28,11 +28,16 @@ unset($_SESSION['error']);
                         <label for="password" class="form-label">Hasło</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-                    <?php if ($error): ?>
-                        <div class="alert alert-danger" role="alert">
-                            <?php echo $error; ?>
-                        </div>
-                    <?php endif; ?>
+                    <?php if ($error)
+                    {
+                        echo ' <div class="alert alert-danger" role="alert">';
+                        echo $error;
+                        echo "<br/>";
+
+                }
+                       
+              ?>
+              
                     <button type="submit" class="btn btn-primary w-100">Zaloguj się</button>
                 </form>
             </div>

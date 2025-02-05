@@ -1,3 +1,10 @@
+<?php
+require('../PHP_Logic/sidebar_logic.php');
+if (!isset($_SESSION['user_id'])) {
+    echo "Proszę się <a href='login.php'>zalogować</a>, aby uzyskać dostęp do tej strony.";
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="pl">
 	<head>
@@ -11,12 +18,19 @@
 		<link rel="stylesheet" href="style_index.css" />
 	</head>
 	<body>
-		<div class="sidebar d-flex flex-column">
+	<div class="sidebar d-flex flex-column">
 			<h4 class="text-center">Menu</h4>
-			<a href="index.html">Harmonogram Grup</a>
-			<a href="AktualneZastepstwa.html">Aktualne zastępstwa</a>
-			<a href="Nadgodziny.html">Nadgodziny</a>
-			<a href="dodaj.html">Dodaj</a>
+			<a href="index.php">Harmonogram Grup</a>
+			<a href="AktualneZastepstwa.php">Aktualne zastępstwa</a>
+			<a href="Nadgodziny.php">Nadgodziny</a>
+			<?php 
+			if(isAdmin())
+			{
+				echo "<a href='dodaj.php'>Dodaj</a>";
+			}
+			
+			?> 
+			
 			<div class="accordion mt-3" id="notificationAccordion">
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="headingNewSubstitution">
@@ -82,6 +96,9 @@
 						</div>
 					</div>
 				</div>
+				<?php
+				if(isAdmin())
+				 echo '
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="headingUnassignedSubstitution">
 						<button
@@ -112,13 +129,17 @@
 							<button class="btn btn-sm btn-danger">Usuń</button>
 						</div>
 					</div>
-				</div>
+				</div> '
+				?>
 			</div>
 			<div class="user-info mt-auto">
-				<p>Zalogowany jako: Jan Kowalski</p>
+				
+				<p>Zalogowany jako: <?php WhoAmI()?></p>
 				<div class="links">
-					<a href="ustawienia.html">Ustawienia</a>
-					<a href="#">Zaloguj</a>
+					<a href="ustawienia.php">Ustawienia</a>
+					<form method="post" action="../PHP_Logic/logout.php" style="display:inline;">
+            <button type="submit" class="btn btn-link">Wyloguj</button>
+        </form>
 				</div>
 			</div>
 		</div>
