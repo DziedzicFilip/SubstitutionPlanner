@@ -1,9 +1,16 @@
 <?php
 require('../PHP_Logic/sidebar_logic.php');
+require('../PHP_Logic/dodaj_logic.php');
+
 if (!isset($_SESSION['user_id'])) {
     echo "Proszę się <a href='login.php'>zalogować</a>, aby uzyskać dostęp do tej strony.";
     exit();
 }
+
+
+
+$groups = getGroups();
+
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -146,337 +153,128 @@ if (!isset($_SESSION['user_id'])) {
 					<form method="post" action="../PHP_Logic/logout.php" style="display:inline;">
             <button type="submit" class="btn btn-link">Wyloguj</button>
         </form>
-				</div>
-			</div>
 		</div>
+		</div>
+		</div>
+		
+
 		<div class="content">
-			<div class="row">
-				<div class="col-md-6">
-					<div class="card mb-4">
-						<div class="card-body">
-							<h2 class="text-center">Dodaj Pracownika</h2>
-							<form>
-								<div class="mb-3">
-									<label for="employeeFirstName" class="form-label">Imię</label>
-									<input
-										type="text"
-										class="form-control"
-										id="employeeFirstName"
-										required
-									/>
-								</div>
-								<div class="mb-3">
-									<label for="employeeLastName" class="form-label"
-										>Nazwisko</label
-									>
-									<input
-										type="text"
-										class="form-control"
-										id="employeeLastName"
-										required
-									/>
-								</div>
-								<div class="mb-3">
-									<label for="employeeLogin" class="form-label">Login</label>
-									<input
-										type="text"
-										class="form-control"
-										id="employeeLogin"
-										required
-									/>
-								</div>
-								<div class="mb-3">
-									<label for="employeePassword" class="form-label">Hasło</label>
-									<input
-										type="password"
-										class="form-control"
-										id="employeePassword"
-										required
-									/>
-								</div>
-								<div class="mb-3">
-									<label class="form-label">Grupy</label>
-									<div class="form-check">
-										<input
-											class="form-check-input"
-											type="checkbox"
-											value="Grupa 1"
-											id="group1"
-										/>
-										<label class="form-check-label" for="group1">Grupa 1</label>
-									</div>
-									<div class="form-check">
-										<input
-											class="form-check-input"
-											type="checkbox"
-											value="Grupa 2"
-											id="group2"
-										/>
-										<label class="form-check-label" for="group2">Grupa 2</label>
-									</div>
-									<div class="form-check">
-										<input
-											class="form-check-input"
-											type="checkbox"
-											value="Grupa 3"
-											id="group3"
-										/>
-										<label class="form-check-label" for="group3">Grupa 3</label>
-									</div>
-								</div>
-								<button type="submit" class="btn btn-primary">
-									Dodaj Pracownika
-								</button>
-							</form>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="card mb-4">
-						<div class="card-body">
-							<h2 class="text-center">Dodaj Grupę</h2>
-							<form>
-								<div class="mb-3">
-									<label for="groupName" class="form-label">Nazwa Grupy</label>
-									<input
-										type="text"
-										class="form-control"
-										id="groupName"
-										required
-									/>
-								</div>
-								<button type="submit" class="btn btn-primary">
-									Dodaj Grupę
-								</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="card mb-4">
-				<div class="card-body">
-					<h2 class="text-center">Dodaj Godziny Pracy</h2>
-					<form id="scheduleForm">
-						<div id="scheduleEntries">
-							<div class="schedule-entry mb-3">
-								<div class="mb-3">
-									<label for="groupSelect" class="form-label">Grupa</label>
-									<select class="form-select" id="groupSelect" required>
-										<option selected disabled value="">Wybierz grupę</option>
-										<option value="Grupa 1">Grupa 1</option>
-										<option value="Grupa 2">Grupa 2</option>
-										<option value="Grupa 3">Grupa 3</option>
-										<!-- Add more groups as needed -->
-									</select>
-								</div>
-								<div class="mb-3">
-									<label for="dayOfWeek" class="form-label"
-										>Dzień tygodnia</label
-									>
-									<select class="form-select" id="dayOfWeek" required>
-										<option selected disabled value="">Wybierz dzień</option>
-										<option value="Poniedziałek">Poniedziałek</option>
-										<option value="Wtorek">Wtorek</option>
-										<option value="Środa">Środa</option>
-										<option value="Czwartek">Czwartek</option>
-										<option value="Piątek">Piątek</option>
-										<option value="Sobota">Sobota</option>
-										<option value="Niedziela">Niedziela</option>
-									</select>
-								</div>
-								<div class="mb-3">
-									<label for="startTime" class="form-label">Od</label>
-									<input
-										type="time"
-										class="form-control"
-										id="startTime"
-										required
-									/>
-								</div>
-								<div class="mb-3">
-									<label for="endTime" class="form-label">Do</label>
-									<input
-										type="time"
-										class="form-control"
-										id="endTime"
-										required
-									/>
-								</div>
-							</div>
-						</div>
-						<button
-							type="button"
-							class="btn btn-secondary mb-3"
-							id="addMoreButton"
-						>
-							Dodaj więcej
-						</button>
-						<button type="submit" class="btn btn-primary">
-							Dodaj godziny pracy
-						</button>
-					</form>
-				</div>
-			</div>
-			<div class="card mb-4">
-                <div class="card-body">
-                    <h2 class="text-center">Zarządzaj Pracownikiem</h2>
-                    <form id="manageEmployeeForm">
-                        <div class="mb-3">
-                            <label for="manageEmployeeSelect" class="form-label">Pracownik</label>
-                            <select class="form-select" id="manageEmployeeSelect" required>
-                                <option selected disabled value="">Wybierz pracownika</option>
-                                <option value="Jan Kowalski">Jan Kowalski</option>
-                                <option value="Anna Nowak">Anna Nowak</option>
-                                <option value="Piotr Zieliński">Piotr Zieliński</option>
-                                <!-- Add more employees as needed -->
-                            </select>
+		<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="text-center">Dodaj Pracownika</h2>
+                <form method="post" action="../PHP_Logic/dodaj_logic.php">
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">Imię</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Nazwisko</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="login" class="form-label">Login</label>
+                        <input type="text" class="form-control" id="login" name="login" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Hasło</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="groups" class="form-label">Grupy</label>
+                        <div id="groups">
+						<?php
+								wrtieGroups($groups);
+                    ?>
                         </div>
-                        <div id="employeeDetails" style="display: none;">
-                            <h5>Grupy:</h5>
-                            <ul id="employeeGroups"></ul>
-                            <h5>Godziny Pracy:</h5>
-                            <ul id="employeeHours"></ul>
-                        </div>
-                    </form>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Dodaj Pracownika</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="text-center">Dodaj Grupę</h2>
+                <form method="post" action="../PHP_Logic/dodaj_logic.php">
+                    <div class="mb-3">
+                        <label for="groupName" class="form-label">Nazwa Grupy</label>
+                        <input type="text" class="form-control" id="groupName" name="groupName" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Dodaj Grupę</button>
+                </form>
+            </div>
+        </div>
+    </div>
+	<div class="col-md-6">
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="text-center">Dodaj Godziny Pracy</h2>
+            <form method="post" action="../PHP_Logic/dodaj_logic.php">
+                <div class="mb-3">
+                    <label for="employeeSelect" class="form-label">Pracownik</label>
+                    <select class="form-control" id="employeeSelect" name="employeeSelect" required>
+                        <?php getUsers(); ?>
+                    </select>
                 </div>
+                <div class="mb-3">
+                    <label for="dayOfWeek" class="form-label">Dzień Tygodnia</label>
+                    <select class="form-control" id="dayOfWeek" name="dayOfWeek" required>
+                        <option value="Poniedziałek">Poniedziałek</option>
+                        <option value="Wtorek">Wtorek</option>
+                        <option value="Środa">Środa</option>
+                        <option value="Czwartek">Czwartek</option>
+                        <option value="Piątek">Piątek</option>
+                        <option value="Sobota">Sobota</option>
+                        <option value="Niedziela">Niedziela</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="groups" class="form-label">Grupa</label>
+                    <?php wrtieGroups($groups); ?>
+                </div>
+                <div class="mb-3">
+                    <label for="startTime" class="form-label">Godzina Rozpoczęcia</label>
+                    <input type="time" class="form-control" id="startTime" name="startTime" required>
+                </div>
+                <div class="mb-3">
+                    <label for="endTime" class="form-label">Godzina Zakończenia</label>
+                    <input type="time" class="form-control" id="endTime" name="endTime" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Dodaj Godziny Pracy</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="text-center">Zarządzaj Pracownikiem</h2>
+            <form method="post" action="../PHP_Logic/dodaj_logic.php">
+                <div class="mb-3">
+                    <label for="manageEmployeeSelect" class="form-label">Pracownik</label>
+                    <select class="form-control" id="manageEmployeeSelect" name="manageEmployeeSelect" required>
+                        <?php getUsers(); ?>
+                    </select>
+                </div>
+                <div id="employeeDetails" style="display: none;">
+                    <h5>Grupy:</h5>
+                    <ul id="employeeGroups"></ul>
+                    <h5>Godziny Pracy:</h5>
+                    <ul id="employeeHours"></ul>
+                </div>
+                
+                <button type="submit" name="deleteEmployee" class="btn btn-danger">Usuń Pracownika</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
             </div>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-		<script>
-			document
-				.getElementById('addMoreButton')
-				.addEventListener('click', function () {
-					const scheduleEntries = document.getElementById('scheduleEntries');
-					const newEntry = scheduleEntries.firstElementChild.cloneNode(true);
-					newEntry.querySelectorAll('input, select').forEach((input) => {
-						input.value = '';
-					});
-					scheduleEntries.appendChild(newEntry);
-				});
-
-                document.getElementById('manageEmployeeSelect').addEventListener('change', function () {
-        const employeeDetails = document.getElementById('employeeDetails');
-        const employeeGroups = document.getElementById('employeeGroups');
-        const employeeHours = document.getElementById('employeeHours');
-
-        // Clear previous details
-        employeeGroups.innerHTML = '';
-        employeeHours.innerHTML = '';
-
-        // Fetch and display employee details (this is just an example, replace with actual data fetching)
-        const selectedEmployee = this.value;
-        if (selectedEmployee === 'Jan Kowalski') {
-            employeeGroups.innerHTML = `
-                <li>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Grupa 1" readonly>
-                        <button class="btn btn-secondary edit-button" type="button">Edytuj</button>
-                        <button class="btn btn-danger delete-button" type="button">Usuń</button>
-                    </div>
-                </li>
-                <li>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Grupa 2" readonly>
-                        <button class="btn btn-secondary edit-button" type="button">Edytuj</button>
-                        <button class="btn btn-danger delete-button" type="button">Usuń</button>
-                    </div>
-                </li>`;
-            employeeHours.innerHTML = `
-                <li>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Poniedziałek: 08:00 - 12:00" readonly>
-                        <button class="btn btn-secondary edit-button" type="button">Edytuj</button>
-                        <button class="btn btn-danger delete-button" type="button">Usuń</button>
-                    </div>
-                </li>
-                <li>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Wtorek: 10:00 - 14:00" readonly>
-                        <button class="btn btn-secondary edit-button" type="button">Edytuj</button>
-                        <button class="btn btn-danger delete-button" type="button">Usuń</button>
-                    </div>
-                </li>`;
-        } else if (selectedEmployee === 'Anna Nowak') {
-            employeeGroups.innerHTML = `
-                <li>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Grupa 1" readonly>
-                        <button class="btn btn-secondary edit-button" type="button">Edytuj</button>
-                        <button class="btn btn-danger delete-button" type="button">Usuń</button>
-                    </div>
-                </li>`;
-            employeeHours.innerHTML = `
-                <li>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Środa: 12:00 - 16:00" readonly>
-                        <button class="btn btn-secondary edit-button" type="button">Edytuj</button>
-                        <button class="btn btn-danger delete-button" type="button">Usuń</button>
-                    </div>
-                </li>
-                <li>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Czwartek: 09:00 - 13:00" readonly>
-                        <button class="btn btn-secondary edit-button" type="button">Edytuj</button>
-                        <button class="btn btn-danger delete-button" type="button">Usuń</button>
-                    </div>
-                </li>`;
-        } else if (selectedEmployee === 'Piotr Zieliński') {
-            employeeGroups.innerHTML = `
-                <li>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Grupa 3" readonly>
-                        <button class="btn btn-secondary edit-button" type="button">Edytuj</button>
-                        <button class="btn btn-danger delete-button" type="button">Usuń</button>
-                    </div>
-                </li>`;
-            employeeHours.innerHTML = `
-                <li>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Piątek: 14:00 - 18:00" readonly>
-                        <button class="btn btn-secondary edit-button" type="button">Edytuj</button>
-                        <button class="btn btn-danger delete-button" type="button">Usuń</button>
-                    </div>
-                </li>
-                <li>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Sobota: 08:00 - 12:00" readonly>
-                        <button class="btn btn-secondary edit-button" type="button">Edytuj</button>
-                        <button class="btn btn-danger delete-button" type="button">Usuń</button>
-                    </div>
-                </li>`;
-        }
-
-        employeeDetails.style.display = 'block';
-
-        document.querySelectorAll('.edit-button').forEach(button => {
-            button.addEventListener('click', function () {
-                const input = this.previousElementSibling;
-                input.removeAttribute('readonly');
-                this.textContent = 'Zapisz';
-                this.classList.remove('btn-secondary');
-                this.classList.add('btn-primary');
-                this.classList.add('save-button');
-                this.classList.remove('edit-button');
-                this.addEventListener('click', function () {
-                    input.setAttribute('readonly', true);
-                    this.textContent = 'Edytuj';
-                    this.classList.remove('btn-primary');
-                    this.classList.add('btn-secondary');
-                    this.classList.remove('save-button');
-                    this.classList.add('edit-button');
-                    // Save changes logic here
-                });
-            });
-        });
-
-        document.querySelectorAll('.delete-button').forEach(button => {
-            button.addEventListener('click', function () {
-                if (confirm('Czy na pewno chcesz usunąć ten wpis?')) {
-                    this.parentElement.parentElement.remove();
-                    // Delete logic here
-                }
-            });
-        });
-    });;
-		</script>
+		
 	</body>
 </html>
