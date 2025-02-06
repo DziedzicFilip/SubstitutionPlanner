@@ -1,11 +1,9 @@
 <?php
 require('../PHP_Logic/sidebar_logic.php');
-require('../PHP_Logic/index_logic.php');
 if (!isset($_SESSION['user_id'])) {
     echo "Proszę się <a href='login.php'>zalogować</a>, aby uzyskać dostęp do tej strony.";
     exit();
-}
-
+} 
 ?>
 
 <!DOCTYPE html>
@@ -62,21 +60,25 @@ if (!isset($_SESSION['user_id'])) {
         if(isAdmin())
          echo '
         <div class="accordion-item">
-    <h2 class="accordion-header" id="headingUnassignedSubstitution">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUnassignedSubstitution" aria-expanded="false" aria-controls="collapseUnassignedSubstitution">
-            Nieprzypisane zastępstwo
-            <span class="badge bg-primary rounded-circle ms-2">2</span>
-        </button>
-    </h2>
-    <div id="collapseUnassignedSubstitution" class="accordion-collapse collapse" aria-labelledby="headingUnassignedSubstitution" data-bs-parent="#notificationAccordion">
-        <div class="accordion-body">
-            <a href="ZarzadzajZastepstwami.php" class="btn btn-primary mb-2">Przypisz</a>
-            <p>Brak osoby do zastępstwa na 2023-10-07 od 09:00 do 13:00</p>
-            <hr />
-            <p>Brak osoby do zastępstwa na 2023-10-10 od 11:00 do 15:00</p>
-        </div>
-    </div>
-</div> '
+            <h2 class="accordion-header" id="headingUnassignedSubstitution">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUnassignedSubstitution" aria-expanded="false" aria-controls="collapseUnassignedSubstitution">
+                    Nieprzypisane zastępstwo
+                    <span class="badge bg-primary rounded-circle ms-2">2</span>
+                    
+                </button>
+           
+            </h2>
+            <div id="collapseUnassignedSubstitution" class="accordion-collapse collapse" aria-labelledby="headingUnassignedSubstitution" data-bs-parent="#notificationAccordion">
+                 <a href="ZarzadzajZastepstwami.php"?Przypisz</a>    
+            <div class="accordion-body">
+                    <p>Brak osoby do zastępstwa na 2023-10-07 od 09:00 do 13:00</p>
+                    
+                    <hr />
+                    <p>Brak osoby do zastępstwa na 2023-10-10 od 11:00 do 15:00</p>
+                    
+                </div>
+            </div>
+        </div> '
         ?>
     </div>
     <div class="user-info mt-auto">
@@ -90,15 +92,7 @@ if (!isset($_SESSION['user_id'])) {
     </div>
 </div>
 <div class="content">
-    <h2 class="text-center">Harmonogram Grup</h2>
-    <form method="get" action="index.php" class="mb-4">
-        <label for="startDate">Wybierz datę początkową:</label>
-        <input type="date" id="startDate" name="startDate" value="<?php echo $startDate; ?>" />
-        <button type="submit" class="btn btn-primary">Pokaż</button>
-    </form>
-    <div class="table-responsive">
-        <?php displaySchedule($startDate); ?>
-    </div>
+    
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
