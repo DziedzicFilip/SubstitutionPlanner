@@ -1,18 +1,13 @@
-<?php
+<?php 
 require('../PHP_Logic/sidebar_logic.php');
-require('../PHP_Logic/nadgodziny_logic.php');
-if (!isset($_SESSION['user_id'])) {
-    echo "Proszę się <a href='login.php'>zalogować</a>, aby uzyskać dostęp do tej strony.";
-    exit();
-}
-
+require('../PHP_Logic/dodaj_zastepstwo_logic.php');
 ?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nadgodziny</title>
+    <title>Harmonogram Grup</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="style_index.css" />
 </head>
@@ -22,7 +17,6 @@ if (!isset($_SESSION['user_id'])) {
     <a href="index.php">Harmonogram Grup</a>
     <a href="AktualneZastepstwa.php">Aktualne zastępstwa</a>
     <a href="Nadgodziny.php">Nadgodziny</a>
-    <a href="dodaj_zastepstwo.php">Dodaj zastępstwo</a>
     <?php 
     if(isAdmin())
     {
@@ -55,22 +49,23 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </div>
 </div>
+
 <div class="content">
-    <h2 class="text-center">Nadgodziny</h2>
-    <div class="d-flex justify-content-center my-3 flex-wrap">
-        <form method="get" action="Nadgodziny.php" class="d-flex">
-            <label for="searchUser" class="me-2">Wyszukaj użytkownika:</label>
-            <input type="text" id="searchUser" name="searchUser" class="me-3" placeholder="Wpisz nazwę użytkownika"  />
-            <label for="startDate" class="me-2">Od:</label>
-            <input type="date" id="startDate" name="startDate" class="me-3"  />
-            <label for="endDate" class="me-2">Do:</label>
-            <input type="date" id="endDate" name="endDate" class="me-3"  />
-            <button type="submit" class="btn btn-primary">Szukaj</button>
-        </form>
-    </div>
-    <div id="overtimeContainer" class="row">
-        <?php displayOvertimeCards($searchTerm, $startDate, $endDate); ?>
-    </div>
+    <h2 class="text-center">Dodaj zastepstwo</h2>
+    <form method="POST" action="../PHP_Logic/dodaj_zastepstwo_logic.php">
+    <label for="date">Data:</label>
+    <input type="date" id="date" name="date" required>
+    
+    <label for="start_time">Godzina Od:</label>
+    <input type="time" id="start_time" name="start_time" required>
+    
+    <label for="end_time">Godzina Do:</label>
+    <input type="time" id="end_time" name="end_time" required>
+    
+ 
+    
+    <button type="submit">Dodaj Zastępstwo</button>
+</form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

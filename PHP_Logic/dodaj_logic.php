@@ -110,7 +110,7 @@ if (isset($_POST['employeeSelect']) && isset($_POST['dayOfWeek']) && isset($_POS
     $conn = db_connect();
 
     // Dodanie godzin pracy
-    $query = "INSERT INTO harmonogram (id_pracownika, dzien, godzina_od, godzina_do, tydzien) VALUES ('$employeeId', '$dayOfWeek', '$startTime', '$endTime', 1)";
+    $query = "INSERT INTO harmonogram (id_pracownika, dzien, godzina_od, godzina_do) VALUES ('$employeeId', '$dayOfWeek', '$startTime', '$endTime')";
     if (mysqli_query($conn, $query)) {
         // Dodanie grup do harmonogramu
         foreach ($groups as $groupId) {

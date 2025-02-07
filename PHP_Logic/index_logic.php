@@ -6,7 +6,7 @@ function getSchedule($startDate = null) {
     if ($startDate === null) {
         $startDate = date('Y-m-d');
     }
-    $query = "SELECT g.nazwa AS grupa, u.imie, u.nazwisko, h.dzien, h.godzina_od, h.godzina_do
+    $query = "SELECT DISTINCT g.nazwa AS grupa, u.imie, u.nazwisko, h.dzien, h.godzina_od, h.godzina_do
               FROM harmonogram h
               JOIN uzytkownicy u ON h.id_pracownika = u.id
               JOIN pracownik_grupa pg ON u.id = pg.id_pracownika
@@ -52,6 +52,8 @@ function displaySchedule($startDate = null) {
     $groupedSchedule = [];
     $groupedSubstitutions = [];
 
+
+
     foreach ($schedule as $entry) {
         $groupedSchedule[$entry['grupa']][$entry['dzien']][] = $entry;
     }
@@ -82,10 +84,15 @@ function displaySchedule($startDate = null) {
             $currentDateStr = date('Y-m-d', $currentDate);
             echo '<td>';
             if (isset($days[$dayOfWeek])) {
+                $uniqueEntries = [];
                 foreach ($days[$dayOfWeek] as $entry) {
-                    echo '<div class="user-box">';
-                    echo '<strong>' . $entry['imie'] . ' ' . $entry['nazwisko'] . '</strong><br />' . $entry['godzina_od'] . ' - ' . $entry['godzina_do'];
-                    echo '</div>';
+                    $entryKey = $entry['imie'] . $entry['nazwisko'] . $entry['godzina_od'] . $entry['godzina_do'];
+                    if (!in_array($entryKey, $uniqueEntries)) {
+                        $uniqueEntries[] = $entryKey;
+                        echo '<div class="user-box">';
+                        echo '<strong>' . $entry['imie'] . ' ' . $entry['nazwisko'] . '</strong><br />' . $entry['godzina_od'] . ' - ' . $entry['godzina_do'];
+                        echo '</div>';
+                    }
                 }
             }
             if (isset($groupedSubstitutions[$group][$currentDateStr])) {
@@ -106,4 +113,5 @@ function displaySchedule($startDate = null) {
 }
 
 $startDate = isset($_GET['startDate']) ? $_GET['startDate'] : date('Y-m-d');
+
 ?>

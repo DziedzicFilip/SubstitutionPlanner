@@ -23,6 +23,7 @@ if (!isset($_SESSION['user_id'])) {
     <a href="index.php">Harmonogram Grup</a>
     <a href="AktualneZastepstwa.php">Aktualne zastępstwa</a>
     <a href="Nadgodziny.php">Nadgodziny</a>
+    <a href="dodaj_zastepstwo.php">Dodaj zastępstwo</a>
     <?php 
     if(isAdmin())
     {
@@ -30,68 +31,19 @@ if (!isset($_SESSION['user_id'])) {
     }
     ?> 
     <div class="accordion mt-3" id="notificationAccordion">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingNewSubstitution">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNewSubstitution" aria-expanded="true" aria-controls="collapseNewSubstitution">
-                    Nowe zastępstwo
-                    <span class="badge bg-primary rounded-circle ms-2">3</span>
-                </button>
-            </h2>
-            <div id="collapseNewSubstitution" class="accordion-collapse collapse" aria-labelledby="headingNewSubstitution" data-bs-parent="#notificationAccordion">
-                <div class="accordion-body">
-                    <p>Nowe zastępstwo na 2023-10-06 od 10:00 do 14:00</p>
-                    <button class="btn btn-sm btn-warning">Akceptuj</button>
-                    <button class="btn btn-sm btn-danger">Usuń</button>
-                    <hr />
-                    <p>Nowe zastępstwo na 2023-10-07 od 09:00 do 13:00</p>
-                    <button class="btn btn-sm btn-warning">Akceptuj</button>
-                    <button class="btn btn-sm btn-danger">Usuń</button>
-                    <hr />
-                    <p>Nowe zastępstwo na 2023-10-08 od 12:00 do 16:00</p>
-                    <button class="btn btn-sm btn-warning">Akceptuj</button>
-                    <button class="btn btn-sm btn-danger">Usuń</button>
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingAcceptedSubstitution">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAcceptedSubstitution" aria-expanded="false" aria-controls="collapseAcceptedSubstitution">
-                    Zakceptowane zastępstwo
-                    <span class="badge bg-primary rounded-circle ms-2">2</span>
-                </button>
-            </h2>
-            <div id="collapseAcceptedSubstitution" class="accordion-collapse collapse" aria-labelledby="headingAcceptedSubstitution" data-bs-parent="#notificationAccordion">
-                <div class="accordion-body">
-                    <p>Zakceptowane zastępstwo na 2023-10-05 od 08:00 do 12:00</p>
-                    <button class="btn btn-sm btn-danger">Usuń</button>
-                    <hr />
-                    <p>Zakceptowane zastępstwo na 2023-10-09 od 14:00 do 18:00</p>
-                    <button class="btn btn-sm btn-danger">Usuń</button>
-                </div>
-            </div>
-        </div>
+        <?php 
+        if(!isAdmin()) 
+         {
+            displaySubstitutionsAccept();
+         }
+
+        ?>
+        
         <?php
         if(isAdmin())
-         echo '
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingUnassignedSubstitution">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUnassignedSubstitution" aria-expanded="false" aria-controls="collapseUnassignedSubstitution">
-                    Nieprzypisane zastępstwo
-                    <span class="badge bg-primary rounded-circle ms-2">2</span>
-                </button>
-            </h2>
-            <div id="collapseUnassignedSubstitution" class="accordion-collapse collapse" aria-labelledby="headingUnassignedSubstitution" data-bs-parent="#notificationAccordion">
-                <div class="accordion-body">
-                    <p>Brak osoby do zastępstwa na 2023-10-07 od 09:00 do 13:00</p>
-                    <button class="btn btn-sm btn-warning">Akceptuj</button>
-                    <button class="btn btn-sm btn-danger">Usuń</button>
-                    <hr />
-                    <p>Brak osoby do zastępstwa na 2023-10-10 od 11:00 do 15:00</p>
-                    <button class="btn btn-sm btn-warning">Akceptuj</button>
-                    <button class="btn btn-sm btn-danger">Usuń</button>
-                </div>
-            </div>
-        </div> '
+        {
+            displaySubstitutionsPending();
+        }
         ?>
     </div>
     <div class="user-info mt-auto">
