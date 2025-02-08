@@ -59,9 +59,13 @@ if (!isset($_SESSION['user_id'])) {
     <h2 class="text-center">Nadgodziny</h2>
     <div class="d-flex justify-content-center my-3 flex-wrap">
         <form method="get" action="Nadgodziny.php" class="d-flex">
-            <label for="searchUser" class="me-2">Wyszukaj użytkownika:</label>
+            <?php if(isAdmin())
+                echo '   <label for="searchUser" class="me-2">Wyszukaj użytkownika:</label>
             <input type="text" id="searchUser" name="searchUser" class="me-3" placeholder="Wpisz nazwę użytkownika"  />
-            <label for="startDate" class="me-2">Od:</label>
+           ';
+            
+            ?> 
+          <label for="startDate" class="me-2">Od:</label>
             <input type="date" id="startDate" name="startDate" class="me-3"  />
             <label for="endDate" class="me-2">Do:</label>
             <input type="date" id="endDate" name="endDate" class="me-3"  />

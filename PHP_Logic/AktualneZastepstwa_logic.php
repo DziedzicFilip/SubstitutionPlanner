@@ -3,7 +3,7 @@ require_once('../PHP_Logic/database_connection.php');
 
 function getSubstitutions() {
     $conn = db_connect();
-    $query = "SELECT z.id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, g.nazwa AS grupa, 
+    $query = "SELECT DISTINCT z.id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, g.nazwa AS grupa, 
                      u1.imie AS imie_potrzebujacego, u1.nazwisko AS nazwisko_potrzebujacego, 
                      u2.imie AS imie_zastepujacego, u2.nazwisko AS nazwisko_zastepujacego
               FROM zastepstwa z
@@ -25,7 +25,14 @@ function getSubstitutions() {
 
 function displaySubstitutions() {
     $substitutions = getSubstitutions();
+    $uniqueSubstitutions = [];
     foreach ($substitutions as $substitution) {
+        $uniqueKey = $substitution['id'];
+        if (!isset($uniqueSubstitutions[$uniqueKey])) {
+            $uniqueSubstitutions[$uniqueKey] = $substitution;
+        }
+    }
+    foreach ($uniqueSubstitutions as $substitution) {
         echo '<tr>';
         echo '<td>' . $substitution['data'] . '</td>';
         echo '<td>' . $substitution['grupa'] . '</td>';
@@ -39,7 +46,6 @@ function displaySubstitutions() {
         echo '<strong>' . $substitution['imie_zastepujacego'] . ' ' . $substitution['nazwisko_zastepujacego'] . '</strong><br />' . $substitution['godzina_od'] . ' - ' . $substitution['godzina_do'];
         echo '</div>';
         echo '</td>';
-   
         echo '</tr>';
     }
 }

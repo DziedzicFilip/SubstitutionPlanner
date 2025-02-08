@@ -4,6 +4,9 @@ require_once('database_connection.php');
 function getOvertimeData($searchTerm = '', $startDate = '', $endDate = '') {
     $conn = db_connect();
     $searchTerm = mysqli_real_escape_string($conn, $searchTerm);
+    $user_id = $_SESSION['user_id'];
+    $isAdmin = $_SESSION['rola'] === 'admin';
+
     $query = "SELECT u.id, CONCAT(u.imie, ' ', u.nazwisko) AS full_name, SUM(n.liczba_godzin) AS total_hours
               FROM nadgodziny n
               JOIN uzytkownicy u ON n.id_pracownika = u.id";
@@ -16,6 +19,9 @@ function getOvertimeData($searchTerm = '', $startDate = '', $endDate = '') {
     }
     if (!empty($endDate)) {
         $conditions[] = "n.data <= '$endDate'";
+    }
+    if (!$isAdmin) {
+        $conditions[] = "n.id_pracownika = '$user_id'";
     }
     if (!empty($conditions)) {
         $query .= " WHERE " . implode(' AND ', $conditions);

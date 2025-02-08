@@ -3,7 +3,7 @@ require_once('../PHP_Logic/database_connection.php');
 
 function getPendingSubstitutions() {
     $conn = db_connect();
-    $query = "SELECT z.id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, g.nazwa AS grupa, 
+    $query = "SELECT DISTINCT z.id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, g.nazwa AS grupa, 
                      u1.id AS id_pracownika_proszacego, u1.imie AS imie_potrzebujacego, u1.nazwisko AS nazwisko_potrzebujacego, 
                      u2.imie AS imie_zastepujacego, u2.nazwisko AS nazwisko_zastepujacego
               FROM zastepstwa z

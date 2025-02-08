@@ -25,7 +25,7 @@ function getSchedule($startDate = null) {
 
 function getSubstitutions() {
     $conn = db_connect();
-    $query = "SELECT z.id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, g.nazwa AS grupa, 
+    $query = "SELECT DISTINCT z.id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, g.nazwa AS grupa, 
                      u1.imie AS imie_potrzebujacego, u1.nazwisko AS nazwisko_potrzebujacego, 
                      u2.imie AS imie_zastepujacego, u2.nazwisko AS nazwisko_zastepujacego
               FROM zastepstwa z
@@ -51,8 +51,6 @@ function displaySchedule($startDate = null) {
     $daysOfWeek = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
     $groupedSchedule = [];
     $groupedSubstitutions = [];
-
-
 
     foreach ($schedule as $entry) {
         $groupedSchedule[$entry['grupa']][$entry['dzien']][] = $entry;
@@ -113,5 +111,4 @@ function displaySchedule($startDate = null) {
 }
 
 $startDate = isset($_GET['startDate']) ? $_GET['startDate'] : date('Y-m-d');
-
 ?>
