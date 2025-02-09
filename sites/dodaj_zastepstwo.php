@@ -15,8 +15,12 @@ require('../PHP_Logic/dodaj_zastepstwo_logic.php');
 <div class="sidebar d-flex flex-column">
     <h4 class="text-center">Menu</h4>
     <a href="index.php">Harmonogram Grup</a>
-    <a href="AktualneZastepstwa.php">Aktualne zastępstwa</a>
+    <?php if(isAdmin()) 
+            echo '<a href="AktualneZastepstwa.php">Aktualne zastępstwa</a>';
+    
+    ?>   
     <a href="Nadgodziny.php">Nadgodziny</a>
+    <a href="dodaj_zastepstwo.php">Dodaj zastępstwo</a>
     <?php 
     if(isAdmin())
     {

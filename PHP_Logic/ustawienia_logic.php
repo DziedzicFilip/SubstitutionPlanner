@@ -24,14 +24,15 @@ if (isset($_POST['newLogin']) && isset($_POST['currentPassword']) && isset($_POS
     if ($result && mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
 
-        if ($currentPassword === $row['haslo']) {
+        if (password_verify($currentPassword, $row['haslo'])) {
             // Sprawdzenie, czy nowy login już istnieje
             $query = "SELECT id FROM uzytkownicy WHERE login = '$newLogin'";
             $result = mysqli_query($conn, $query);
 
             if ($result && mysqli_num_rows($result) == 0) {
                 // Aktualizacja loginu i hasła
-                $query = "UPDATE uzytkownicy SET login = '$newLogin', haslo = '$newPassword' WHERE id = '$user_id'";
+                $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+                $query = "UPDATE uzytkownicy SET login = '$newLogin', haslo = '$hashedPassword' WHERE id = '$user_id'";
                 if (mysqli_query($conn, $query)) {
                     $_SESSION['login'] = $newLogin;
                     echo "<script>alert('Login i hasło zostały pomyślnie zmienione.'); window.location.href='../sites/ustawienia.php';</script>";

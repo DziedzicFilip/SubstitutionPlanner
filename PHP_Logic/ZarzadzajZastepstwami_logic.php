@@ -11,7 +11,7 @@ function getPendingSubstitutions() {
               LEFT JOIN uzytkownicy u2 ON z.id_pracownika_zastepujacego = u2.id
               LEFT JOIN pracownik_grupa pg ON u1.id = pg.id_pracownika
               LEFT JOIN grupy g ON pg.id_grupy = g.id
-              WHERE z.status = 'oczekujące'";
+              WHERE z.status = 'oczekujące' ";
     $result = mysqli_query($conn, $query);
     $pendingSubstitutions = [];
     if ($result && mysqli_num_rows($result) > 0) {
@@ -45,7 +45,7 @@ function getAvailableEmployees($date, $startTime, $endTime, $requestingEmployeeI
                   FROM harmonogram h 
                   WHERE h.dzien = '$dayOfWeek'
                   AND NOT ('$endTime' <= h.godzina_od OR '$startTime' >= h.godzina_do)
-              )";
+              ) AND rola = 'pracownik'";
 
     $result = mysqli_query($conn, $query);
     $availableEmployees = [];

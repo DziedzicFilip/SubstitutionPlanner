@@ -37,8 +37,8 @@ if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['log
     $result = mysqli_query($conn, $query);
 
     if ($result && mysqli_num_rows($result) == 0) {
-        // Dodanie pracownika
-        $query = "INSERT INTO uzytkownicy (imie, nazwisko, login, haslo, rola) VALUES ('$firstName', '$lastName', '$login', '$password', 'pracownik')";
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $query = "INSERT INTO uzytkownicy (imie, nazwisko, login, haslo, rola) VALUES ('$firstName', '$lastName', '$login', '$hashedPassword', 'pracownik')";
         if (mysqli_query($conn, $query)) {
             $userId = mysqli_insert_id($conn);
 
