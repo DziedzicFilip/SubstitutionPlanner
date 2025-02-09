@@ -1,10 +1,10 @@
 <?php
-require('../PHP_Logic/sidebar_logic.php');
-require('../PHP_Logic/index_logic.php');
+require('../PHP_Logic/sidebar_logic.php'); // logika dzialania sidebar 
+require('../PHP_Logic/index_logic.php'); // logika dzialania  index 
 if (!isset($_SESSION['user_id'])) {
     echo "Proszę się <a href='login.php'>zalogować</a>, aby uzyskać dostęp do tej strony.";
     exit();
-}
+} // warunek ktory sprawdza czy uzytkownik jest zalogowany
 
 ?>
 
@@ -21,7 +21,7 @@ if (!isset($_SESSION['user_id'])) {
 <div class="sidebar d-flex flex-column">
     <h4 class="text-center">Menu</h4>
     <a href="index.php">Harmonogram Grup</a>
-    <?php if(isAdmin()) 
+    <?php if(isAdmin())  // z sidebar sprawdza role 
             echo '<a href="AktualneZastepstwa.php">Aktualne zastępstwa</a>';
     
     ?>   
@@ -35,9 +35,9 @@ if (!isset($_SESSION['user_id'])) {
     ?> 
     <div class="accordion mt-3" id="notificationAccordion">
         <?php 
-        if(!isAdmin()) 
+        if(!isAdmin())  
          {
-            displaySubstitutionsAccept();
+            displaySubstitutionsAccept(); // wyswietla zastepstwa do akceptacji
          }
 
         ?>
@@ -45,12 +45,12 @@ if (!isset($_SESSION['user_id'])) {
         <?php
         if(isAdmin())
         {
-            displaySubstitutionsPending();
+            displaySubstitutionsPending(); // wyswietla zastepstwa oczekujace
         }
         ?>
     </div>
     <div class="user-info mt-auto">
-        <p>Zalogowany jako: <?php WhoAmI()?></p>
+        <p>Zalogowany jako: <?php WhoAmI()  // wyswietla jako kot jestesmy zalogowani?></p> 
         <div class="links">
             <a href="ustawienia.php">Ustawienia</a>
             <form method="post" action="../PHP_Logic/logout.php" style="display:inline;">
@@ -63,11 +63,11 @@ if (!isset($_SESSION['user_id'])) {
     <h2 class="text-center">Harmonogram Grup</h2>
     <form method="get" action="index.php" class="mb-4">
         <label for="startDate">Wybierz datę początkową:</label>
-        <input type="date" id="startDate" name="startDate" value="<?php echo $startDate; ?>" />
+        <input type="date" id="startDate" name="startDate" value="<?php echo $startDate; // utrzymuje wybrana date ?>" />
         <button type="submit" class="btn btn-primary">Pokaż</button>
     </form>
     <div class="table-responsive">
-        <?php displaySchedule($startDate); ?>
+        <?php displaySchedule($startDate); // wyswietla harmonogram statujac od podanje daty  ?>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -172,7 +172,7 @@ $groups = getGroups();
                 <div class="mb-3">
                     <label for="manageEmployeeSelect" class="form-label">Pracownik</label>
                     <select class="form-control" id="manageEmployeeSelect" name="manageEmployeeSelect" required>
-                        <?php getUsers(); ?>
+                        <?php getUsers(); // pobierz usersów ?>
                     </select>
                 </div>
                 <div id="employeeDetails" style="display: none;">

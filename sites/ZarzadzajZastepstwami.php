@@ -61,7 +61,7 @@ if (!isset($_SESSION['user_id'])) {
 <div class="content">
 <div class="table-responsive">
 <h2 class="text-center">Nieprzypisane zastepstwa</h2>
-        <?php displayPendingSubstitutions(); ?>
+        <?php displayPendingSubstitutions(); // wyswietla zastepstwa ?> 
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

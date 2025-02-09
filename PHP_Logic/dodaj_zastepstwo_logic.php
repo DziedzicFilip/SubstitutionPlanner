@@ -1,5 +1,5 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
+if (session_status() == PHP_SESSION_NONE) { //sprawdzenie czy sesja dziala 
     session_start();
 }
 require_once('../PHP_Logic/database_connection.php');

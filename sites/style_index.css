@@ -1,6 +1,6 @@
 .sidebar {
 	height: 100vh;
-	width: 300px; /* Increased width */
+	width: 300px;
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -37,7 +37,7 @@
 	color: white;
 }
 .content {
-	margin-left: 310px; /* Adjusted margin to match the increased sidebar width */
+	margin-left: 310px;
 	padding: 20px;
 }
 .schedule-table {
@@ -67,7 +67,7 @@
 .accordion-button {
 	background-color: #343a40;
 	color: white;
-	padding: 0.5rem 1rem; /* Reduced padding */
+	padding: 0.5rem 1rem;
 }
 .accordion-button:not(.collapsed) {
 	color: white;
@@ -76,7 +76,7 @@
 .accordion-body {
 	background-color: #495057;
 	color: white;
-	padding: 0.5rem 1rem; /* Reduced padding */
+	padding: 0.5rem 1rem;
 }
 .card {
 	background-color: #f8f9fa;
@@ -84,6 +84,7 @@
 .card-body {
 	color: #343a40;
 }
+
 @media (max-width: 768px) {
 	.sidebar {
 		width: 100%;

@@ -54,7 +54,7 @@ require('../PHP_Logic/sidebar_logic.php');
 </div>
     <div class="content">
         <h2 class="text-center">Ustawienia</h2>
-        <form method="post" action="../PHP_Logic/ustawienia_logic.php" onsubmit="return validateForm()">
+        <form method="post" action="../PHP_Logic/ustawienia_logic.php" >
             <div class="mb-3">
                 <label for="currentLogin" class="form-label">Obecny Login</label>
                 <input type="text" class="form-control" id="currentLogin" name="currentLogin" value="<?php echo $_SESSION['login']; ?>" readonly />

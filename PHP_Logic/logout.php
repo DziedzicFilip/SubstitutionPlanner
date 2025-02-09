@@ -1,6 +1,6 @@
 <?php
 session_start();
-session_destroy();
-header('Location: ../sites/login.php');
+session_destroy(); // niszczenie sesji 
+header('Location: ../sites/login.php'); // przekierowanie 
 exit();
 ?>

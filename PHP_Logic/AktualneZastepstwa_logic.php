@@ -1,7 +1,7 @@
 <?php 
 require_once('../PHP_Logic/database_connection.php');
 
-function getSubstitutions() {
+function getSubstitutions() { // pobieranie wartosci z bazy danych dotyczace zastepstw
     $conn = db_connect();
     $query = "SELECT DISTINCT z.id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, g.nazwa AS grupa, 
                      u1.imie AS imie_potrzebujacego, u1.nazwisko AS nazwisko_potrzebujacego, 
@@ -23,30 +23,26 @@ function getSubstitutions() {
     return $substitutions;
 }
 
-function displaySubstitutions() {
+function displaySubstitutions() { //wyswietlanie zastepstw
     $substitutions = getSubstitutions();
     $uniqueSubstitutions = [];
-    foreach ($substitutions as $substitution) {
+    foreach ($substitutions as $substitution) { //zapeniwie o niepowtarzaniu sie zastepstw
         $uniqueKey = $substitution['id'];
         if (!isset($uniqueSubstitutions[$uniqueKey])) {
             $uniqueSubstitutions[$uniqueKey] = $substitution;
         }
     }
     foreach ($uniqueSubstitutions as $substitution) {
-        echo '<tr>';
-        echo '<td>' . $substitution['data'] . '</td>';
-        echo '<td>' . $substitution['grupa'] . '</td>';
-        echo '<td>';
+        echo '<tr> <td>' . $substitution['data'] . '</td>';
+        echo '<td>' . $substitution['grupa'] . '</td> <td>';
         echo '<div class="user-box">';
-        echo '<strong>' . $substitution['imie_potrzebujacego'] . ' ' . $substitution['nazwisko_potrzebujacego'] . '</strong><br />' . $substitution['godzina_od'] . ' - ' . $substitution['godzina_do'];
-        echo '</div>';
-        echo '</td>';
-        echo '<td>';
+        echo '<strong>' . $substitution['imie_potrzebujacego'] . ' ' 
+        . $substitution['nazwisko_potrzebujacego'] . '</strong><br />' . $substitution['godzina_od'] . ' - ' . $substitution['godzina_do'];
+        echo '</div> </td><td>';
         echo '<div class="user-box">';
-        echo '<strong>' . $substitution['imie_zastepujacego'] . ' ' . $substitution['nazwisko_zastepujacego'] . '</strong><br />' . $substitution['godzina_od'] . ' - ' . $substitution['godzina_do'];
-        echo '</div>';
-        echo '</td>';
-        echo '</tr>';
+        echo '<strong>' . $substitution['imie_zastepujacego'] . ' ' 
+        . $substitution['nazwisko_zastepujacego'] . '</strong><br />' . $substitution['godzina_od'] . ' - ' . $substitution['godzina_do'];
+        echo '</div> </td> </tr>';
     }
 }
 ?>

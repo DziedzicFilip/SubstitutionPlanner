@@ -73,7 +73,7 @@ if (!isset($_SESSION['user_id'])) {
                 </tr>
             </thead>
             <tbody>
-                <?php displaySubstitutions(); ?>
+                <?php displaySubstitutions(); // wyswietlanie zastepstw ?>
             </tbody>
         </table>
     </div>

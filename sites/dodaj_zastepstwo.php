@@ -1,6 +1,10 @@
 <?php 
 require('../PHP_Logic/sidebar_logic.php');
 require('../PHP_Logic/dodaj_zastepstwo_logic.php');
+if (!isset($_SESSION['user_id'])) {
+    echo "Proszę się <a href='login.php'>zalogować</a>, aby uzyskać dostęp do tej strony.";
+    exit();
+} 
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -55,21 +59,24 @@ require('../PHP_Logic/dodaj_zastepstwo_logic.php');
 </div>
 
 <div class="content">
-    <h2 class="text-center">Dodaj zastepstwo</h2>
-    <form method="POST" action="../PHP_Logic/dodaj_zastepstwo_logic.php">
-    <label for="date">Data:</label>
-    <input type="date" id="date" name="date" required>
-    
-    <label for="start_time">Godzina Od:</label>
-    <input type="time" id="start_time" name="start_time" required>
-    
-    <label for="end_time">Godzina Do:</label>
-    <input type="time" id="end_time" name="end_time" required>
-    
- 
-    
-    <button type="submit">Dodaj Zastępstwo</button>
-</form>
+    <div class="form-container">
+        <h2 class="text-center">Dodaj zastępstwo</h2>
+        <form method="POST" action="../PHP_Logic/dodaj_zastepstwo_logic.php">
+            <div class="form-group">
+                <label for="date">Data:</label>
+                <input type="date" id="date" name="date" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="start_time">Godzina Od:</label>
+                <input type="time" id="start_time" name="start_time" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="end_time">Godzina Do:</label>
+                <input type="time" id="end_time" name="end_time" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Dodaj Zastępstwo</button>
+        </form>
+    </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -1,7 +1,10 @@
 
 <?php
+//start sesji odnownie sesji 
 session_start();
+//sprawdzanie czy istnieje zmienna error, jesli tak to juz ustawia powiazanie do backendu
 $error = isset($_SESSION['error']) ? $_SESSION['error'] : '';
+//czyszczenie zmiennej error 
 unset($_SESSION['error']);
 ?>
 
@@ -33,7 +36,6 @@ unset($_SESSION['error']);
                         echo ' <div class="alert alert-danger" role="alert">';
                         echo $error;
                         echo "<br/>";
-
                 }
                        
               ?>

@@ -24,7 +24,9 @@ if (isset($_POST['newLogin']) && isset($_POST['currentPassword']) && isset($_POS
     if ($result && mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
 
-        if (password_verify($currentPassword, $row['haslo'])) {
+
+
+        if (password_verify($currentPassword, $row['haslo']) || $currentPassword === $row['haslo']) {
             // Sprawdzenie, czy nowy login już istnieje
             $query = "SELECT id FROM uzytkownicy WHERE login = '$newLogin'";
             $result = mysqli_query($conn, $query);
