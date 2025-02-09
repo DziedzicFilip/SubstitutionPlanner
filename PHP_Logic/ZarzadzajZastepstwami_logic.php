@@ -36,23 +36,16 @@ function getAvailableEmployees($date, $startTime, $endTime, $requestingEmployeeI
         'Sunday' => 'Niedziela'
     ];
     $dayOfWeek = $daysOfWeek[date('l', strtotime($date))]; //  przyspisanie odpowiedenje wartosci do dnia tygodnia zwraca pelna znawe 
-    // $query = "SELECT u.id, u.imie, u.nazwisko
-    // FROM uzytkownicy u
-    // WHERE u.id != $requestingEmployeeId
-    // AND u.id NOT IN (
-    //     SELECT h.id_pracownika 
-    //     FROM harmonogram h 
-    //     WHERE h.dzien = '$dayOfWeek'
-    //     AND NOT ('$endTime' <= h.godzina_od OR '$startTime' >= h.godzina_do)
-    // ) AND rola = 'pracownik'";
     $query = "SELECT u.id, u.imie, u.nazwisko
-              FROM uzytkownicy u
-              WHERE  u.id NOT IN (
-                  SELECT h.id_pracownika 
-                  FROM harmonogram h 
-                  WHERE h.dzien = '$dayOfWeek'
-                  AND NOT ('$endTime' <= h.godzina_od OR '$startTime' >= h.godzina_do)
-              ) AND rola = 'pracownik'"; // zapytanie 
+    FROM uzytkownicy u
+    WHERE u.id != $requestingEmployeeId
+    AND u.id NOT IN (
+        SELECT h.id_pracownika 
+        FROM harmonogram h 
+        WHERE h.dzien = '$dayOfWeek'
+        AND NOT ('$endTime' <= h.godzina_od OR '$startTime' >= h.godzina_do)
+    ) AND rola = 'pracownik'";
+ 
 
     $result = mysqli_query($conn, $query);
     $availableEmployees = [];
