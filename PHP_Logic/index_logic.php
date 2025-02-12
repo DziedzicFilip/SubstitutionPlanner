@@ -1,18 +1,16 @@
 <?php
 require_once('../PHP_Logic/database_connection.php');
 
-function getSchedule($startDate = null) { // funkcja pobierajaca harmonogram
-    $conn = db_connect();  // laczenie 
-    if ($startDate === null) {   // warunek sprawdzajcy czy zostala podana data 
-        $startDate = date('Y-m-d'); // ustawnie daty w odpowedni schemat 
+function getSchedule($startDate = null) {
+    $conn = db_connect();
+    if ($startDate === null) {
+        $startDate = date('Y-m-d');
     }
     $query = "SELECT DISTINCT g.nazwa AS grupa, u.imie, u.nazwisko, h.dzien, h.godzina_od, h.godzina_do
               FROM harmonogram h
               JOIN uzytkownicy u ON h.id_pracownika = u.id
-              JOIN pracownik_grupa pg ON u.id = pg.id_pracownika
-              JOIN grupy g ON pg.id_grupy = g.id
+              JOIN grupy g ON h.id_grupy = g.id
               ORDER BY g.nazwa, FIELD(h.dzien, 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'), h.godzina_od";
-              // zapytanie do bazy 
 
     $result = mysqli_query($conn, $query);
     $schedule = [];
@@ -22,7 +20,7 @@ function getSchedule($startDate = null) { // funkcja pobierajaca harmonogram
         }
     }
     mysqli_close($conn);
-    return $schedule; // zwraca tablice wierszy  wynikow 
+    return $schedule;
 }
 
 function getSubstitutions() { // funkja pobiera zastpestwa 
@@ -61,6 +59,9 @@ function displaySchedule($startDate = null) {
     foreach ($substitutions as $entry) {
         $groupedSubstitutions[$entry['grupa']][$entry['data']][] = $entry;
     }
+
+    
+   
 
     echo '<table class="table schedule-table mt-4">
     <thead>
@@ -109,6 +110,5 @@ function displaySchedule($startDate = null) {
     }
     echo '</tbody> </table>';
 }
-
 $startDate = isset($_GET['startDate']) ? $_GET['startDate'] : date('Y-m-d'); // obusluga daty poczatkowej
 ?>

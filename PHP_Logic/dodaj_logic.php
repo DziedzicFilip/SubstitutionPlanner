@@ -14,6 +14,7 @@ function getGroups() { // pobieranie grup
     mysqli_close($conn);
     return $groups;
 }
+
 function wrtieGroups($groups) { // wypisanie 
     foreach ($groups as $group) {
         echo '<div class="form-check">';
@@ -22,6 +23,7 @@ function wrtieGroups($groups) { // wypisanie
         echo '</div>';
     }
 }
+
 //dodawanie pracownika 
 if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['login']) && isset($_POST['password']) ) {  // sprawdzanie czy dane są wpisane
     $firstName = $_POST['firstName'];
@@ -59,18 +61,15 @@ if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['log
     mysqli_close($conn);
 }
 
-
 if (isset($_POST['groupName'])) { //doddanie grup 
     $groupName = $_POST['groupName'];
 
     $conn = db_connect();
 
-    
     $query = "SELECT id FROM grupy WHERE nazwa = '$groupName'";
     $result = mysqli_query($conn, $query);
 
     if ($result && mysqli_num_rows($result) == 0) {
-        
         $query = "INSERT INTO grupy (nazwa) VALUES ('$groupName')";
         if (mysqli_query($conn, $query)) {
             echo "<script>alert('Grupa została pomyślnie dodana.'); window.location.href='../sites/dodaj.php';</script>";
@@ -84,8 +83,6 @@ if (isset($_POST['groupName'])) { //doddanie grup
     mysqli_close($conn);
 }
 
-
- 
 function getUsers() { // pobranie uztykownikow 
     $conn = db_connect();
     $query = "SELECT id, CONCAT(imie, ' ', nazwisko) AS full_name FROM uzytkownicy where rola = 'pracownik'";
@@ -98,7 +95,6 @@ function getUsers() { // pobranie uztykownikow
     mysqli_close($conn);
 }
 
-
 //dodanie godzin pracy 
 if (isset($_POST['employeeSelect']) && isset($_POST['dayOfWeek']) && isset($_POST['startTime']) && isset($_POST['endTime'])) {
     $employeeId = $_POST['employeeSelect'];
@@ -109,12 +105,12 @@ if (isset($_POST['employeeSelect']) && isset($_POST['dayOfWeek']) && isset($_POS
 
     $conn = db_connect();
 
-    $query = "INSERT INTO harmonogram (id_pracownika, dzien, godzina_od, godzina_do) VALUES ('$employeeId', '$dayOfWeek', '$startTime', '$endTime')";
-    if (mysqli_query($conn, $query)) { // przyspianie grup pracownikowi 
-        foreach ($groups as $groupId) {
-            $query = "INSERT INTO pracownik_grupa (id_pracownika, id_grupy) VALUES ('$employeeId', '$groupId')";
-            mysqli_query($conn, $query);
-        }
+    foreach ($groups as $groupId) {
+        $query = "INSERT INTO harmonogram (id_pracownika, id_grupy, dzien, godzina_od, godzina_do) VALUES ('$employeeId', '$groupId', '$dayOfWeek', '$startTime', '$endTime')";
+        mysqli_query($conn, $query);
+    }
+
+    if (mysqli_affected_rows($conn) > 0) {
         echo "<script>alert('Godziny pracy zostały pomyślnie dodane.'); window.location.href='../sites/dodaj.php';</script>";
     } else {
         echo "<script>alert('Błąd podczas dodawania godzin pracy.'); window.location.href='../sites/dodaj.php';</script>";
@@ -128,7 +124,6 @@ if (isset($_POST['deleteEmployee'])) {     // Usunięcie pracownika
 
     $conn = db_connect();
 
-
     $query = "DELETE FROM uzytkownicy WHERE id = '$employeeId'";
     if (mysqli_query($conn, $query)) {
         echo "<script>alert('Pracownik został pomyślnie usunięty.'); window.location.href='../sites/dodaj.php';</script>";
@@ -138,6 +133,4 @@ if (isset($_POST['deleteEmployee'])) {     // Usunięcie pracownika
 
     mysqli_close($conn);
 }
-
-
 ?>

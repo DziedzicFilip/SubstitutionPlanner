@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2025 at 08:06 PM
+-- Generation Time: Feb 12, 2025 at 02:43 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `zarzadzanie_harmonogramem`
+-- Database: `zarzadzanie_harmonogramem2`
 --
 
 -- --------------------------------------------------------
@@ -49,6 +49,7 @@ INSERT INTO `grupy` (`id`, `nazwa`) VALUES
 CREATE TABLE `harmonogram` (
   `id` int(11) NOT NULL,
   `id_pracownika` int(11) DEFAULT NULL,
+  `id_grupy` int(11) DEFAULT NULL,
   `dzien` enum('Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota','Niedziela') NOT NULL,
   `godzina_od` time NOT NULL,
   `godzina_do` time NOT NULL
@@ -58,14 +59,15 @@ CREATE TABLE `harmonogram` (
 -- Dumping data for table `harmonogram`
 --
 
-INSERT INTO `harmonogram` (`id`, `id_pracownika`, `dzien`, `godzina_od`, `godzina_do`) VALUES
-(12, 2, 'Poniedziałek', '08:00:00', '16:00:00'),
-(13, 2, 'Wtorek', '08:00:00', '16:00:00'),
-(14, 12, 'Poniedziałek', '08:00:00', '16:00:00'),
-(15, 12, 'Wtorek', '08:00:00', '16:00:00'),
-(18, 13, 'Wtorek', '06:30:00', '08:00:00'),
-(19, 14, 'Środa', '15:30:00', '20:30:00'),
-(20, 12, 'Niedziela', '20:04:00', '21:04:00');
+INSERT INTO `harmonogram` (`id`, `id_pracownika`, `id_grupy`, `dzien`, `godzina_od`, `godzina_do`) VALUES
+(12, 2, 4, 'Poniedziałek', '08:00:00', '16:00:00'),
+(13, 2, 4, 'Wtorek', '08:00:00', '16:00:00'),
+(14, 12, 5, 'Poniedziałek', '08:00:00', '16:00:00'),
+(15, 12, 5, 'Wtorek', '08:00:00', '16:00:00'),
+(18, 13, 4, 'Wtorek', '06:30:00', '08:00:00'),
+(19, 14, 5, 'Środa', '15:30:00', '20:30:00'),
+(20, 12, 5, 'Niedziela', '20:04:00', '21:04:00'),
+(22, 19, 4, 'Sobota', '17:38:00', '19:39:00');
 
 -- --------------------------------------------------------
 
@@ -111,7 +113,10 @@ INSERT INTO `pracownik_grupa` (`id`, `id_pracownika`, `id_grupy`) VALUES
 (37, 2, 4),
 (38, 13, 4),
 (39, 14, 5),
-(41, 12, 5);
+(41, 12, 5),
+(42, 19, 4),
+(43, 19, 5),
+(44, 19, 4);
 
 -- --------------------------------------------------------
 
@@ -137,7 +142,8 @@ INSERT INTO `uzytkownicy` (`id`, `imie`, `nazwisko`, `login`, `haslo`, `rola`) V
 (2, 'Anna', 'Nowak', 'pracownik1', 'haslo123', 'pracownik'),
 (12, 'Piotr', 'Teścik', 'Piotr123', 'haslo123', 'pracownik'),
 (13, 'Ala', 'Kot', 'Ala1234', '$2y$10$mZQGSWiCWY8aIXy9FMIvA.8oE2PWA9G45fwaxPfHYMl.uI1mFgAVm', 'pracownik'),
-(14, 'Tomasz', 'Lipa', 'Tomasz123', '$2y$10$2Irx7o.k7UniKkwnR6pNPeQG8DrJD7cmRUprQ4xdiTvFD/Qz.9e1i', 'pracownik');
+(14, 'Tomasz', 'Lipa', 'Tomasz123', '$2y$10$2Irx7o.k7UniKkwnR6pNPeQG8DrJD7cmRUprQ4xdiTvFD/Qz.9e1i', 'pracownik'),
+(19, 'Michal', 'Skoryk', 'Filip', '$2y$10$2wB9NF1kM9zr3NpWTv0S3O2tKkwpynFLso1aBKn3L9T0f7YbzGlLK', 'pracownik');
 
 -- --------------------------------------------------------
 
@@ -180,7 +186,8 @@ ALTER TABLE `grupy`
 --
 ALTER TABLE `harmonogram`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_pracownika` (`id_pracownika`);
+  ADD KEY `id_pracownika` (`id_pracownika`),
+  ADD KEY `id_grupy` (`id_grupy`);
 
 --
 -- Indeksy dla tabeli `nadgodziny`
@@ -226,7 +233,7 @@ ALTER TABLE `grupy`
 -- AUTO_INCREMENT for table `harmonogram`
 --
 ALTER TABLE `harmonogram`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `nadgodziny`
@@ -238,13 +245,13 @@ ALTER TABLE `nadgodziny`
 -- AUTO_INCREMENT for table `pracownik_grupa`
 --
 ALTER TABLE `pracownik_grupa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `zastepstwa`
@@ -260,7 +267,8 @@ ALTER TABLE `zastepstwa`
 -- Constraints for table `harmonogram`
 --
 ALTER TABLE `harmonogram`
-  ADD CONSTRAINT `harmonogram_ibfk_1` FOREIGN KEY (`id_pracownika`) REFERENCES `uzytkownicy` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `harmonogram_ibfk_1` FOREIGN KEY (`id_pracownika`) REFERENCES `uzytkownicy` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `harmonogram_ibfk_2` FOREIGN KEY (`id_grupy`) REFERENCES `grupy` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `nadgodziny`
