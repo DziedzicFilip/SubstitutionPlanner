@@ -62,7 +62,7 @@ if (!isset($_SESSION['user_id'])) {
     <h2 class="text-center">Nadgodziny</h2>
     <div class="d-flex justify-content-center my-3 flex-wrap">
     <form method="get" action="Nadgodziny.php" class="d-flex">
-    <input type="text" name="searchUser" placeholder="Search User">
+    <?php if(isAdmin()) echo '<input type="text" name="searchUser" placeholder="Search User">'; ?>
     <input type="date" name="startDate">
     <input type="date" name="endDate">
     <button type="submit">Search</button>
