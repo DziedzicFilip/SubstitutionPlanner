@@ -63,11 +63,11 @@ if (!isset($_SESSION['user_id'])) {
     <h2 class="text-center">Harmonogram Grup</h2>
     <form method="get" action="index.php" class="mb-4">
         <label for="startDate">Wybierz datę początkową:</label>
-        <input type="date" id="startDate" name="startDate" value="<?php echo $startDate; // utrzymuje wybrana date ?>" />
+        <input type="date" id="startDate" name="startDate" value="<?php echo $startDate; ?>" class="form-control mb-2" style='width:30%;' />
         <button type="submit" class="btn btn-primary">Pokaż</button>
     </form>
     <div class="table-responsive">
-        <?php displaySchedule($startDate); // wyswietla harmonogram statujac od podanje daty  ?>
+        <?php displaySchedule($startDate);   ?>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

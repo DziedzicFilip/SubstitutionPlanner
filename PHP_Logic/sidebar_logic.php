@@ -191,6 +191,7 @@ function displaySubstitutionsAccept() { // wyswietlanie zastepstw dla konkretnyc
                ';    echo '
             <div class="accordion-body">';
     foreach ($substitutions as $entry) {
+        echo "Zastępstwo";
         echo '<p>' . $entry['data'] . ' od ' . $entry['godzina_od'] . ' do ' . $entry['godzina_do'] . '</p>';
         echo '<hr />';
             echo '<form method="POST">';
@@ -221,6 +222,7 @@ function displaySubstitutionsPending() { // wyswietlanie zastepstw dla admina
                echo '
             <div class="accordion-body">';
     foreach ($substitutions as $entry) {
+        echo "Zastępstwo";
         echo '<p>' . $entry['data'] . ' od ' . $entry['godzina_od'] . ' do ' . $entry['godzina_do'] . '</p>';
         echo '<hr />';      
     }

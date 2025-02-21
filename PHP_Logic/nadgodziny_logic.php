@@ -1,6 +1,6 @@
 <?php
 require_once('database_connection.php');
-
+require('fpdf.php');
 function getOvertimeData($searchTerm = '', $startDate = '', $endDate = '') { // pobieranie danych o nadgodzinach (wyszukiwanie)
     $conn = db_connect(); // laczenie 
     $user_id = $_SESSION['user_id'];
@@ -57,10 +57,10 @@ function getOvertimeDetails($userId, $startDate = '', $endDate = '') { // pobier
     return $overtimeDetails;
 }
 
-function displayOvertimeCards($searchTerm = '', $startDate = '', $endDate = '') { // wyswietlanie kart z info 
+function displayOvertimeCards($searchTerm = '', $startDate = '', $endDate = '') {
     $overtimeData = getOvertimeData($searchTerm, $startDate, $endDate);
     if (!empty($overtimeData)) {
-        foreach ($overtimeData as $user) { // inforamacje o userze
+        foreach ($overtimeData as $user) {
             echo '<div class="col-md-4 mb-4 user-overtime" data-username="' . strtolower($user['full_name']) . '"> 
             <div class="card"> 
             <div class="card-body">';
@@ -73,7 +73,7 @@ function displayOvertimeCards($searchTerm = '', $startDate = '', $endDate = '') 
             </tr>
             </thead> <tbody>';
             $overtimeDetails = getOvertimeDetails($user['id'], $startDate, $endDate);
-            foreach ($overtimeDetails as $detail) { //info o nadgodzinach
+            foreach ($overtimeDetails as $detail) {
                 echo '<tr>  <td>' . $detail['data'] . '</td>';
                 echo '<td>' . $detail['liczba_godzin'] . '</td>';
                 echo '</tr>';
@@ -87,7 +87,43 @@ function displayOvertimeCards($searchTerm = '', $startDate = '', $endDate = '') 
     }
 }
 
+function generatePDF($searchTerm = '', $startDate = '', $endDate = '') {
+    $overtimeData = getOvertimeData($searchTerm, $startDate, $endDate);
+    $pdf = new FPDF();
+    $pdf->AddPage();
+    $pdf->SetFont('Arial', 'B', 16);
+    $pdf->Cell(0, 10, 'Raport Nadgodzin', 0, 1, 'C');
+    $pdf->SetFont('Arial', '', 12);
+
+    if (!empty($overtimeData)) {
+        foreach ($overtimeData as $user) {
+            $pdf->Cell(0, 10, 'Pracownik: ' . $user['full_name'], 0, 1);
+            $pdf->Cell(0, 10, 'Liczba nadgodzin: ' . $user['total_hours'], 0, 1);
+            $pdf->Ln(5);
+            $pdf->Cell(40, 10, 'Data', 1);
+            $pdf->Cell(40, 10, 'Godziny', 1);
+            $pdf->Ln();
+
+            $overtimeDetails = getOvertimeDetails($user['id'], $startDate, $endDate);
+            foreach ($overtimeDetails as $detail) {
+                $pdf->Cell(40, 10, $detail['data'], 1);
+                $pdf->Cell(40, 10, $detail['liczba_godzin'], 1);
+                $pdf->Ln();
+            }
+            $pdf->Ln(10);
+        }
+    } else {
+        $pdf->Cell(0, 10, 'Brak Nadgodzin.', 0, 1, 'C');
+    }
+
+    $pdf->Output('D', 'Nadgodziny.pdf');
+}
+
 $searchTerm = isset($_GET['searchUser']) ? $_GET['searchUser'] : '';
 $startDate = isset($_GET['startDate']) ? $_GET['startDate'] : '';
 $endDate = isset($_GET['endDate']) ? $_GET['endDate'] : '';
+
+if (isset($_GET['generatePDF'])) {
+    generatePDF($searchTerm, $startDate, $endDate);
+} 
 ?>
