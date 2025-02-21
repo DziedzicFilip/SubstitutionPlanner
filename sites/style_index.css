@@ -95,3 +95,13 @@
 		margin-left: 0;
 	}
 }
+
+@media (max-width: 768px) {
+	.schedule-table th:not(:first-child),
+	.schedule-table td:not(:first-child) {
+		display: none;
+	}
+}
+.custom-width {
+	width: 30%;
+}
