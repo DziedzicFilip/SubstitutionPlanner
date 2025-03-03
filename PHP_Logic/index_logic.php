@@ -63,7 +63,7 @@ function displaySchedule($startDate = null) {
     
    
 
-    echo '<table class="table schedule-table mt-4">
+    echo '<table class="table table-bordered">
     <thead>
    <tr>
     <th>Grupa</th>';

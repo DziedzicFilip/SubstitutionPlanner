@@ -67,7 +67,7 @@ if (!isset($_SESSION['user_id'])) {
         <button type="submit" class="btn btn-primary">Pokaż</button>
     </form>
     <div class="table-responsive">
-        <?php displaySchedule($startDate);   ?>
+        <?php displaySchedule($startDate); ?>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
