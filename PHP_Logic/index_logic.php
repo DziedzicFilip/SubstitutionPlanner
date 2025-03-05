@@ -23,16 +23,14 @@ function getSchedule($startDate = null) {
     return $schedule;
 }
 
-function getSubstitutions() { // funkja pobiera zastpestwa 
+function getSubstitutions() {
     $conn = db_connect();
-    $query = "SELECT DISTINCT z.id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, g.nazwa AS grupa, 
+    $query = "SELECT DISTINCT z.id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, z.nazwa_grupy AS grupa, 
                      u1.imie AS imie_potrzebujacego, u1.nazwisko AS nazwisko_potrzebujacego, 
                      u2.imie AS imie_zastepujacego, u2.nazwisko AS nazwisko_zastepujacego
               FROM zastepstwa z
               JOIN uzytkownicy u1 ON z.id_pracownika_proszacego = u1.id
               LEFT JOIN uzytkownicy u2 ON z.id_pracownika_zastepujacego = u2.id
-              LEFT JOIN pracownik_grupa pg ON u1.id = pg.id_pracownika
-              LEFT JOIN grupy g ON pg.id_grupy = g.id
               WHERE z.status = 'zatwierdzone'";
     $result = mysqli_query($conn, $query);
     $substitutions = [];
@@ -46,13 +44,13 @@ function getSubstitutions() { // funkja pobiera zastpestwa
 }
 
 function displaySchedule($startDate = null) {
-    $schedule = getSchedule($startDate); // pobiera harmonogram od konkretnerj daty 
-    $substitutions = getSubstitutions(); // pobiera zastepstwa
+    $schedule = getSchedule($startDate);
+    $substitutions = getSubstitutions();
     $daysOfWeek = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek'];
-    $groupedSchedule = []; // tablica grupujaca harmonogram
-    $groupedSubstitutions = []; // tablica grupujaca zastepstwa
+    $groupedSchedule = [];
+    $groupedSubstitutions = [];
 
-    foreach ($schedule as $entry) { // grupuje harmonogram po grupie i dniu  zapisuje entry do tablicy tak aby byly grupowane po grupie i dniu
+    foreach ($schedule as $entry) {
         $groupedSchedule[$entry['grupa']][$entry['dzien']][] = $entry;
     }
 
@@ -62,49 +60,48 @@ function displaySchedule($startDate = null) {
 
     echo '<table class="table table-bordered">
     <thead>
-   <tr>
+    <tr>
     <th>Grupa</th>';
-    
-    // Ensure the start date is set to the nearest Monday
+
     $currentDate = strtotime('last Monday', strtotime($startDate));
     if (date('N', strtotime($startDate)) == 1) {
         $currentDate = strtotime($startDate);
     }
 
-    for ($i = 0; $i < 5; $i++) { // Loop only from Monday to Friday
-        $dayOfWeek = $daysOfWeek[date('N', $currentDate) - 1]; // pobieranie dnia tygodnia 
-        echo '<th>' . $dayOfWeek . '<br>' . date('Y-m-d', $currentDate) . '</th>'; // zmienia unixy na date 
-        $currentDate = strtotime('+1 day', $currentDate); // opcja do iteracji po kolejnych dniach 
+    for ($i = 0; $i < 5; $i++) {
+        $dayOfWeek = $daysOfWeek[date('N', $currentDate) - 1];
+        echo '<th>' . $dayOfWeek . '<br>' . date('Y-m-d', $currentDate) . '</th>';
+        $currentDate = strtotime('+1 day', $currentDate);
     }
     echo '</tr> </thead>
-    <tbody>';// geracja wierszy tabeli dla harmongarmu i zastepstw
-    foreach ($groupedSchedule as $group => $days) {  
+    <tbody>';
+
+    foreach ($groupedSchedule as $group => $days) {
         echo '<tr>';
         echo '<td>' . $group . '</td>';
-        
-        // Reset currentDate to the nearest Monday
+
         $currentDate = strtotime('last Monday', strtotime($startDate));
         if (date('N', strtotime($startDate)) == 1) {
             $currentDate = strtotime($startDate);
         }
 
-        for ($i = 0; $i < 5; $i++) { // Loop only from Monday to Friday
+        for ($i = 0; $i < 5; $i++) {
             $dayOfWeek = $daysOfWeek[date('N', $currentDate) - 1];
             $currentDateStr = date('Y-m-d', $currentDate);
             echo '<td>';
-            if (isset($days[$dayOfWeek])) { //sprawdzenie czy dane sa dla tego dnia 
-                $uniqueEntries = []; // tablica unikalnych wartosci
-                foreach ($days[$dayOfWeek] as $entry) { // interacja dla po wszytkich wydarzeniach dla danego dnia tygodnia 
-                    $entryKey = $entry['imie'] . $entry['nazwisko'] . $entry['godzina_od'] . $entry['godzina_do']; // unikalny zapis 
-                    if (!in_array($entryKey, $uniqueEntries)) { // sprawdznie czy wartosc juz jest w uniqueEntries
-                        $uniqueEntries[] = $entryKey; // zapisanie zeby zapmietac ze juz ten wpis byl 
+            if (isset($days[$dayOfWeek])) {
+                $uniqueEntries = [];
+                foreach ($days[$dayOfWeek] as $entry) {
+                    $entryKey = $entry['imie'] . $entry['nazwisko'] . $entry['godzina_od'] . $entry['godzina_do'];
+                    if (!in_array($entryKey, $uniqueEntries)) {
+                        $uniqueEntries[] = $entryKey;
                         echo '<div class="user-box">';
                         echo '<strong>' . $entry['imie'] . ' ' . $entry['nazwisko'] . '</strong><br />' . $entry['godzina_od'] . ' - ' . $entry['godzina_do'];
                         echo '</div>';
                     }
                 }
             }
-            if (isset($groupedSubstitutions[$group][$currentDateStr])) { // sprawdza czy w tablic sa opowiednie  czyli  dla danej grupy i dnia sa zastepstwa
+            if (isset($groupedSubstitutions[$group][$currentDateStr])) {
                 foreach ($groupedSubstitutions[$group][$currentDateStr] as $entry) {
                     echo '<div class="user-box substitution" style="background-color: #ffffcc;">';
                     echo '<strong>' . $entry['imie_zastepujacego'] . ' ' . $entry['nazwisko_zastepujacego'] . '</strong><br />' . $entry['godzina_od'] . ' - ' . $entry['godzina_do'];
@@ -119,5 +116,7 @@ function displaySchedule($startDate = null) {
     }
     echo '</tbody> </table>';
 }
-$startDate = isset($_GET['startDate']) ? $_GET['startDate'] : date('Y-m-d'); // obusluga daty poczatkowej
+
+$startDate = isset($_GET['startDate']) ? $_GET['startDate'] : date('Y-m-d');
+
 ?>

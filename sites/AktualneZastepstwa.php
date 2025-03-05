@@ -69,6 +69,7 @@ if (!isset($_SESSION['user_id'])) {
                     <th>Grupa</th>
                     <th>Osoba potrzebująca zastępstwa</th>
                     <th>Osoba zastępująca</th>
+                    <th>Cofnij Zastępstwo</th>
                 </tr>
             </thead>
             <tbody>

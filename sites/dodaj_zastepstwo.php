@@ -5,6 +5,8 @@ if (!isset($_SESSION['user_id'])) {
     echo "Proszę się <a href='login.php'>zalogować</a>, aby uzyskać dostęp do tej strony.";
     exit();
 } 
+
+$userGroups = getUserGroups($_SESSION['user_id']);
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -73,6 +75,14 @@ if (!isset($_SESSION['user_id'])) {
             <div class="form-group">
                 <label for="end_time">Godzina Do:</label>
                 <input type="time" id="end_time" name="end_time" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="group">Grupa:</label>
+                <select id="group" name="group" class="form-control" required>
+                    <?php foreach ($userGroups as $group): ?>
+                        <option value="<?php echo $group['nazwa']; ?>"><?php echo $group['nazwa']; ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary">Dodaj Zastępstwo</button>
         </form>

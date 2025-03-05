@@ -1,7 +1,12 @@
 <?php 
 require_once('../PHP_Logic/database_connection.php');
 
-function getSubstitutions() { // pobieranie wartosci z bazy danych dotyczace zastepstw
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['revert'])) {
+    $id = intval($_POST['revert']);
+    updateSubstitutionStatus($id, 'oczekujace');
+}
+
+function getSubstitutions() { 
     $conn = db_connect();
     $query = "SELECT DISTINCT z.id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, g.nazwa AS grupa, 
                      u1.imie AS imie_potrzebujacego, u1.nazwisko AS nazwisko_potrzebujacego, 
@@ -23,7 +28,7 @@ function getSubstitutions() { // pobieranie wartosci z bazy danych dotyczace zas
     return $substitutions;
 }
 
-function displaySubstitutions() { //wyswietlanie zastepstw
+function displaySubstitutions() { 
     $substitutions = getSubstitutions();
     $uniqueSubstitutions = [];
     foreach ($substitutions as $substitution) { //zapeniwie o niepowtarzaniu sie zastepstw
@@ -42,7 +47,19 @@ function displaySubstitutions() { //wyswietlanie zastepstw
         echo '<div class="user-box">';
         echo '<strong>' . $substitution['imie_zastepujacego'] . ' ' 
         . $substitution['nazwisko_zastepujacego'] . '</strong><br />' . $substitution['godzina_od'] . ' - ' . $substitution['godzina_do'];
-        echo '</div> </td> </tr>';
+        echo '</div> </td>';
+        echo '<td><form method="post" action=""><button type="submit" name="revert" value="' . $substitution['id'] . '">Cofnij</button></form></td>';
+        echo '</tr>';
     }
+} 
+
+function updateSubstitutionStatus($id, $status) {
+    $conn = db_connect();
+    $query = "UPDATE zastepstwa SET status = ?, id_pracownika_zastepujacego = NULL WHERE id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, 'si', $status, $id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
 }
 ?>
