@@ -48,7 +48,7 @@ function getSubstitutions() { // funkja pobiera zastpestwa
 function displaySchedule($startDate = null) {
     $schedule = getSchedule($startDate); // pobiera harmonogram od konkretnerj daty 
     $substitutions = getSubstitutions(); // pobiera zastepstwa
-    $daysOfWeek = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
+    $daysOfWeek = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek'];
     $groupedSchedule = []; // tablica grupujaca harmonogram
     $groupedSubstitutions = []; // tablica grupujaca zastepstwa
 
@@ -60,15 +60,18 @@ function displaySchedule($startDate = null) {
         $groupedSubstitutions[$entry['grupa']][$entry['data']][] = $entry;
     }
 
-    
-   
-
     echo '<table class="table table-bordered">
     <thead>
    <tr>
     <th>Grupa</th>';
-    $currentDate = strtotime($startDate); // zamiienia na unix dla latwijeszej operacji 
-    for ($i = 0; $i < 7; $i++) {
+    
+    // Ensure the start date is set to the nearest Monday
+    $currentDate = strtotime('last Monday', strtotime($startDate));
+    if (date('N', strtotime($startDate)) == 1) {
+        $currentDate = strtotime($startDate);
+    }
+
+    for ($i = 0; $i < 5; $i++) { // Loop only from Monday to Friday
         $dayOfWeek = $daysOfWeek[date('N', $currentDate) - 1]; // pobieranie dnia tygodnia 
         echo '<th>' . $dayOfWeek . '<br>' . date('Y-m-d', $currentDate) . '</th>'; // zmienia unixy na date 
         $currentDate = strtotime('+1 day', $currentDate); // opcja do iteracji po kolejnych dniach 
@@ -78,8 +81,14 @@ function displaySchedule($startDate = null) {
     foreach ($groupedSchedule as $group => $days) {  
         echo '<tr>';
         echo '<td>' . $group . '</td>';
-        $currentDate = strtotime($startDate);
-        for ($i = 0; $i < 7; $i++) {
+        
+        // Reset currentDate to the nearest Monday
+        $currentDate = strtotime('last Monday', strtotime($startDate));
+        if (date('N', strtotime($startDate)) == 1) {
+            $currentDate = strtotime($startDate);
+        }
+
+        for ($i = 0; $i < 5; $i++) { // Loop only from Monday to Friday
             $dayOfWeek = $daysOfWeek[date('N', $currentDate) - 1];
             $currentDateStr = date('Y-m-d', $currentDate);
             echo '<td>';
