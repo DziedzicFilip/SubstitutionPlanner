@@ -23,7 +23,7 @@ function getSchedule($startDate = null) {
     return $schedule;
 }
 
-function getSubstitutions() {
+function getSubstitutions($userId) {
     $conn = db_connect();
     $query = "SELECT DISTINCT z.id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, z.nazwa_grupy AS grupa, 
                      u1.imie AS imie_potrzebujacego, u1.nazwisko AS nazwisko_potrzebujacego, 
@@ -31,7 +31,8 @@ function getSubstitutions() {
               FROM zastepstwa z
               JOIN uzytkownicy u1 ON z.id_pracownika_proszacego = u1.id
               LEFT JOIN uzytkownicy u2 ON z.id_pracownika_zastepujacego = u2.id
-              WHERE z.status IN ('zatwierdzone', 'DoAkceptacji')";
+              LEFT JOIN zastepstwa_uzytkownicy zu ON z.id = zu.id_zastepstwa
+              WHERE (z.status = 'zatwierdzone' OR (z.status = 'DoAkceptacji' AND zu.id_uzytkownika = '$userId'))";
     $result = mysqli_query($conn, $query);
     $substitutions = [];
     if ($result && mysqli_num_rows($result) > 0) {
@@ -44,8 +45,9 @@ function getSubstitutions() {
 }
 
 function displaySchedule($startDate = null) {
+    $userId = $_SESSION['user_id'];
     $schedule = getSchedule($startDate);
-    $substitutions = getSubstitutions();
+    $substitutions = getSubstitutions($userId);
     $daysOfWeek = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek'];
     $groupedSchedule = [];
     $groupedSubstitutions = [];
@@ -119,7 +121,4 @@ function displaySchedule($startDate = null) {
 }
 
 $startDate = isset($_GET['startDate']) ? $_GET['startDate'] : date('Y-m-d');
-
-$startDate = isset($_GET['startDate']) ? $_GET['startDate'] : date('Y-m-d');
-
 ?>
