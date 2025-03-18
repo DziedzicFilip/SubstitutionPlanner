@@ -1,0 +1,3 @@
+1.Ustawiennie komyus na szywtno zastepstwa - Super ADmi 
+2. blad przy usuwniau zastepstwa 
+3. Dodanie opcji zarzadzaj zastepstwa w harmonogramie
