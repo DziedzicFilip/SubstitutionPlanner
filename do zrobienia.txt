@@ -1,3 +1,4 @@
 1.Ustawiennie komyus na szywtno zastepstwa - Super ADmi 
-2. blad przy usuwniau zastepstwa 
+2. blad przy usuwniau zastepstwa - nie usuwa sie trzeba zaznaczyc user zeby udało sie cofnosc 
 3. Dodanie opcji zarzadzaj zastepstwa w harmonogramie
+4. po cofnieciu zastepstwa powinno kasowac za to nadgodizny
