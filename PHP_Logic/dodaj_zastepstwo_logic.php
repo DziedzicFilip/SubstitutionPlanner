@@ -48,25 +48,6 @@ if (isset($_POST['date']) && isset($_POST['start_time']) && isset($_POST['end_ti
     $query = "INSERT INTO zastepstwa (data_zastepstwa, godzina_od, godzina_do, id_pracownika_proszacego, status, nazwa_grupy) 
               VALUES ('$date', '$startTime', '$endTime', '$requestingEmployeeId', 'oczekujące', '$group')";
 
-    // // Debugging: Wyświetl zapytanie SQL
-    // echo "Query: $query<br>";
-
-    // if (mysqli_query($conn, $query)) {
-    //     $id_zastepstwa = mysqli_insert_id($conn);
-
-    //     foreach ($uzytkownicy as $id_uzytkownika) {
-    //         $query = "INSERT INTO zastepstwa_uzytkownicy (id_zastepstwa, id_uzytkownika) VALUES ('$id_zastepstwa', '$id_uzytkownika')";
-    //         // Debugging: Wyświetl zapytanie SQL
-    //         echo "Query: $query<br>";
-    //         mysqli_query($conn, $query);
-    //     }
-
-    //     header("Location: ../sites/dodaj_zastepstwo.php");
-    //     exit();
-    // } else {
-    //     echo "Błąd: " . mysqli_error($conn);
-    // }
-
     mysqli_close($conn);
 } else {
     echo "Required fields are missing.";
