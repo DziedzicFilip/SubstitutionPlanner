@@ -25,13 +25,13 @@ function wrtieGroups($groups) { // wypisanie
 }
 
 //dodawanie pracownika 
-if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['login']) && isset($_POST['password']) ) {  // sprawdzanie czy dane są wpisane
+if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email']))  {  // sprawdzanie czy dane są wpisane
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
     $login = $_POST['login'];
-    $password = $_POST['password'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $groups = isset($_POST['groups']) ? $_POST['groups'] : []; // sprawdza czy instije grupy 
-
+    $email = $_POST['email'];
     $conn = db_connect();
 
     // Sprawdzenie, czy login już istnieje
@@ -40,7 +40,7 @@ if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['log
 
     if ($result && mysqli_num_rows($result) == 0) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $query = "INSERT INTO uzytkownicy (imie, nazwisko, login, haslo, rola) VALUES ('$firstName', '$lastName', '$login', '$hashedPassword', 'pracownik')";
+        $query = "INSERT INTO uzytkownicy (imie, nazwisko, login, haslo, adresEmail) VALUES ('$firstName', '$lastName', '$login', '$password', '$email')";
         if (mysqli_query($conn, $query)) {
             $userId = mysqli_insert_id($conn);
 
