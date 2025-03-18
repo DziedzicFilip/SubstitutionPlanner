@@ -27,11 +27,11 @@ function getSubstitutions() {
     $conn = db_connect();
     $query = "SELECT DISTINCT z.id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, z.nazwa_grupy AS grupa, 
                      u1.imie AS imie_potrzebujacego, u1.nazwisko AS nazwisko_potrzebujacego, 
-                     u2.imie AS imie_zastepujacego, u2.nazwisko AS nazwisko_zastepujacego
+                     u2.imie AS imie_zastepujacego, u2.nazwisko AS nazwisko_zastepujacego, z.status
               FROM zastepstwa z
               JOIN uzytkownicy u1 ON z.id_pracownika_proszacego = u1.id
               LEFT JOIN uzytkownicy u2 ON z.id_pracownika_zastepujacego = u2.id
-              WHERE z.status = 'zatwierdzone'";
+              WHERE z.status IN ('zatwierdzone', 'DoAkceptacji')";
     $result = mysqli_query($conn, $query);
     $substitutions = [];
     if ($result && mysqli_num_rows($result) > 0) {
@@ -103,7 +103,8 @@ function displaySchedule($startDate = null) {
             }
             if (isset($groupedSubstitutions[$group][$currentDateStr])) {
                 foreach ($groupedSubstitutions[$group][$currentDateStr] as $entry) {
-                    echo '<div class="user-box substitution" style="background-color: #ffffcc;">';
+                    $style = $entry['status'] == 'DoAkceptacji' ? 'background-color: #ffcccc;' : 'background-color: #ffffcc;';
+                    echo '<div class="user-box substitution" style="' . $style . '">';
                     echo '<strong>' . $entry['imie_zastepujacego'] . ' ' . $entry['nazwisko_zastepujacego'] . '</strong><br />' . $entry['godzina_od'] . ' - ' . $entry['godzina_do'];
                     echo '<br /><em>Zastępstwo za: ' . $entry['imie_potrzebujacego'] . ' ' . $entry['nazwisko_potrzebujacego'] . '</em>';
                     echo '</div>';
@@ -116,6 +117,8 @@ function displaySchedule($startDate = null) {
     }
     echo '</tbody> </table>';
 }
+
+$startDate = isset($_GET['startDate']) ? $_GET['startDate'] : date('Y-m-d');
 
 $startDate = isset($_GET['startDate']) ? $_GET['startDate'] : date('Y-m-d');
 
