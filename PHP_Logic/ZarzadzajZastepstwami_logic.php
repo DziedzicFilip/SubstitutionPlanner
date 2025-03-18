@@ -81,7 +81,7 @@ function displayPendingSubstitutions() {
         if (!empty($availableEmployees)) { // sprawdzenie czy ktos jest  
             foreach ($availableEmployees as $employee) {
                 echo '<div class="form-check"> 
-                <input class="form-check-input" type="radio" name="selected_employee[' . $substitution['id'] . ']" 
+                <input class="form-check-input" type="checkbox" name="selected_employee[' . $substitution['id'] . '][]" 
                 value="' . $employee['id'] . '" id="employee_' . $employee['id'] . '">';
                 echo '<label class="form-check-label" for="employee_' . $employee['id'] . '">' . $employee['imie'] . ' 
                 ' . $employee['nazwisko'] . '</label> </div>';
@@ -98,16 +98,17 @@ function displayPendingSubstitutions() {
 
         function ChangeStatus() {
             $conn = db_connect();
-            if (isset($_POST['selected_employee']) && $_POST['action'] === 'accept') { // sprawdzei czy wybrany i akcept 
-                foreach ($_POST['selected_employee'] as $substitutionId => $employeeId) { // iteracja po tablicy 
-                    // zmiana statusu i ustawienie pracownika zastepujacego
-                    $query = "UPDATE zastepstwa SET id_pracownika_zastepujacego = $employeeId, status = 'DoAkceptacji' WHERE id = $substitutionId"; 
-                    if (!mysqli_query($conn, $query)) {
-                        echo "Error: " . mysqli_error($conn);
+            if (isset($_POST['selected_employee']) && $_POST['action'] === 'accept') {
+                foreach ($_POST['selected_employee'] as $substitutionId => $employeeIds) {
+                    foreach ($employeeIds as $employeeId) {
+                        $query = "UPDATE zastepstwa SET id_pracownika_zastepujacego = $employeeId, status = 'DoAkceptacji' WHERE id = $substitutionId";
+                        if (!mysqli_query($conn, $query)) {
+                            echo "Error: " . mysqli_error($conn);
+                        }
                     }
                 }
-            } elseif ($_POST['action'] === 'reject') { // jesli odrzcuone zmiana statusu na odrzucone
-                foreach ($_POST['selected_employee'] as $substitutionId => $employeeId) {
+            } elseif ($_POST['action'] === 'reject') {
+                foreach ($_POST['selected_employee'] as $substitutionId => $employeeIds) {
                     $query = "UPDATE zastepstwa SET status = 'odrzucone' WHERE id = $substitutionId";
                     if (!mysqli_query($conn, $query)) {
                         echo "Error: " . mysqli_error($conn);
@@ -115,7 +116,7 @@ function displayPendingSubstitutions() {
                 }
             }
             mysqli_close($conn);
-            header('Location: ZarzadzajZastepstwami.php'); 
+            header('Location: ZarzadzajZastepstwami.php');
             exit();
         }
         

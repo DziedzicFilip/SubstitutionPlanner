@@ -7,7 +7,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $password = $_POST['password'];
 
     $conn = db_connect(); // laczenie 
-    $query = "SELECT id, haslo FROM uzytkownicy WHERE login = '$login'"; // zapytanie do bazy danych
+    $query = "SELECT id, haslo, adresEmail FROM uzytkownicy WHERE login = '$login'"; // zapytanie do bazy danych
     $result = mysqli_query($conn, $query); // wykonanie zapytania
         //sprawdza czy wynik zapytnai istnieje 
     if ($result && mysqli_num_rows($result) > 0) {

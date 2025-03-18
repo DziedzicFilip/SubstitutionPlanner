@@ -1,4 +1,3 @@
-
 <?php
 //start sesji odnownie sesji 
 session_start();
@@ -41,6 +40,15 @@ unset($_SESSION['error']);
               ?>
               
                     <button type="submit" class="btn btn-primary w-100">Zaloguj się</button>
+                </form>
+                <hr>
+                <h2 class="text-center mt-5">Odzyskiwanie hasła</h2>
+                <form method="post" action="../PHP_Logic/recover_password.php">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Adres Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <button type="submit" class="btn btn-secondary w-100">Odzyskaj hasło</button>
                 </form>
             </div>
         </div>
