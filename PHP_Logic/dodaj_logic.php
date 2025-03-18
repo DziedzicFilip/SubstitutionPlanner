@@ -40,7 +40,7 @@ if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['log
 
     if ($result && mysqli_num_rows($result) == 0) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $query = "INSERT INTO uzytkownicy (imie, nazwisko, login, haslo, adresEmail) VALUES ('$firstName', '$lastName', '$login', '$password', '$email')";
+        $query = "INSERT INTO uzytkownicy (imie, nazwisko, login, haslo, rola, adresEmail) VALUES ('$firstName', '$lastName', '$login', '$password', 'pracownik', '$email')";
         if (mysqli_query($conn, $query)) {
             $userId = mysqli_insert_id($conn);
 
