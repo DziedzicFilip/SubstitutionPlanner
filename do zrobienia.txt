@@ -2,3 +2,6 @@
 2. blad przy usuwniau zastepstwa - nie usuwa sie trzeba zaznaczyc user zeby udało sie cofnosc 
 3. Dodanie opcji zarzadzaj zastepstwa w harmonogramie
 4. po cofnieciu zastepstwa powinno kasowac za to nadgodizny
+5. Po odrzuceniu zastepstwa przez jedna osobe wraca do puli nie przypisanych 
+trzeba naprawic 
+
