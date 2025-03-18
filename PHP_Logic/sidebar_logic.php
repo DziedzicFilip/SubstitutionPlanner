@@ -1,37 +1,50 @@
 <?php
 session_start();
 require_once('database_connection.php');
-//obsluga zatwierdzania i odrzucania zastepstwa przez uztkownika 
-if (isset($_POST['substitution_id']) && isset($_POST['action'])) { // oblusga potwierdzania lub odrzucnia zastpestwa  z pozimu uztykownika 
-    $conn = db_connect(); // laczanie 
+
+// Obsługa zatwierdzania i odrzucania zastępstwa przez użytkownika
+if (isset($_POST['substitution_id']) && isset($_POST['action'])) { // obsługa potwierdzania lub odrzucania zastępstwa z poziomu użytkownika
+    $conn = db_connect(); // połączenie
     $substitution_id = $_POST['substitution_id'];
     $action = $_POST['action'];
     $user_id = $_SESSION['user_id'];
 
     if ($action === 'accept') { 
-        $status = 'zatwierdzone'; // ustaiwnie zmienne za zatwierdzone 
-        // zaptyanie zmieniaja status  i dodoaje pracownika do tego zastpestwa 
+        $status = 'zatwierdzone';
+        $status2 = 'zaakceptowane'; // ustawienie zmiennej na zaakceptowane
+        // zapytanie zmieniające status i dodające pracownika do tego zastępstwa
         $query = "UPDATE zastepstwa SET status = '$status', id_pracownika_zastepujacego = '$user_id' WHERE id = $substitution_id"; 
         if (mysqli_query($conn, $query)) {
-            $substitutionQuery = "SELECT data_zastepstwa, godzina_od, godzina_do FROM zastepstwa WHERE id = $substitution_id"; // date i godzina zastepstwa 
+            $substitutionQuery = "SELECT data_zastepstwa, godzina_od, godzina_do FROM zastepstwa WHERE id = $substitution_id"; // data i godzina zastępstwa
             $substitutionResult = mysqli_query($conn, $substitutionQuery);
             if ($substitutionResult && mysqli_num_rows($substitutionResult) > 0) {
                 $substitution = mysqli_fetch_assoc($substitutionResult);
                 $date = $substitution['data_zastepstwa'];
                 $startTime = $substitution['godzina_od'];
                 $endTime = $substitution['godzina_do'];
-                $hours = (strtotime($endTime) - strtotime($startTime)) / 3600;  // liczba godzin 
+                $hours = (strtotime($endTime) - strtotime($startTime)) / 3600;  // liczba godzin
 
-              
-                $overtimeQuery = "INSERT INTO nadgodziny (id_pracownika, data, liczba_godzin) VALUES ('$user_id', '$date', '$hours')"; // dodanie do nagodzin dla pracownika 
+                $overtimeQuery = "INSERT INTO nadgodziny (id_pracownika, data, liczba_godzin) VALUES ('$user_id', '$date', '$hours')"; // dodanie do nadgodzin dla pracownika
                 mysqli_query($conn, $overtimeQuery);
+
+                // Zaktualizowanie statusu w tabeli zastepstwa_uzytkownicy
+                $updateUserSubstitutionQuery = "UPDATE zastepstwa_uzytkownicy SET status = '$status2' WHERE id_zastepstwa = $substitution_id AND id_uzytkownika = '$user_id'";
+                mysqli_query($conn, $updateUserSubstitutionQuery);
+
+                // Odrzucenie innych użytkowników
+                $rejectOthersQuery = "UPDATE zastepstwa_uzytkownicy SET status = 'odrzucone' WHERE id_zastepstwa = $substitution_id AND id_uzytkownika != '$user_id'";
+                mysqli_query($conn, $rejectOthersQuery);
             }
         }
     } elseif ($action === 'reject') {
         $status = 'oczekujące';
-        $query = "UPDATE zastepstwa SET status = '$status', id_pracownika_zastepujacego = NULL WHERE id = $substitution_id"; // zmiana na oczekujace 
+        $query = "UPDATE zastepstwa SET status = '$status', id_pracownika_zastepujacego = NULL WHERE id = $substitution_id"; // zmiana na oczekujące
         mysqli_query($conn, $query);
-    } else { // obsluga dodatkowych opcji 
+
+        // Zaktualizowanie statusu w tabeli zastepstwa_uzytkownicy
+        $updateUserSubstitutionQuery = "UPDATE zastepstwa_uzytkownicy SET status = 'odrzucone' WHERE id_zastepstwa = $substitution_id AND id_uzytkownika = '$user_id'";
+        mysqli_query($conn, $updateUserSubstitutionQuery);
+    } else { // obsługa dodatkowych opcji
         $status = 'oczekujące';
         $query = "UPDATE zastepstwa SET status = '$status' WHERE id = $substitution_id";
         mysqli_query($conn, $query);
@@ -39,19 +52,19 @@ if (isset($_POST['substitution_id']) && isset($_POST['action'])) { // oblusga po
 
     mysqli_close($conn);
 
-    header('Location: ../sites/index.php'); // przekierowanie na głowna 
+    header('Location: ../sites/index.php'); // przekierowanie na główną
     exit();
 }
 
-function isAdmin() { // sprawdznie typu sesji 
+function isAdmin() { // sprawdzenie typu sesji
     checkRole();
     return isset($_SESSION['rola']) && $_SESSION['rola'] === 'admin';
 }
 
-function checkRole() { // sprawdza role 
+function checkRole() { // sprawdza rolę
     $conn = db_connect();
     $user_id = $_SESSION['user_id'];
-    $query = "SELECT rola FROM uzytkownicy WHERE id = '$user_id'"; // sprawdznie roli uzytkownika 
+    $query = "SELECT rola FROM uzytkownicy WHERE id = '$user_id'"; // sprawdzenie roli użytkownika
     $result = mysqli_query($conn, $query);
     
     if ($result && mysqli_num_rows($result) > 0) {
@@ -64,7 +77,7 @@ function checkRole() { // sprawdza role
     mysqli_close($conn);
 }
 
-function WhoAmI() { // sprawdzenie na kim jesesmy zalogowani 
+function WhoAmI() { // sprawdzenie, na kim jesteśmy zalogowani
     $conn = db_connect();
     $user_id = $_SESSION['user_id'];
     
@@ -82,41 +95,19 @@ function WhoAmI() { // sprawdzenie na kim jesesmy zalogowani
     mysqli_close($conn);
 }
 
-// function getSubstitutionsByStatus($status) {
-//     $conn = db_connect();
-  
-//     $query = "SELECT DISTINCT z.id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, g.nazwa AS grupa, 
-//                      u1.imie AS imie_potrzebujacego, u1.nazwisko AS nazwisko_potrzebujacego, 
-//                      u2.imie AS imie_zastepujacego, u2.nazwisko AS nazwisko_zastepujacego
-//               FROM zastepstwa z
-//               JOIN uzytkownicy u1 ON z.id_pracownika_proszacego = u1.id
-//               LEFT JOIN uzytkownicy u2 ON z.id_pracownika_zastepujacego = u2.id
-//               LEFT JOIN pracownik_grupa pg ON u1.id = pg.id_pracownika
-//               LEFT JOIN grupy g ON pg.id_grupy = g.id
-//               WHERE z.status = '$status'";
-//     $result = mysqli_query($conn, $query);
-//     $substitutions = [];
-//     if ($result && mysqli_num_rows($result) > 0) {
-//         while ($row = mysqli_fetch_assoc($result)) {
-//             $substitutions[] = $row;
-//         }
-//     }
-//     mysqli_close($conn);
-//     return $substitutions;
-// }
-
-function getSubstitutionsAccept() { // pobiranie  zastpestw dla konkretnych pracownikow 
+function getSubstitutionsAccept() { // pobieranie zastępstw dla konkretnych pracowników
     $conn = db_connect();
     $user_id = $_SESSION['user_id'];
-    $query = "SELECT DISTINCT z.id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, g.nazwa AS grupa, 
+    $query = "SELECT DISTINCT zu.id_zastepstwa AS id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, g.nazwa AS grupa, 
                      u1.imie AS imie_potrzebujacego, u1.nazwisko AS nazwisko_potrzebujacego, 
                      u2.imie AS imie_zastepujacego, u2.nazwisko AS nazwisko_zastepujacego
-              FROM zastepstwa z
+              FROM zastepstwa_uzytkownicy zu
+              JOIN zastepstwa z ON zu.id_zastepstwa = z.id
               JOIN uzytkownicy u1 ON z.id_pracownika_proszacego = u1.id
               LEFT JOIN uzytkownicy u2 ON z.id_pracownika_zastepujacego = u2.id
               LEFT JOIN pracownik_grupa pg ON u1.id = pg.id_pracownika
               LEFT JOIN grupy g ON pg.id_grupy = g.id
-              WHERE z.status = 'DoAkceptacji' AND z.id_pracownika_zastepujacego = '$user_id'";
+              WHERE zu.status = 'oczekujące' AND zu.id_uzytkownika = '$user_id'";
     $result = mysqli_query($conn, $query);
     $substitutions = [];
     if ($result && mysqli_num_rows($result) > 0) {
@@ -150,10 +141,10 @@ function getSubstitutionsPending() { // pobieranie zastpestw dla admina
     return $substitutions;
 }
 
-function countSubstitutionsByAccept() { // liczenie zastepstw dla konkretnych pracownikow
+function countSubstitutionsByAccept() { // liczenie zastępstw dla konkretnych pracowników
     $conn = db_connect();
     $user_id = $_SESSION['user_id'];
-    $query = "SELECT COUNT(*) AS count FROM zastepstwa WHERE status = 'DoAkceptacji' AND id_pracownika_zastepujacego = '$user_id'";
+    $query = "SELECT COUNT(*) AS count FROM zastepstwa_uzytkownicy WHERE status = 'oczekujące' AND id_uzytkownika = '$user_id'";
     $result = mysqli_query($conn, $query);
     $count = 0;
     if ($result && mysqli_num_rows($result) > 0) {
@@ -177,7 +168,7 @@ function countSubstitutionsByPending() { // liznie zastpst w dla admina
     return $count;
 }
 
-function displaySubstitutionsAccept() { // wyswietlanie zastepstw dla konkretnych pracownikow
+function displaySubstitutionsAccept() { // wyświetlanie zastępstw dla konkretnych pracowników
     $substitutions = getSubstitutionsAccept();
     echo ' <div class="accordion-item">
             <h2 class="accordion-header" id="headingUnassignedSubstitution">
@@ -206,7 +197,7 @@ function displaySubstitutionsAccept() { // wyswietlanie zastepstw dla konkretnyc
         </div>';
 }
 
-function displaySubstitutionsPending() { // wyswietlanie zastepstw dla admina
+function displaySubstitutionsPending() { // wyświetlanie zastępstw dla admina
     $substitutions = getSubstitutionsPending();
     echo ' <div class="accordion-item">
             <h2 class="accordion-header" id="headingUnassignedSubstitution">
