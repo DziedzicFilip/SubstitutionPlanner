@@ -1,6 +1,4 @@
 1.Ustawiennie komyus na szywtno zastepstwa - Super ADmi 
-2. blad przy usuwniau zastepstwa - 
-nie usuwa sie trzeba zaznaczyc user zeby udało sie cofnosc 
 (narazie na sztywno dodac pole od usuniecia)
 3. Dodanie opcji zarzadzaj zastepstwa w harmonogramie
 4. po cofnieciu zastepstwa powinno kasowac za to nadgodizny
@@ -8,6 +6,10 @@ nie usuwa sie trzeba zaznaczyc user zeby udało sie cofnosc
 trzeba naprawic 
 6. Dodac logi json 
 7. Przydałoby się "oczko" podgląd hasła przy jego wpisywaniu 
+
+6. Po przypisaniu zastępstwa, gdy nauczyciel je odrzuci nie mam żadnej informacji, że to zrobił tylko wraca z 
+     powrotem tylko informacja przypisz zastępstwo (nie wiadomo kto odrzucił, komu się je przypisało bo na       
+     razie mogę tylko jednej osobie to też było do zmiany).
 ---------------------------------
 
 
@@ -21,15 +23,6 @@ trzeba naprawic
      zastwpstwa ogranicza sie tylko do jednje osoby a tak moze to byc podzielone na dwie 
 
 2. Pani Katarzyna Puła - Pszczółki w dodaj zastępstwo nie ma przypisanej grupy więc nie może dodać
-     zastępstwa. - ____________ dodac na bazie dodane ale nwm czemu nie działało 
-
-
-4. Przy dodawaniu zastępstwa czy też wysyłaniu do Pań w celu przypisania zastępstwa ważne jest aby oprócz
-     daty i godziny było w której grupie jest to zastępstwo i  automatycznie później będzie to pokazane w
-     nadgodzinach. Czyli np. 24.03.2025 7.00-12.00 Motylki.
-     
+     zastępstwa. - ____________   na bazie dodane ale nwm czemu nie działało 
 5. Przy raporcie nadgodzin występują błędy w nazwisku p. Jędroszak/ na razie tylko my wczoraj testowałyśmy
-     aplikację. 
-6. Po przypisaniu zastępstwa, gdy nauczyciel je odrzuci nie mam żadnej informacji, że to zrobił tylko wraca z 
-     powrotem tylko informacja przypisz zastępstwo (nie wiadomo kto odrzucił, komu się je przypisało bo na       
-     razie mogę tylko jednej osobie to też było do zmiany).
+     aplikację.  - jaki bład? 
