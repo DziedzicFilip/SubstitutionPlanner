@@ -15,16 +15,17 @@ if (isset($_POST['substitution_id']) && isset($_POST['action'])) { // obsługa p
         // zapytanie zmieniające status i dodające pracownika do tego zastępstwa
         $query = "UPDATE zastepstwa SET status = '$status', id_pracownika_zastepujacego = '$user_id' WHERE id = $substitution_id"; 
         if (mysqli_query($conn, $query)) {
-            $substitutionQuery = "SELECT data_zastepstwa, godzina_od, godzina_do FROM zastepstwa WHERE id = $substitution_id"; // data i godzina zastępstwa
+            $substitutionQuery = "SELECT data_zastepstwa, godzina_od, godzina_do, nazwa_grupy FROM zastepstwa WHERE id = $substitution_id"; // data i godzina zastępstwa
             $substitutionResult = mysqli_query($conn, $substitutionQuery);
             if ($substitutionResult && mysqli_num_rows($substitutionResult) > 0) {
                 $substitution = mysqli_fetch_assoc($substitutionResult);
                 $date = $substitution['data_zastepstwa'];
                 $startTime = $substitution['godzina_od'];
                 $endTime = $substitution['godzina_do'];
+                $groupName = $substitution['nazwa_grupy'];
                 $hours = (strtotime($endTime) - strtotime($startTime)) / 3600;  // liczba godzin
 
-                $overtimeQuery = "INSERT INTO nadgodziny (id_pracownika, data, liczba_godzin) VALUES ('$user_id', '$date', '$hours')"; // dodanie do nadgodzin dla pracownika
+                $overtimeQuery = "INSERT INTO nadgodziny (id_pracownika, data, liczba_godzin, nazwa_grupy) VALUES ('$user_id', '$date', '$hours', '$groupName')"; // dodanie do nadgodzin dla pracownika
                 mysqli_query($conn, $overtimeQuery);
 
                 // Zaktualizowanie statusu w tabeli zastepstwa_uzytkownicy
