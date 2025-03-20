@@ -4,4 +4,5 @@
 4. po cofnieciu zastepstwa powinno kasowac za to nadgodizny
 5. Po odrzuceniu zastepstwa przez jedna osobe wraca do puli nie przypisanych 
 trzeba naprawic 
+6. Dodac logi
 
