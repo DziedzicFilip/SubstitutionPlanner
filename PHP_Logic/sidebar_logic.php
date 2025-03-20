@@ -95,18 +95,16 @@ function WhoAmI() { // sprawdzenie, na kim jesteśmy zalogowani
     mysqli_close($conn);
 }
 
-function getSubstitutionsAccept() { // pobieranie zastępstw dla konkretnych pracowników
+function getSubstitutionsAccept() {
     $conn = db_connect();
     $user_id = $_SESSION['user_id'];
-    $query = "SELECT DISTINCT zu.id_zastepstwa AS id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, g.nazwa AS grupa, 
+    $query = "SELECT DISTINCT zu.id_zastepstwa AS id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, z.nazwa_grupy AS grupa, 
                      u1.imie AS imie_potrzebujacego, u1.nazwisko AS nazwisko_potrzebujacego, 
                      u2.imie AS imie_zastepujacego, u2.nazwisko AS nazwisko_zastepujacego
               FROM zastepstwa_uzytkownicy zu
               JOIN zastepstwa z ON zu.id_zastepstwa = z.id
               JOIN uzytkownicy u1 ON z.id_pracownika_proszacego = u1.id
               LEFT JOIN uzytkownicy u2 ON z.id_pracownika_zastepujacego = u2.id
-              LEFT JOIN pracownik_grupa pg ON u1.id = pg.id_pracownika
-              LEFT JOIN grupy g ON pg.id_grupy = g.id
               WHERE zu.status = 'oczekujące' AND zu.id_uzytkownika = '$user_id'";
     $result = mysqli_query($conn, $query);
     $substitutions = [];
@@ -119,16 +117,14 @@ function getSubstitutionsAccept() { // pobieranie zastępstw dla konkretnych pra
     return $substitutions;
 }
 
-function getSubstitutionsPending() { // pobieranie zastpestw dla admina 
+function getSubstitutionsPending() {
     $conn = db_connect();
-    $query = "SELECT DISTINCT z.id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, g.nazwa AS grupa, 
+    $query = "SELECT DISTINCT z.id, z.data_zastepstwa AS data, z.godzina_od, z.godzina_do, z.nazwa_grupy AS grupa, 
                      u1.imie AS imie_potrzebujacego, u1.nazwisko AS nazwisko_potrzebujacego, 
                      u2.imie AS imie_zastepujacego, u2.nazwisko AS nazwisko_zastepujacego
               FROM zastepstwa z
               JOIN uzytkownicy u1 ON z.id_pracownika_proszacego = u1.id
               LEFT JOIN uzytkownicy u2 ON z.id_pracownika_zastepujacego = u2.id
-              LEFT JOIN pracownik_grupa pg ON u1.id = pg.id_pracownika
-              LEFT JOIN grupy g ON pg.id_grupy = g.id
               WHERE z.status = 'oczekujące'";
     $result = mysqli_query($conn, $query);
     $substitutions = [];
@@ -168,7 +164,7 @@ function countSubstitutionsByPending() { // liznie zastpst w dla admina
     return $count;
 }
 
-function displaySubstitutionsAccept() { // wyświetlanie zastępstw dla konkretnych pracowników
+function displaySubstitutionsAccept() {
     $substitutions = getSubstitutionsAccept();
     echo ' <div class="accordion-item">
             <h2 class="accordion-header" id="headingUnassignedSubstitution">
@@ -184,6 +180,7 @@ function displaySubstitutionsAccept() { // wyświetlanie zastępstw dla konkretn
     foreach ($substitutions as $entry) {
         echo "Zastępstwo";
         echo '<p>' . $entry['data'] . ' od ' . $entry['godzina_od'] . ' do ' . $entry['godzina_do'] . '</p>';
+        echo '<p>Grupa: ' . $entry['grupa'] . '</p>';
         echo '<hr />';
             echo '<form method="POST">';
             echo '<input type="hidden" name="substitution_id" value="' . $entry['id'] . '">';
@@ -197,7 +194,7 @@ function displaySubstitutionsAccept() { // wyświetlanie zastępstw dla konkretn
         </div>';
 }
 
-function displaySubstitutionsPending() { // wyświetlanie zastępstw dla admina
+function displaySubstitutionsPending() {
     $substitutions = getSubstitutionsPending();
     echo ' <div class="accordion-item">
             <h2 class="accordion-header" id="headingUnassignedSubstitution">
@@ -215,6 +212,7 @@ function displaySubstitutionsPending() { // wyświetlanie zastępstw dla admina
     foreach ($substitutions as $entry) {
         echo "Zastępstwo";
         echo '<p>' . $entry['data'] . ' od ' . $entry['godzina_od'] . ' do ' . $entry['godzina_do'] . '</p>';
+        echo '<p>Grupa: ' . $entry['grupa'] . '</p>';
         echo '<hr />';      
     }
     echo '  </div>
