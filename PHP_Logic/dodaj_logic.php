@@ -1,6 +1,6 @@
 <?php
 require_once('database_connection.php');
-
+require('../PHP_Logic/Logi/logMessage.php');
 function getGroups() { // pobieranie grup 
     $conn = db_connect();
     $query = "SELECT id, nazwa FROM grupy";
@@ -50,12 +50,15 @@ if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['log
                 mysqli_query($conn, $query);
             }
 //java script 
+            logMessage('INFO', "Dodano nowego pracownika: $firstName $lastName", $_SESSION['user_id']);
             echo "<script>alert('Pracownik został pomyślnie dodany.'); window.location.href='../sites/dodaj.php';</script>";
         } else {
             echo "<script>alert('Błąd podczas dodawania pracownika.'); window.location.href='../sites/dodaj.php';</script>";
+            logMessage('Error', "Błąd podczas dodawania pracownika", $_SESSION['user_id']);
         }
     } else {
         echo "<script>alert('Login już istnieje.'); window.location.href='../sites/dodaj.php';</script>";
+        logMessage('Error', "Błąd podczas dodawania pracownika-Login już istnieje", $_SESSION['user_id']);
     }
 
     mysqli_close($conn);
@@ -73,11 +76,14 @@ if (isset($_POST['groupName'])) { //doddanie grup
         $query = "INSERT INTO grupy (nazwa) VALUES ('$groupName')";
         if (mysqli_query($conn, $query)) {
             echo "<script>alert('Grupa została pomyślnie dodana.'); window.location.href='../sites/dodaj.php';</script>";
+            logMessage('INFO', "Dodano nową grupę: $groupName", $_SESSION['user_id']);
         } else {
             echo "<script>alert('Błąd podczas dodawania grupy.'); window.location.href='../sites/dodaj.php';</script>";
+            logMessage('Error', "Błąd podczas dodawania grupy", $_SESSION['user_id']);
         }
     } else {
         echo "<script>alert('Nazwa grupy już istnieje.'); window.location.href='../sites/dodaj.php';</script>";
+        logMessage('Error', "Błąd podczas dodawania grupy-Nazwa grupy już istnieje", $_SESSION['user_id']);
     }
 
     mysqli_close($conn);
@@ -112,8 +118,10 @@ if (isset($_POST['employeeSelect']) && isset($_POST['dayOfWeek']) && isset($_POS
 
     if (mysqli_affected_rows($conn) > 0) {
         echo "<script>alert('Godziny pracy zostały pomyślnie dodane.'); window.location.href='../sites/dodaj.php';</script>";
+        logMessage('INFO', "Dodano godziny pracy dla pracownika o id: $employeeId", $_SESSION['user_id']);
     } else {
         echo "<script>alert('Błąd podczas dodawania godzin pracy.'); window.location.href='../sites/dodaj.php';</script>";
+        logMessage('Error', "Błąd podczas dodawania godzin pracy", $_SESSION['user_id']);
     }
 
     mysqli_close($conn);
@@ -127,8 +135,10 @@ if (isset($_POST['deleteEmployee'])) {     // Usunięcie pracownika
     $query = "DELETE FROM uzytkownicy WHERE id = '$employeeId'";
     if (mysqli_query($conn, $query)) {
         echo "<script>alert('Pracownik został pomyślnie usunięty.'); window.location.href='../sites/dodaj.php';</script>";
+        logMessage('INFO', "Usunięto pracownika o id: $employeeId", $_SESSION['user_id']);
     } else {
         echo "<script>alert('Błąd podczas usuwania pracownika.'); window.location.href='../sites/dodaj.php';</script>";
+        logMessage('Error', "Błąd podczas usuwania pracownika", $_SESSION['user_id']);
     }
 
     mysqli_close($conn);

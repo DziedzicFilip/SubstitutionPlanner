@@ -1,0 +1,38 @@
+2025-03-21 01:35:59 | ERROR |  | Błędne dane logowania
+2025-03-21 01:36:58 | ERROR |  | Błędne dane logowania
+2025-03-21 01:37:10 | ERROR |  | Błędne dane logowania
+2025-03-21 01:38:10 | INFO | 20 | Zalogowano
+2025-03-21 01:47:42 | INFO-AktualneZastepstwa |  | Zmieniono status zastępstwa o id: 31 na: oczekujace
+2025-03-21 01:48:14 | INFO-AktualneZastepstwa |  | Zmieniono status zastępstwa o id: 31 na: oczekujace
+2025-03-21 01:48:56 | INFO-AktualneZastepstwa |  | Zmieniono status zastępstwa o id: 31 na: 
+2025-03-21 01:49:46 | INFO-AktualneZastepstwa |  | Cofenieto Zastepstwo
+2025-03-21 01:50:17 | INFO-AktualneZastepstwa |  | Cofenieto Zastepstwo
+2025-03-21 01:50:54 | INFO |  | Dodano nowego pracownika: Filip Dziedzic
+2025-03-21 01:52:09 | INFO-AktualneZastepstwa |  | Cofenieto Zastepstwo
+2025-03-21 01:53:12 | INFO-AktualneZastepstwa | 20 | Cofenieto Zastepstwo
+2025-03-21 01:53:20 | INFO-AktualneZastepstwa | 20 | Cofenieto Zastepstwo
+2025-03-21 01:53:25 | INFO-AktualneZastepstwa | 20 | Cofenieto Zastepstwo
+2025-03-21 01:53:37 | INFO-AktualneZastepstwa | 20 | Cofenieto Zastepstwo
+2025-03-21 02:04:22 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 02:04:40 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 02:04:40 | INFO | 20 | Generowanie raportu PDF
+2025-03-21 02:04:40 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 02:05:29 | INFO | 39 | Wysłano email z nowym hasłem
+2025-03-21 02:06:25 | INFO | 39 | Wysłano email z nowym hasłem
+2025-03-21 02:08:19 | INFO | 39 | Wysłano email z nowym hasłem
+2025-03-21 02:08:36 | INFO | 39 | Wysłano email z nowym hasłem
+2025-03-21 02:09:54 | INFO | 39 | Wysłano email z nowym hasłem
+2025-03-21 02:13:24 | INFO | 39 | Wysłano email z nowym hasłem
+2025-03-21 02:18:28 | INFO | 39 | Wysłano email z nowym hasłem
+2025-03-21 02:18:55 | INFO | 39 | Wysłano email z nowym hasłem
+2025-03-21 02:19:23 | ERROR | TESt13123123@TESt | Nie znaleziono użytkownika z podanym adresem email
+2025-03-21 02:23:49 | INFO | 20 | Zalogowano
+2025-03-21 02:25:45 | INFO | 20 | Zmiana statusu zastepstwa na DoAkceptacji31
+2025-03-21 02:26:07 | INFO | 20 | Zmiana statusu zastepstwa na DoAkceptacji 31
+2025-03-21 02:27:51 | INFO | 20 | Zmiana statusu zastepstwa na odrzucone31
+2025-03-21 02:28:24 | Error | 20 | Błedne nowe hasło
+2025-03-21 02:28:33 | Error | 20 | Błedne nowe hasło
+2025-03-21 02:28:45 | Error | 20 | Błedne nowe hasło
+2025-03-21 02:28:59 | Error | 20 | Błedne obecne hasło
+2025-03-21 02:29:10 | Error | 20 | Błedne nowe hasło
+2025-03-21 02:29:25 | Info | 20 | Zmiana loginu i hasła

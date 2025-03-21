@@ -36,6 +36,10 @@ unset($_SESSION['error']);
                         echo $error;
                         echo "<br/>";
                 }
+                if (isset($_SESSION['success'])) {
+                    echo '<p style="color: green;">' . $_SESSION['success'] . '</p>';
+                    unset($_SESSION['success']);
+                }
                        
               ?>
               

@@ -1,6 +1,8 @@
 <?php
 require('database_connection.php');
+require('../PHP_Logic/Logi/logMessage.php');
 session_start();
+
 //sprawdza czy pola sa wypełnione w formularzu 
 if (isset($_POST['username']) && isset($_POST['password'])) {
     $login = $_POST['username'];
@@ -14,16 +16,18 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         $row = mysqli_fetch_assoc($result); // pobiera wynik jako pierwszy wiersz tablicy assosciacyjnej
     
         if ($password == $row['haslo'] || password_verify($password, $row['haslo']) ) { 
-        
             $_SESSION['user_id'] = $row['id']; // ustawinie id sesji 
             $_SESSION['login'] = $login; // ustawienie loginu sesji
+            logMessage('INFO', 'Zalogowano', $row['id']); // logowanie zdarzenia
             header('Location: ../sites/index.php'); // po porawnym zalogowaniu przekierowuje do strony index.php
             exit();
         } else {
             $_SESSION['error'] = "Nieprawidłowy login lub hasło."; // erro ktory był użyty w wioku jako blad
+            logMessage('ERROR', 'Błędne dane logowania', $row['id']); // logowanie zdarzenia
         }
     } else {
         $_SESSION['error'] = "Nieprawidłowy login lub hasło."; // erro ktory był użyty w wioku jako blad 
+        logMessage('ERROR', 'Błędne dane logowania', $row['id']);
     }
 
     mysqli_close($conn); // zamkniecie polaczenia 

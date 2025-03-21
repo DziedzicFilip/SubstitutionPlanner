@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once('database_connection.php');
-
+require('../PHP_Logic/Logi/logMessage.php');
 // Obsługa zatwierdzania i odrzucania zastępstwa przez użytkownika
 if (isset($_POST['substitution_id']) && isset($_POST['action'])) { // obsługa potwierdzania lub odrzucania zastępstwa z poziomu użytkownika
     $conn = db_connect(); // połączenie
@@ -35,6 +35,7 @@ if (isset($_POST['substitution_id']) && isset($_POST['action'])) { // obsługa p
                 // Odrzucenie innych użytkowników
                 $rejectOthersQuery = "UPDATE zastepstwa_uzytkownicy SET status = 'odrzucone' WHERE id_zastepstwa = $substitution_id AND id_uzytkownika != '$user_id'";
                 mysqli_query($conn, $rejectOthersQuery);
+                logMessage("INFO", "Zastępstwo zostało zaakceptowane." .$substitution_id,$_SESSION['user_id']);
             }
         }
     } elseif ($action === 'reject') {
@@ -45,6 +46,7 @@ if (isset($_POST['substitution_id']) && isset($_POST['action'])) { // obsługa p
         // Zaktualizowanie statusu w tabeli zastepstwa_uzytkownicy
         $updateUserSubstitutionQuery = "UPDATE zastepstwa_uzytkownicy SET status = 'odrzucone' WHERE id_zastepstwa = $substitution_id AND id_uzytkownika = '$user_id'";
         mysqli_query($conn, $updateUserSubstitutionQuery);
+        logMessage("INFO", "Zastępstwo zostało odrzucone." .$substitution_id,$_SESSION['user_id']);
     } else { // obsługa dodatkowych opcji
         $status = 'oczekujące';
         $query = "UPDATE zastepstwa SET status = '$status' WHERE id = $substitution_id";

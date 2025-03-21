@@ -1,9 +1,10 @@
 <?php 
 require_once('../PHP_Logic/database_connection.php');
-
+require('../PHP_Logic/Logi/logMessage.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['revert'])) {
     $id = intval($_POST['revert']);
     updateSubstitutionStatus($id, 'oczekujace');
+    
 }
 
 function getSubstitutions() { 
@@ -61,5 +62,6 @@ function updateSubstitutionStatus($id, $status) {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
+    logMessage('INFO-AktualneZastepstwa','Cofenieto Zastepstwo',$_SESSION['user_id']);
 }
 ?>

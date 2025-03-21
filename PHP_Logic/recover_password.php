@@ -3,7 +3,7 @@ require('database_connection.php');
 require '../vendor/autoload.php'; // Adjust the path if necessary
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
+require('../PHP_Logic/Logi/logMessage.php');
 session_start();
 
 if (isset($_POST['email'])) {
@@ -47,15 +47,19 @@ if (isset($_POST['email'])) {
                 $mail->Body    = "Twoje nowe dane do logowania:<br>Login: $login<br>Hasło: $newPassword";
 
                 $mail->send();
-                $_SESSION['error'] = "Nowe dane do logowania zostały wysłane na podany adres email.";
+                $_SESSION['success'] = "Nowe dane do logowania zostały wysłane na podany adres email.";
+                logMessage('INFO', 'Wysłano email z nowym hasłem', $userId);
             } catch (Exception $e) {
                 $_SESSION['error'] = "Wystąpił błąd podczas wysyłania emaila: {$mail->ErrorInfo}";
+                logMessage('ERROR', 'Błąd podczas wysyłania emaila', $userId);
             }
         } else {
             $_SESSION['error'] = "Wystąpił błąd podczas aktualizacji hasła.";
+            logMessage('ERROR', 'Błąd podczas aktualizacji hasła', $userId);
         }
     } else {
         $_SESSION['error'] = "Nie znaleziono użytkownika z podanym adresem email.";
+        logMessage('ERROR', 'Nie znaleziono użytkownika z podanym adresem email', $email);
     }
 
     mysqli_close($conn);

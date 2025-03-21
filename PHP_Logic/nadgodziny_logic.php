@@ -1,6 +1,7 @@
 <?php
 require_once('database_connection.php');
 require('fpdf.php');
+require('../PHP_Logic/Logi/logMessage.php');
 function getOvertimeData($searchTerm = '', $startDate = '', $endDate = '') { // pobieranie danych o nadgodzinach (wyszukiwanie)
     $conn = db_connect(); // laczenie 
     $user_id = $_SESSION['user_id'];
@@ -34,6 +35,7 @@ function getOvertimeData($searchTerm = '', $startDate = '', $endDate = '') { // 
         }
     }
     mysqli_close($conn);
+    logMessage('INFO', 'Filtrowanie danych o nadgodzinach',$_SESSION['user_id']); // logowanie zdarzenia
     return $overtimeData;
 }
 function getOvertimeDetails($userId, $startDate = '', $endDate = '') { // pobieranie  ilosci godzin 
@@ -130,5 +132,6 @@ $endDate = isset($_GET['endDate']) ? $_GET['endDate'] : '';
 
 if (isset($_GET['generatePDF'])) {
     generatePDF($searchTerm, $startDate, $endDate);
+    logMessage('INFO', 'Generowanie raportu PDF', $_SESSION['user_id']);
 } 
 ?>

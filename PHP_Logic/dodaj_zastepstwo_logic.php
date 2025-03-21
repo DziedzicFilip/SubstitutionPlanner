@@ -3,7 +3,7 @@ if (session_status() == PHP_SESSION_NONE) { //sprawdzenie czy sesja dziala
     session_start();
 }
 require_once('../PHP_Logic/database_connection.php');
-
+require('../PHP_Logic/Logi/logMessage.php');
 function isAdminD() {
     return isset($_SESSION['rola']) && $_SESSION['rola'] === 'admin';
 }
@@ -49,11 +49,12 @@ if (isset($_POST['date']) && isset($_POST['start_time']) && isset($_POST['end_ti
             $query = "INSERT INTO zastepstwa_uzytkownicy (id_zastepstwa, id_uzytkownika) VALUES ('$id_zastepstwa', '$id_uzytkownika')";
             mysqli_query($conn, $query);
         }
-
+        logMessage("INFO","Wystawiono Nowe Zastepstwo -.$id_zastepstwa .",$_SESSION['user_id']);
         header("Location: ../sites/dodaj_zastepstwo.php");
         exit();
     } else {
         echo "Błąd: " . mysqli_error($conn);
+        logMessage("ERROR","Błąd podczas wystawiania zastepstwa -.$id_zastepstwa .",$_SESSION['user_id']);
     }
 
     mysqli_close($conn);

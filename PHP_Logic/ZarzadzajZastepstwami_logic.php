@@ -107,6 +107,7 @@ function displayPendingSubstitutions() {
                         }
                     }
                     $query = "UPDATE zastepstwa SET status = 'DoAkceptacji' WHERE id = $substitutionId";
+                    logMessage("INFO","Zmiana statusu zastepstwa na DoAkceptacji ".$substitutionId,$_SESSION['user_id']);
                     if (!mysqli_query($conn, $query)) {
                         echo "Error: " . mysqli_error($conn);
                     }
@@ -114,6 +115,7 @@ function displayPendingSubstitutions() {
             } elseif ($_POST['action'] === 'reject') {
                 foreach ($_POST['selected_employee'] as $substitutionId => $employeeIds) {
                     $query = "UPDATE zastepstwa SET status = 'odrzucone' WHERE id = $substitutionId";
+                    logMessage("INFO","Zmiana statusu zastepstwa na odrzucone ".$substitutionId,$_SESSION['user_id']);
                     if (!mysqli_query($conn, $query)) {
                         echo "Error: " . mysqli_error($conn);
                     }
