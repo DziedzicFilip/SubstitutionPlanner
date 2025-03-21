@@ -3,7 +3,7 @@ require('database_connection.php');
 require '../vendor/autoload.php'; // Adjust the path if necessary
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-require('../PHP_Logic/Logi/logMessage.php');
+require_once('../PHP_Logic/Logi/logMessage.php');
 session_start();
 
 if (isset($_POST['email'])) {

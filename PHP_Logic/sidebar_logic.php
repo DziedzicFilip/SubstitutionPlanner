@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once('database_connection.php');
-require('../PHP_Logic/Logi/logMessage.php');
+require_once('../PHP_Logic/Logi/logMessage.php');
 // Obsługa zatwierdzania i odrzucania zastępstwa przez użytkownika
 if (isset($_POST['substitution_id']) && isset($_POST['action'])) { // obsługa potwierdzania lub odrzucania zastępstwa z poziomu użytkownika
     $conn = db_connect(); // połączenie

@@ -10,6 +10,7 @@ trzeba naprawic
 6. Po przypisaniu zastępstwa, gdy nauczyciel je odrzuci nie mam żadnej informacji, że to zrobił tylko wraca z 
      powrotem tylko informacja przypisz zastępstwo (nie wiadomo kto odrzucił, komu się je przypisało bo na       
      razie mogę tylko jednej osobie to też było do zmiany).
+7.dodac .env
 ---------------------------------
 
 

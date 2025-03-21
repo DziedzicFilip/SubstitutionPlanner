@@ -1,6 +1,6 @@
 <?php
 require('database_connection.php');
-require('../PHP_Logic/Logi/logMessage.php');
+require_once('../PHP_Logic/Logi/logMessage.php');
 session_start();
 
 //sprawdza czy pola sa wypełnione w formularzu 

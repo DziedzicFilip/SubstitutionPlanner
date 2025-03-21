@@ -3,7 +3,7 @@ if (session_status() == PHP_SESSION_NONE) { //sprawdzenie czy sesja dziala
     session_start();
 }
 require_once('../PHP_Logic/database_connection.php');
-require('../PHP_Logic/Logi/logMessage.php');
+require_once('../PHP_Logic/Logi/logMessage.php');
 function isAdminD() {
     return isset($_SESSION['rola']) && $_SESSION['rola'] === 'admin';
 }

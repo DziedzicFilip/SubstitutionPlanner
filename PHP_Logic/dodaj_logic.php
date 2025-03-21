@@ -1,6 +1,6 @@
 <?php
 require_once('database_connection.php');
-require('../PHP_Logic/Logi/logMessage.php');
+require_once('../PHP_Logic/Logi/logMessage.php');
 function getGroups() { // pobieranie grup 
     $conn = db_connect();
     $query = "SELECT id, nazwa FROM grupy";

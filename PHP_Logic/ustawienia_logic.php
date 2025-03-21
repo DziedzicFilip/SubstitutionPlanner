@@ -1,7 +1,7 @@
 <?php
 session_start();
 require('database_connection.php');
-require('../PHP_Logic/Logi/logMessage.php');
+require_once('../PHP_Logic/Logi/logMessage.php');
 if (isset($_POST['newLogin']) && isset($_POST['currentPassword']) && isset($_POST['newPassword'])) {
     $newLogin = $_POST['newLogin'];
     $currentPassword = $_POST['currentPassword'];

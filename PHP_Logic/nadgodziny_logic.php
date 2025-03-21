@@ -1,7 +1,7 @@
 <?php
 require_once('database_connection.php');
 require('fpdf.php');
-require('../PHP_Logic/Logi/logMessage.php');
+require_once('../PHP_Logic/Logi/logMessage.php');
 function getOvertimeData($searchTerm = '', $startDate = '', $endDate = '') { // pobieranie danych o nadgodzinach (wyszukiwanie)
     $conn = db_connect(); // laczenie 
     $user_id = $_SESSION['user_id'];

@@ -1,10 +1,10 @@
 <?php 
 require_once('../PHP_Logic/database_connection.php');
-require('../PHP_Logic/Logi/logMessage.php');
+require_once('../PHP_Logic/Logi/logMessage.php');
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['revert'])) {
     $id = intval($_POST['revert']);
     updateSubstitutionStatus($id, 'oczekujace');
-    
 }
 
 function getSubstitutions() { 
@@ -56,12 +56,48 @@ function displaySubstitutions() {
 
 function updateSubstitutionStatus($id, $status) {
     $conn = db_connect();
+    
+    // Pobierz datę, nazwę grupy i id_pracownika_zastepujacego dla danego zastępstwa
+    $query = "SELECT data_zastepstwa, nazwa_grupy, id_pracownika_zastepujacego FROM zastepstwa WHERE id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, 'i', $id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_result($stmt, $data_zastepstwa, $nazwa_grupy, $id_pracownika_zastepujacego);
+    mysqli_stmt_fetch($stmt);
+    mysqli_stmt_close($stmt);
+
+    // Debugowanie: Sprawdź, czy dane są poprawnie pobierane
+    echo "Data zastępstwa: $data_zastepstwa, Nazwa grupy: $nazwa_grupy, ID pracownika zastępującego: $id_pracownika_zastepujacego";
+    error_log("Data zastępstwa: $data_zastepstwa, Nazwa grupy: $nazwa_grupy, ID pracownika zastępującego: $id_pracownika_zastepujacego");
+
+    // Zaktualizuj status w tabeli zastepstwa
     $query = "UPDATE zastepstwa SET status = ?, id_pracownika_zastepujacego = NULL WHERE id = ?";
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, 'si', $status, $id);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
+
+    // Debugowanie: Sprawdź, czy zapytanie SQL jest wykonywane bez błędów
+    if (mysqli_errno($conn)) {
+        echo "Błąd SQL: " . mysqli_error($conn);
+        error_log("Błąd SQL: " . mysqli_error($conn));
+    }
+
+    // Zaktualizuj status w tabeli nadgodziny
+    $query = "UPDATE nadgodziny SET status = 'cofniete' WHERE data = ? AND nazwa_grupy = ? AND id_pracownika = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, 'ssi', $data_zastepstwa, $nazwa_grupy, $id_pracownika_zastepujacego);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    // Debugowanie: Sprawdź, czy zapytanie SQL jest wykonywane bez błędów
+    if (mysqli_errno($conn)) {
+        echo "Błąd SQL: " . mysqli_error($conn);
+        error_log("Błąd SQL: " . mysqli_error($conn));
+    }
+
     mysqli_close($conn);
-    logMessage('INFO-AktualneZastepstwa','Cofenieto Zastepstwo',$_SESSION['user_id']);
+
+    logMessage('INFO-AktualneZastepstwa', 'Cofnięto zastępstwo i zaktualizowano nadgodziny', $_SESSION['user_id']);
 }
 ?>
