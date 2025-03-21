@@ -2,6 +2,7 @@
 require_once('database_connection.php');
 require('fpdf.php');
 require_once('../PHP_Logic/Logi/logMessage.php');
+
 function getOvertimeData($searchTerm = '', $startDate = '', $endDate = '') { // pobieranie danych o nadgodzinach (wyszukiwanie)
     $conn = db_connect(); // laczenie 
     $user_id = $_SESSION['user_id'];
@@ -9,7 +10,8 @@ function getOvertimeData($searchTerm = '', $startDate = '', $endDate = '') { // 
 
     $query = "SELECT u.id, CONCAT(u.imie, ' ', u.nazwisko) AS full_name, SUM(n.liczba_godzin) AS total_hours, n.nazwa_grupy
               FROM nadgodziny n
-              JOIN uzytkownicy u ON n.id_pracownika = u.id"; // baza zapytania 
+              JOIN uzytkownicy u ON n.id_pracownika = u.id
+              WHERE n.status = 'aktywne'"; // dodanie warunku statusu
     $conditions = []; // tablica warunkow 
     if (!empty($searchTerm)) { // jesli nie puste dodaje do tablicy 
         $conditions[] = "CONCAT(u.imie, ' ', u.nazwisko) LIKE '%$searchTerm%'";
@@ -24,7 +26,7 @@ function getOvertimeData($searchTerm = '', $startDate = '', $endDate = '') { // 
         $conditions[] = "n.id_pracownika = '$user_id'";
     }
     if (!empty($conditions)) {
-        $query .= " WHERE " . implode(' AND ', $conditions); // łącznie warunków implode laczy wartosc w tablicy w jedna calosc
+        $query .= " AND " . implode(' AND ', $conditions); // łącznie warunków implode laczy wartosc w tablicy w jedna calosc
     }
     $query .= " GROUP BY u.id, n.nazwa_grupy";
     $result = mysqli_query($conn, $query);
@@ -35,12 +37,13 @@ function getOvertimeData($searchTerm = '', $startDate = '', $endDate = '') { // 
         }
     }
     mysqli_close($conn);
-    logMessage('INFO', 'Filtrowanie danych o nadgodzinach',$_SESSION['user_id']); // logowanie zdarzenia
+    logMessage('INFO', 'Filtrowanie danych o nadgodzinach', $_SESSION['user_id']); // logowanie zdarzenia
     return $overtimeData;
 }
+
 function getOvertimeDetails($userId, $startDate = '', $endDate = '') { // pobieranie  ilosci godzin 
     $conn = db_connect(); // laczenie 
-    $query = "SELECT data, liczba_godzin, nazwa_grupy FROM nadgodziny WHERE id_pracownika = '$userId'"; // zapytnaie
+    $query = "SELECT data, liczba_godzin, nazwa_grupy FROM nadgodziny WHERE id_pracownika = '$userId' AND status = 'aktywne'"; // dodanie warunku statusu
     if (!empty($startDate)) {
         $query .= " AND data >= '$startDate'";
     }

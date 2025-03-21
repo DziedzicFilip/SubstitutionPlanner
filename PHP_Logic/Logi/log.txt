@@ -51,3 +51,7 @@
 2025-03-21 11:32:26 | INFO | 39 | Zalogowano
 2025-03-21 11:32:29 | INFO | 39 | Zastępstwo zostało zaakceptowane.30
 2025-03-21 11:36:10 | INFO-AktualneZastepstwa | 20 | Cofnięto zastępstwo i zaktualizowano nadgodziny
+2025-03-21 11:37:15 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:40:31 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:40:43 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:44:22 | INFO | 20 | Filtrowanie danych o nadgodzinach
