@@ -55,3 +55,32 @@
 2025-03-21 11:40:31 | INFO | 20 | Filtrowanie danych o nadgodzinach
 2025-03-21 11:40:43 | INFO | 20 | Filtrowanie danych o nadgodzinach
 2025-03-21 11:44:22 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:45:15 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:45:15 | INFO | 20 | Generowanie raportu PDF
+2025-03-21 11:45:15 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:45:37 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:45:40 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:45:47 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-24 14:50:47 | INFO | 20 | Zalogowano
+2025-03-24 14:52:51 | INFO | AdminTEST | Zalogowano
+2025-03-24 15:23:24 | INFO | 20 | Wystawiono Nowe Zastepstwo -.32 .
+2025-03-24 15:23:39 | INFO | 20 | Wystawiono Nowe Zastepstwo -.33 .
+2025-03-24 15:23:52 | INFO | 20 | Zmiana statusu zastepstwa na DoAkceptacji 32
+2025-03-24 15:25:38 | INFO | 20 | Zmiana statusu zastepstwa na DoAkceptacji 33
+2025-03-24 15:31:27 | INFO | Kinga | Zalogowano
+2025-03-24 15:31:35 | INFO | 39 | Zastępstwo zostało zaakceptowane.33
+2025-03-24 15:32:47 | INFO-AktualneZastepstwa | 20 | Cofnięto zastępstwo i zaktualizowano nadgodziny
+2025-03-24 15:33:22 | INFO-AktualneZastepstwa | 20 | Cofnięto zastępstwo i zaktualizowano nadgodziny
+2025-03-24 15:40:24 | INFO | 20 | Wystawiono Nowe Zastepstwo -.34 .
+2025-03-24 15:40:32 | INFO | 20 | Zmiana statusu zastepstwa na DoAkceptacji 34
+2025-03-24 15:57:16 | INFO | 39 | Zastępstwo zostało odrzucone.32
+2025-03-24 16:18:23 | INFO | 123 | Zalogowano
+2025-03-24 16:18:27 | INFO | 43 | Zastępstwo zostało odrzucone.32
+2025-03-24 16:27:46 | INFO-AktualneZastepstwa | 20 | Cofnięto zastępstwo i zaktualizowano nadgodziny
+2025-03-24 16:28:12 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-24 16:28:18 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-24 16:28:23 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-24 16:28:25 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-24 16:29:17 | INFO | Kinga | Zalogowano
+2025-03-24 16:29:21 | INFO | 39 | Zastępstwo zostało odrzucone.34
+2025-03-24 16:29:28 | INFO-AktualneZastepstwa | 20 | Cofnięto zastępstwo i zaktualizowano nadgodziny

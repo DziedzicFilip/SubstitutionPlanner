@@ -18,7 +18,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         if ($password == $row['haslo'] || password_verify($password, $row['haslo']) ) { 
             $_SESSION['user_id'] = $row['id']; // ustawinie id sesji 
             $_SESSION['login'] = $login; // ustawienie loginu sesji
-            logMessage('INFO', 'Zalogowano', $row['id']); // logowanie zdarzenia
+            logMessage('INFO', 'Zalogowano', $login); // logowanie zdarzenia
             header('Location: ../sites/index.php'); // po porawnym zalogowaniu przekierowuje do strony index.php
             exit();
         } else {

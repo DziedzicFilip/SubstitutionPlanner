@@ -40,8 +40,7 @@ if (isset($_POST['substitution_id']) && isset($_POST['action'])) { // obsługa p
         }
     } elseif ($action === 'reject') {
         $status = 'oczekujące';
-        $query = "UPDATE zastepstwa SET status = '$status', id_pracownika_zastepujacego = NULL WHERE id = $substitution_id"; // zmiana na oczekujące
-        mysqli_query($conn, $query);
+     
 
         // Zaktualizowanie statusu w tabeli zastepstwa_uzytkownicy
         $updateUserSubstitutionQuery = "UPDATE zastepstwa_uzytkownicy SET status = 'odrzucone' WHERE id_zastepstwa = $substitution_id AND id_uzytkownika = '$user_id'";

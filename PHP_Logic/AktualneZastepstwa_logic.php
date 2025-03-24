@@ -29,6 +29,122 @@ function getSubstitutions() {
     return $substitutions;
 }
 
+function getUsersActions()
+{
+    $conn = db_connect();
+    $query = "
+        SELECT 
+            z.id AS zastepstwo_id, 
+            z.data_zastepstwa AS data, 
+            z.godzina_od, 
+            z.godzina_do, 
+            z.nazwa_grupy AS grupa,
+            GROUP_CONCAT(CONCAT(u.imie, ' ', u.nazwisko, ' (', zu.status, ')') SEPARATOR ', ') AS osoby_status
+        FROM 
+            zastepstwa z
+        JOIN 
+            zastepstwa_uzytkownicy zu ON z.id = zu.id_zastepstwa
+        JOIN 
+            uzytkownicy u ON zu.id_uzytkownika = u.id
+        WHERE 
+            z.status = 'DoAkceptacji'
+        GROUP BY 
+            z.id
+    ";
+    $result = mysqli_query($conn, $query);
+    $Actions = [];
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $Actions[] = $row;
+        }
+    }
+    mysqli_close($conn);
+    return $Actions;
+}
+
+function displayUsersActions()
+{
+    $Actions = getUsersActions();
+    foreach ($Actions as $Action) {
+        echo '<tr>';
+        echo '<td>' . htmlspecialchars($Action['data']) . '</td>';
+        echo '<td>' . htmlspecialchars($Action['grupa']) . '</td>';
+        echo '<td>' . htmlspecialchars($Action['godzina_od']) . ' - ' . htmlspecialchars($Action['godzina_do']) . '</td>';
+        echo '<td>' . htmlspecialchars($Action['osoby_status']) . '</td>';
+        echo '<td>' . displayStatus($Action['zastepstwo_id']) . '</td>';
+        echo '</tr>';
+    }
+}
+function CountUserInSubstutions()
+{
+    $conn = db_connect();
+    $query = "
+        SELECT 
+            z.id AS zastepstwo_id, 
+            COUNT(zu.id_uzytkownika) AS count 
+        FROM 
+            zastepstwa z
+        JOIN 
+            zastepstwa_uzytkownicy zu ON z.id = zu.id_zastepstwa
+        GROUP BY 
+            z.id
+    ";
+    $result = mysqli_query($conn, $query);
+    $counts = [];
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $counts[$row['zastepstwo_id']] = $row['count'];
+        }
+    }
+  
+    $result = mysqli_query($conn, $query);
+    $counts = [];
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $counts[$row['zastepstwo_id']] = $row['count'];
+        }
+    }
+    mysqli_close($conn);
+    return $counts;
+}
+function coutUsersActions()
+{
+    $conn = db_connect();
+    $query2 = "
+    SELECT 
+        z.id AS zastepstwo_id, 
+        COUNT(zu.id_uzytkownika) AS count 
+    FROM 
+        zastepstwa z
+    JOIN 
+        zastepstwa_uzytkownicy zu ON z.id = zu.id_zastepstwa
+       WHERE zu.status = 'odrzucone'
+    GROUP BY 
+        z.id 
+ 
+";
+$result2 = mysqli_query($conn, $query2);
+$counts2 = [];
+if ($result2 && mysqli_num_rows($result2) > 0) {
+    while ($row = mysqli_fetch_assoc($result2)) {
+        $counts2[$row['zastepstwo_id']] = $row['count'];
+    }
+}
+return $counts2;
+}
+
+function displayStatus($zastepstwo_id)
+{
+    $counts = CountUserInSubstutions();
+    $counts2 = coutUsersActions();
+    $output = '';
+
+    if (isset($counts[$zastepstwo_id]) && isset($counts2[$zastepstwo_id]) && $counts[$zastepstwo_id] == $counts2[$zastepstwo_id]) {
+        $output .= 'Wszystkie odrzucone <form method="post" action=""><button type="submit" name="revert" value="' . $zastepstwo_id . '">Cofnij</button></form>';
+    }
+
+    return $output;
+}
 function displaySubstitutions() { 
     $substitutions = getSubstitutions();
     $uniqueSubstitutions = [];
@@ -53,7 +169,6 @@ function displaySubstitutions() {
         echo '</tr>';
     }
 } 
-
 function updateSubstitutionStatus($id, $status) {
     $conn = db_connect();
     
@@ -66,22 +181,12 @@ function updateSubstitutionStatus($id, $status) {
     mysqli_stmt_fetch($stmt);
     mysqli_stmt_close($stmt);
 
-    // Debugowanie: Sprawdź, czy dane są poprawnie pobierane
-    echo "Data zastępstwa: $data_zastepstwa, Nazwa grupy: $nazwa_grupy, ID pracownika zastępującego: $id_pracownika_zastepujacego";
-    error_log("Data zastępstwa: $data_zastepstwa, Nazwa grupy: $nazwa_grupy, ID pracownika zastępującego: $id_pracownika_zastepujacego");
-
     // Zaktualizuj status w tabeli zastepstwa
-    $query = "UPDATE zastepstwa SET status = ?, id_pracownika_zastepujacego = NULL WHERE id = ?";
+    $query = "UPDATE zastepstwa SET status = ? WHERE id = ?";
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, 'si', $status, $id);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-
-    // Debugowanie: Sprawdź, czy zapytanie SQL jest wykonywane bez błędów
-    if (mysqli_errno($conn)) {
-        echo "Błąd SQL: " . mysqli_error($conn);
-        error_log("Błąd SQL: " . mysqli_error($conn));
-    }
 
     // Zaktualizuj status w tabeli nadgodziny
     $query = "UPDATE nadgodziny SET status = 'cofniete' WHERE data = ? AND nazwa_grupy = ? AND id_pracownika = ?";
