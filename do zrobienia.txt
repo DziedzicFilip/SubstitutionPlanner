@@ -1,12 +1,9 @@
 1.Ustawiennie komyus na szywtno zastepstwa - Super ADmi 
 (narazie na sztywno dodac pole od usuniecia)
 3. Dodanie opcji zarzadzaj zastepstwa w harmonogramie
-5. Po odrzuceniu zastepstwa przez jedna osobe wraca do puli nie przypisanych 
-trzeba naprawic 
-7. Przydałoby się "oczko" podgląd hasła przy jego wpisywaniu 
 6. Po przypisaniu zastępstwa, gdy nauczyciel je odrzuci nie mam żadnej informacji, że to zrobił tylko wraca z 
      powrotem tylko informacja przypisz zastępstwo (nie wiadomo kto odrzucił, komu się je przypisało bo na       
-     razie mogę tylko jednej osobie to też było do zmiany).
+     razie mogę tylko jednej osobie to też było do zmiany). - w połowie zrobione
 7.dodac .env
 ---------------------------------
 

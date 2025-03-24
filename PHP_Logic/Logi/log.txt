@@ -84,3 +84,5 @@
 2025-03-24 16:29:17 | INFO | Kinga | Zalogowano
 2025-03-24 16:29:21 | INFO | 39 | Zastępstwo zostało odrzucone.34
 2025-03-24 16:29:28 | INFO-AktualneZastepstwa | 20 | Cofnięto zastępstwo i zaktualizowano nadgodziny
+2025-03-24 16:31:39 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-24 16:41:35 | INFO | AdminTEST | Zalogowano
