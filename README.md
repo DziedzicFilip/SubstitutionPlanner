@@ -37,18 +37,7 @@ SubstitutionPlanner is a web application designed to help manage and organize su
    - Open your browser and go to `http://localhost/index.html`
    - Click “Zaloguj się” to log in and manage schedules.
 
-## Project Structure
 
-```
-.
-├── PHP_Logic/                 # PHP backend logic
-├── sites/                     # Site pages (e.g. login.php)
-├── index.html                 # Main entry page
-├── zarzadzanie_harmonogramem2.sql  # Main schedule DB schema
-├── sql_delete.sql             # SQL for deleting DB content
-├── .gitignore
-└── README.md
-```
 
 ## Usage
 
