@@ -1,6 +1,6 @@
 <?php
 require_once('database_connection.php');
-
+require_once('../PHP_Logic/Logi/logMessage.php');
 function getGroups() { // pobieranie grup 
     $conn = db_connect();
     $query = "SELECT id, nazwa FROM grupy";
@@ -25,13 +25,13 @@ function wrtieGroups($groups) { // wypisanie
 }
 
 //dodawanie pracownika 
-if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['login']) && isset($_POST['password']) ) {  // sprawdzanie czy dane są wpisane
+if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email']))  {  // sprawdzanie czy dane są wpisane
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
     $login = $_POST['login'];
-    $password = $_POST['password'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $groups = isset($_POST['groups']) ? $_POST['groups'] : []; // sprawdza czy instije grupy 
-
+    $email = $_POST['email'];
     $conn = db_connect();
 
     // Sprawdzenie, czy login już istnieje
@@ -40,7 +40,7 @@ if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['log
 
     if ($result && mysqli_num_rows($result) == 0) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $query = "INSERT INTO uzytkownicy (imie, nazwisko, login, haslo, rola) VALUES ('$firstName', '$lastName', '$login', '$hashedPassword', 'pracownik')";
+        $query = "INSERT INTO uzytkownicy (imie, nazwisko, login, haslo, rola, adresEmail) VALUES ('$firstName', '$lastName', '$login', '$password', 'pracownik', '$email')";
         if (mysqli_query($conn, $query)) {
             $userId = mysqli_insert_id($conn);
 
@@ -50,12 +50,15 @@ if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['log
                 mysqli_query($conn, $query);
             }
 //java script 
+            logMessage('INFO', "Dodano nowego pracownika: $firstName $lastName", $_SESSION['user_id']);
             echo "<script>alert('Pracownik został pomyślnie dodany.'); window.location.href='../sites/dodaj.php';</script>";
         } else {
             echo "<script>alert('Błąd podczas dodawania pracownika.'); window.location.href='../sites/dodaj.php';</script>";
+            logMessage('Error', "Błąd podczas dodawania pracownika", $_SESSION['user_id']);
         }
     } else {
         echo "<script>alert('Login już istnieje.'); window.location.href='../sites/dodaj.php';</script>";
+        logMessage('Error', "Błąd podczas dodawania pracownika-Login już istnieje", $_SESSION['user_id']);
     }
 
     mysqli_close($conn);
@@ -73,11 +76,14 @@ if (isset($_POST['groupName'])) { //doddanie grup
         $query = "INSERT INTO grupy (nazwa) VALUES ('$groupName')";
         if (mysqli_query($conn, $query)) {
             echo "<script>alert('Grupa została pomyślnie dodana.'); window.location.href='../sites/dodaj.php';</script>";
+            logMessage('INFO', "Dodano nową grupę: $groupName", $_SESSION['user_id']);
         } else {
             echo "<script>alert('Błąd podczas dodawania grupy.'); window.location.href='../sites/dodaj.php';</script>";
+            logMessage('Error', "Błąd podczas dodawania grupy", $_SESSION['user_id']);
         }
     } else {
         echo "<script>alert('Nazwa grupy już istnieje.'); window.location.href='../sites/dodaj.php';</script>";
+        logMessage('Error', "Błąd podczas dodawania grupy-Nazwa grupy już istnieje", $_SESSION['user_id']);
     }
 
     mysqli_close($conn);
@@ -112,8 +118,10 @@ if (isset($_POST['employeeSelect']) && isset($_POST['dayOfWeek']) && isset($_POS
 
     if (mysqli_affected_rows($conn) > 0) {
         echo "<script>alert('Godziny pracy zostały pomyślnie dodane.'); window.location.href='../sites/dodaj.php';</script>";
+        logMessage('INFO', "Dodano godziny pracy dla pracownika o id: $employeeId", $_SESSION['user_id']);
     } else {
         echo "<script>alert('Błąd podczas dodawania godzin pracy.'); window.location.href='../sites/dodaj.php';</script>";
+        logMessage('Error', "Błąd podczas dodawania godzin pracy", $_SESSION['user_id']);
     }
 
     mysqli_close($conn);
@@ -127,8 +135,10 @@ if (isset($_POST['deleteEmployee'])) {     // Usunięcie pracownika
     $query = "DELETE FROM uzytkownicy WHERE id = '$employeeId'";
     if (mysqli_query($conn, $query)) {
         echo "<script>alert('Pracownik został pomyślnie usunięty.'); window.location.href='../sites/dodaj.php';</script>";
+        logMessage('INFO', "Usunięto pracownika o id: $employeeId", $_SESSION['user_id']);
     } else {
         echo "<script>alert('Błąd podczas usuwania pracownika.'); window.location.href='../sites/dodaj.php';</script>";
+        logMessage('Error', "Błąd podczas usuwania pracownika", $_SESSION['user_id']);
     }
 
     mysqli_close($conn);

@@ -1,0 +1,1 @@
+ALTER TABLE nadgodziny add nazwa_grupy VARCHAR(255) 

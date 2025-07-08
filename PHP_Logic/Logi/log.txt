@@ -1,0 +1,88 @@
+2025-03-21 01:35:59 | ERROR |  | Błędne dane logowania
+2025-03-21 01:36:58 | ERROR |  | Błędne dane logowania
+2025-03-21 01:37:10 | ERROR |  | Błędne dane logowania
+2025-03-21 01:38:10 | INFO | 20 | Zalogowano
+2025-03-21 01:47:42 | INFO-AktualneZastepstwa |  | Zmieniono status zastępstwa o id: 31 na: oczekujace
+2025-03-21 01:48:14 | INFO-AktualneZastepstwa |  | Zmieniono status zastępstwa o id: 31 na: oczekujace
+2025-03-21 01:48:56 | INFO-AktualneZastepstwa |  | Zmieniono status zastępstwa o id: 31 na: 
+2025-03-21 01:49:46 | INFO-AktualneZastepstwa |  | Cofenieto Zastepstwo
+2025-03-21 01:50:17 | INFO-AktualneZastepstwa |  | Cofenieto Zastepstwo
+2025-03-21 01:50:54 | INFO |  | Dodano nowego pracownika: Filip Dziedzic
+2025-03-21 01:52:09 | INFO-AktualneZastepstwa |  | Cofenieto Zastepstwo
+2025-03-21 01:53:12 | INFO-AktualneZastepstwa | 20 | Cofenieto Zastepstwo
+2025-03-21 01:53:20 | INFO-AktualneZastepstwa | 20 | Cofenieto Zastepstwo
+2025-03-21 01:53:25 | INFO-AktualneZastepstwa | 20 | Cofenieto Zastepstwo
+2025-03-21 01:53:37 | INFO-AktualneZastepstwa | 20 | Cofenieto Zastepstwo
+2025-03-21 02:04:22 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 02:04:40 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 02:04:40 | INFO | 20 | Generowanie raportu PDF
+2025-03-21 02:04:40 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 02:05:29 | INFO | 39 | Wysłano email z nowym hasłem
+2025-03-21 02:06:25 | INFO | 39 | Wysłano email z nowym hasłem
+2025-03-21 02:08:19 | INFO | 39 | Wysłano email z nowym hasłem
+2025-03-21 02:08:36 | INFO | 39 | Wysłano email z nowym hasłem
+2025-03-21 02:09:54 | INFO | 39 | Wysłano email z nowym hasłem
+2025-03-21 02:13:24 | INFO | 39 | Wysłano email z nowym hasłem
+2025-03-21 02:18:28 | INFO | 39 | Wysłano email z nowym hasłem
+2025-03-21 02:18:55 | INFO | 39 | Wysłano email z nowym hasłem
+2025-03-21 02:19:23 | ERROR | TESt13123123@TESt | Nie znaleziono użytkownika z podanym adresem email
+2025-03-21 02:23:49 | INFO | 20 | Zalogowano
+2025-03-21 02:25:45 | INFO | 20 | Zmiana statusu zastepstwa na DoAkceptacji31
+2025-03-21 02:26:07 | INFO | 20 | Zmiana statusu zastepstwa na DoAkceptacji 31
+2025-03-21 02:27:51 | INFO | 20 | Zmiana statusu zastepstwa na odrzucone31
+2025-03-21 02:28:24 | Error | 20 | Błedne nowe hasło
+2025-03-21 02:28:33 | Error | 20 | Błedne nowe hasło
+2025-03-21 02:28:45 | Error | 20 | Błedne nowe hasło
+2025-03-21 02:28:59 | Error | 20 | Błedne obecne hasło
+2025-03-21 02:29:10 | Error | 20 | Błedne nowe hasło
+2025-03-21 02:29:25 | Info | 20 | Zmiana loginu i hasła
+2025-03-21 10:07:15 | INFO | 20 | Zalogowano
+2025-03-21 10:10:36 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 10:10:39 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 10:15:43 | INFO-AktualneZastepstwa | 20 | Cofnięto zastępstwo i zaktualizowano nadgodziny
+2025-03-21 11:21:41 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:25:44 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:25:48 | INFO-AktualneZastepstwa | 20 | Cofnięto zastępstwo i zaktualizowano nadgodziny
+2025-03-21 11:26:03 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:28:20 | INFO-AktualneZastepstwa | 20 | Cofnięto zastępstwo i zaktualizowano nadgodziny
+2025-03-21 11:30:43 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:30:46 | INFO-AktualneZastepstwa | 20 | Cofnięto zastępstwo i zaktualizowano nadgodziny
+2025-03-21 11:31:53 | INFO | 20 | Zmiana statusu zastepstwa na DoAkceptacji 30
+2025-03-21 11:32:26 | INFO | 39 | Zalogowano
+2025-03-21 11:32:29 | INFO | 39 | Zastępstwo zostało zaakceptowane.30
+2025-03-21 11:36:10 | INFO-AktualneZastepstwa | 20 | Cofnięto zastępstwo i zaktualizowano nadgodziny
+2025-03-21 11:37:15 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:40:31 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:40:43 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:44:22 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:45:15 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:45:15 | INFO | 20 | Generowanie raportu PDF
+2025-03-21 11:45:15 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:45:37 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:45:40 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-21 11:45:47 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-24 14:50:47 | INFO | 20 | Zalogowano
+2025-03-24 14:52:51 | INFO | AdminTEST | Zalogowano
+2025-03-24 15:23:24 | INFO | 20 | Wystawiono Nowe Zastepstwo -.32 .
+2025-03-24 15:23:39 | INFO | 20 | Wystawiono Nowe Zastepstwo -.33 .
+2025-03-24 15:23:52 | INFO | 20 | Zmiana statusu zastepstwa na DoAkceptacji 32
+2025-03-24 15:25:38 | INFO | 20 | Zmiana statusu zastepstwa na DoAkceptacji 33
+2025-03-24 15:31:27 | INFO | Kinga | Zalogowano
+2025-03-24 15:31:35 | INFO | 39 | Zastępstwo zostało zaakceptowane.33
+2025-03-24 15:32:47 | INFO-AktualneZastepstwa | 20 | Cofnięto zastępstwo i zaktualizowano nadgodziny
+2025-03-24 15:33:22 | INFO-AktualneZastepstwa | 20 | Cofnięto zastępstwo i zaktualizowano nadgodziny
+2025-03-24 15:40:24 | INFO | 20 | Wystawiono Nowe Zastepstwo -.34 .
+2025-03-24 15:40:32 | INFO | 20 | Zmiana statusu zastepstwa na DoAkceptacji 34
+2025-03-24 15:57:16 | INFO | 39 | Zastępstwo zostało odrzucone.32
+2025-03-24 16:18:23 | INFO | 123 | Zalogowano
+2025-03-24 16:18:27 | INFO | 43 | Zastępstwo zostało odrzucone.32
+2025-03-24 16:27:46 | INFO-AktualneZastepstwa | 20 | Cofnięto zastępstwo i zaktualizowano nadgodziny
+2025-03-24 16:28:12 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-24 16:28:18 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-24 16:28:23 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-24 16:28:25 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-24 16:29:17 | INFO | Kinga | Zalogowano
+2025-03-24 16:29:21 | INFO | 39 | Zastępstwo zostało odrzucone.34
+2025-03-24 16:29:28 | INFO-AktualneZastepstwa | 20 | Cofnięto zastępstwo i zaktualizowano nadgodziny
+2025-03-24 16:31:39 | INFO | 20 | Filtrowanie danych o nadgodzinach
+2025-03-24 16:41:35 | INFO | AdminTEST | Zalogowano

@@ -69,10 +69,32 @@ if (!isset($_SESSION['user_id'])) {
                     <th>Grupa</th>
                     <th>Osoba potrzebująca zastępstwa</th>
                     <th>Osoba zastępująca</th>
+                    <th>Cofnij Zastępstwo</th>
                 </tr>
             </thead>
             <tbody>
                 <?php displaySubstitutions(); ?>
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="content">
+    <h2 class="text-center">Wyslane do Akceptacji</h2>
+    <div class="table-responsive">
+        <table class="table schedule-table mt-4">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Grupa</th>
+                    <th>godziny </th>
+                    <th>Osoba zastępująca </th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php displayUsersActions(); ?>
+                
             </tbody>
         </table>
     </div>

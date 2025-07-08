@@ -1,0 +1,23 @@
+1.Ustawiennie komyus na szywtno zastepstwa - Super ADmi 
+(narazie na sztywno dodac pole od usuniecia)
+3. Dodanie opcji zarzadzaj zastepstwa w harmonogramie
+6. Po przypisaniu zastępstwa, gdy nauczyciel je odrzuci nie mam żadnej informacji, że to zrobił tylko wraca z 
+     powrotem tylko informacja przypisz zastępstwo (nie wiadomo kto odrzucił, komu się je przypisało bo na       
+     razie mogę tylko jednej osobie to też było do zmiany). - w połowie zrobione
+7.dodac .env
+---------------------------------
+
+
+1. Są Panie, które są przypisane do dwóch grup, a przy dodawaniu zastępstwa mogą wybrać tylko jedną.
+     p. Jędroszak pracuje w Motylkach i Smykach
+     p. Boroń pracuje w Pszczółkach i Sówkach
+     p. Winkel pracuje w Jagódki i Kotki
+     p. Nawrot pracuje Jagódki i Pingwiny
+     p. Mazela pracuje Tygrysy i Kotki
+     _____ Nie do zrobienia i nie ma sensu bo : jesli ktos pracuje od 7-12 a potem od 16-18 yto wyslanie jedneog zbiorczego 
+     zastwpstwa ogranicza sie tylko do jednje osoby a tak moze to byc podzielone na dwie 
+
+2. Pani Katarzyna Puła - Pszczółki w dodaj zastępstwo nie ma przypisanej grupy więc nie może dodać
+     zastępstwa. - ____________   na bazie dodane ale nwm czemu nie działało 
+5. Przy raporcie nadgodzin występują błędy w nazwisku p. Jędroszak/ na razie tylko my wczoraj testowałyśmy
+     aplikację.  - jaki bład? 

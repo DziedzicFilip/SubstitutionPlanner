@@ -1,7 +1,7 @@
 <?php
 session_start();
 require('database_connection.php');
-
+require_once('../PHP_Logic/Logi/logMessage.php');
 if (isset($_POST['newLogin']) && isset($_POST['currentPassword']) && isset($_POST['newPassword'])) {
     $newLogin = $_POST['newLogin'];
     $currentPassword = $_POST['currentPassword'];
@@ -12,6 +12,7 @@ if (isset($_POST['newLogin']) && isset($_POST['currentPassword']) && isset($_POS
     // Sprawdzenie, czy nowe hasło spełnia wymagania
     if (strlen($newPassword) < 8 || !preg_match('/[0-9]/', $newPassword)) {
         echo "<script>alert('Nowe hasło musi mieć co najmniej 8 znaków i zawierać co najmniej jedną cyfrę.'); window.location.href='../sites/ustawienia.php';</script>";
+        logMessage("Error","Błedne nowe hasło",$_SESSION['user_id']);
         exit();
     }
 
@@ -38,21 +39,27 @@ if (isset($_POST['newLogin']) && isset($_POST['currentPassword']) && isset($_POS
                 if (mysqli_query($conn, $query)) {
                     $_SESSION['login'] = $newLogin;
                     echo "<script>alert('Login i hasło zostały pomyślnie zmienione.'); window.location.href='../sites/ustawienia.php';</script>";
+                    logMessage("Info","Zmiana loginu i hasła",$_SESSION['user_id']);
                 } else {
                     echo "<script>alert('Błąd podczas aktualizacji danych.'); window.location.href='../sites/ustawienia.php';</script>";
+                    logMessage("Error","Błąd podczas aktualizacji danych",$_SESSION['user_id']);
                 }
             } else {
                 echo "<script>alert('Nowy login już istnieje.'); window.location.href='../sites/ustawienia.php';</script>";
+                logMessage("Error","Nowy login już istnieje",$_SESSION['user_id']);
             }
         } else {
             echo "<script>alert('Obecne hasło jest nieprawidłowe.'); window.location.href='../sites/ustawienia.php';</script>";
+            logMessage("Error","Błedne obecne hasło",$_SESSION['user_id']);
         }
     } else {
         echo "<script>alert('Obecny login jest nieprawidłowy.'); window.location.href='../sites/ustawienia.php';</script>";
+        logMessage("Error","Błedny obecny login",$_SESSION['user_id']);
     }
 
     mysqli_close($conn);
 } else {
     echo "<script>alert('Wszystkie pola są wymagane.'); window.location.href='../sites/ustawienia.php';</script>";
+    logMessage("Error","Wszystkie pola są wymagane",$_SESSION['user_id']);
 }
 ?>

@@ -75,41 +75,42 @@ $groups = getGroups();
 
 		<div class="content">
 		<div class="row">
-    <div class="col-md-6">
-        <div class="card mb-4">
-            <div class="card-body">
-                <h2 class="text-center">Dodaj Pracownika</h2>
-                <form method="post" action="../PHP_Logic/dodaj_logic.php">
-                    <div class="mb-3">
-                        <label for="firstName" class="form-label">Imię</label>
-                        <input type="text" class="form-control" id="firstName" name="firstName" required>
+        <div class="col-md-6">
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="text-center">Dodaj Pracownika</h2>
+            <form method="post" action="../PHP_Logic/dodaj_logic.php">
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">Imię</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Nazwisko</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="login" class="form-label">Login</label>
+                    <input type="text" class="form-control" id="login" name="login" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Hasło</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Adres Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="groups" class="form-label">Grupy</label>
+                    <div id="groups">
+                        <?php wrtieGroups($groups); ?>
                     </div>
-                    <div class="mb-3">
-                        <label for="lastName" class="form-label">Nazwisko</label>
-                        <input type="text" class="form-control" id="lastName" name="lastName" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="login" class="form-label">Login</label>
-                        <input type="text" class="form-control" id="login" name="login" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Hasło</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="groups" class="form-label">Grupy</label>
-                        <div id="groups">
-						<?php
-								wrtieGroups($groups);
-                    ?>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Dodaj Pracownika</button>
-                </form>
-            </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Dodaj Pracownika</button>
+            </form>
         </div>
     </div>
+</div>
     <div class="col-md-6">
         <div class="card mb-4">
             <div class="card-body">

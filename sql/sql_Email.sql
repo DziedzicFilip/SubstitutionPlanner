@@ -1,0 +1,1 @@
+ALTER TABLE uzytkownicy ADD COLUMN adresEmail VARCHAR(255);
