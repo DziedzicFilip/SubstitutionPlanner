@@ -32,8 +32,8 @@ if (isset($_POST['email'])) {
                 $mail->isSMTP();
                 $mail->Host = 'smtp.gmail.com'; // Ustaw serwer SMTP
                 $mail->SMTPAuth = true;
-                $mail->Username = 'zastepstwa.przedszkolezielonki@gmail.com'; // Nazwa użytkownika SMTP
-                $mail->Password = 'tkxp agdb wqyw czro'; // Hasło SMTP
+                $mail->Username = ''; // Nazwa użytkownika SMTP
+                $mail->Password = ''; // Hasło SMTP
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
 
