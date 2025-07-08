@@ -45,12 +45,4 @@ SubstitutionPlanner is a web application designed to help manage and organize su
 2. Log in using your credentials.
 3. Manage substitution schedules through the provided interface.
 
-## Contributing
 
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
-
-
-
----
-
-**Note:** This README is a template. Please update project-specific details, add screenshots, and expand sections as your project evolves!
