@@ -94,36 +94,47 @@ function displayOvertimeCards($searchTerm = '', $startDate = '', $endDate = '') 
     }
 }
 
+
 function generatePDF($searchTerm = '', $startDate = '', $endDate = '') {
     $overtimeData = getOvertimeData($searchTerm, $startDate, $endDate);
     $pdf = new FPDF();
     $pdf->AddPage();
+
+    // Dodaj czcionkę z polskimi znakami (ARIAL.php z katalogu font/)
+    $pdf->AddFont('Arial', '', 'ARIAL.php');
     $pdf->SetFont('Arial', 'B', 16);
-    $pdf->Cell(0, 10, 'Raport Nadgodzin', 0, 1, 'C');
+
+    // Konwersja tytułu na windows-1250
+    $title = iconv('UTF-8', 'windows-1250//TRANSLIT', 'Raport Nadgodzin');
+    $pdf->Cell(0, 10, $title, 0, 1, 'C');
     $pdf->SetFont('Arial', '', 12);
 
     if (!empty($overtimeData)) {
         foreach ($overtimeData as $user) {
-            $pdf->Cell(0, 10, 'Pracownik: ' . $user['full_name'], 0, 1);
-            $pdf->Cell(0, 10, 'Liczba nadgodzin: ' . $user['total_hours'], 0, 1);
-            $pdf->Cell(0, 10, 'Grupa: ' . $user['nazwa_grupy'], 0, 1);
+            $full_name = iconv('UTF-8', 'windows-1250//TRANSLIT', 'Pracownik: ' . $user['full_name']);
+            $total_hours = iconv('UTF-8', 'windows-1250//TRANSLIT', 'Liczba nadgodzin: ' . $user['total_hours']);
+            $group = iconv('UTF-8', 'windows-1250//TRANSLIT', 'Grupa: ' . $user['nazwa_grupy']);
+            $pdf->Cell(0, 10, $full_name, 0, 1);
+            $pdf->Cell(0, 10, $total_hours, 0, 1);
+            $pdf->Cell(0, 10, $group, 0, 1);
             $pdf->Ln(5);
-            $pdf->Cell(40, 10, 'Data', 1);
-            $pdf->Cell(40, 10, 'Godziny', 1);
-            $pdf->Cell(40, 10, 'Grupa', 1);
+
+            $pdf->Cell(40, 10, iconv('UTF-8', 'windows-1250//TRANSLIT', 'Data'), 1);
+            $pdf->Cell(40, 10, iconv('UTF-8', 'windows-1250//TRANSLIT', 'Godziny'), 1);
+            $pdf->Cell(40, 10, iconv('UTF-8', 'windows-1250//TRANSLIT', 'Grupa'), 1);
             $pdf->Ln();
 
             $overtimeDetails = getOvertimeDetails($user['id'], $startDate, $endDate);
             foreach ($overtimeDetails as $detail) {
-                $pdf->Cell(40, 10, $detail['data'], 1);
-                $pdf->Cell(40, 10, $detail['liczba_godzin'], 1);
-                $pdf->Cell(40, 10, $detail['nazwa_grupy'], 1);
+                $pdf->Cell(40, 10, iconv('UTF-8', 'windows-1250//TRANSLIT', $detail['data']), 1);
+                $pdf->Cell(40, 10, iconv('UTF-8', 'windows-1250//TRANSLIT', $detail['liczba_godzin']), 1);
+                $pdf->Cell(40, 10, iconv('UTF-8', 'windows-1250//TRANSLIT', $detail['nazwa_grupy']), 1);
                 $pdf->Ln();
             }
             $pdf->Ln(10);
         }
     } else {
-        $pdf->Cell(0, 10, 'Brak Nadgodzin.', 0, 1, 'C');
+        $pdf->Cell(0, 10, iconv('UTF-8', 'windows-1250//TRANSLIT', 'Brak Nadgodzin.'), 0, 1, 'C');
     }
 
     $pdf->Output('D', 'Nadgodziny.pdf');

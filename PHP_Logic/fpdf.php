@@ -90,7 +90,7 @@ function __construct($orientation='P', $unit='mm', $size='A4')
 	$this->InHeader = false;
 	$this->InFooter = false;
 	$this->lasth = 0;
-	$this->FontFamily = '';
+	$this->FontFamily = 'Arial';
 	$this->FontStyle = '';
 	$this->FontSizePt = 12;
 	$this->underline = false;

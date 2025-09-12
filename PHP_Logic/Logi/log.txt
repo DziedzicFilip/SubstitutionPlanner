@@ -115,3 +115,20 @@
 2025-09-12 14:12:49 | ERROR | 20 | Błędne dane logowania
 2025-09-12 14:13:49 | INFO | TEST1234 | Zalogowano
 2025-09-12 15:33:20 | INFO |  | Dodano godziny pracy dla pracownika o id: 43
+2025-09-12 15:47:35 | INFO | 41 | Filtrowanie danych o nadgodzinach
+2025-09-12 15:47:39 | INFO | 41 | Filtrowanie danych o nadgodzinach
+2025-09-12 15:47:39 | INFO | 41 | Generowanie raportu PDF
+2025-09-12 15:47:39 | INFO | 41 | Filtrowanie danych o nadgodzinach
+2025-09-12 15:49:02 | INFO | 41 | Filtrowanie danych o nadgodzinach
+2025-09-12 15:59:19 | INFO | 41 | Filtrowanie danych o nadgodzinach
+2025-09-12 15:59:20 | INFO | 41 | Filtrowanie danych o nadgodzinach
+2025-09-12 15:59:20 | INFO | 41 | Generowanie raportu PDF
+2025-09-12 15:59:20 | INFO | 41 | Filtrowanie danych o nadgodzinach
+2025-09-12 16:02:00 | INFO | 41 | Filtrowanie danych o nadgodzinach
+2025-09-12 16:02:02 | INFO | 41 | Filtrowanie danych o nadgodzinach
+2025-09-12 16:02:41 | INFO | 41 | Filtrowanie danych o nadgodzinach
+2025-09-12 16:02:41 | INFO | 41 | Generowanie raportu PDF
+2025-09-12 16:02:42 | INFO | 41 | Filtrowanie danych o nadgodzinach
+2025-09-12 16:02:47 | INFO | 41 | Filtrowanie danych o nadgodzinach
+2025-09-12 16:02:47 | INFO | 41 | Generowanie raportu PDF
+2025-09-12 16:02:47 | INFO | 41 | Filtrowanie danych o nadgodzinach
