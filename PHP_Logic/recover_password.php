@@ -1,10 +1,15 @@
 <?php
+
 require('database_connection.php');
-require '../vendor/autoload.php'; // Adjust the path if necessary
+require '../vendor/autoload.php'; // Dotenv i PHPMailer
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require_once('../PHP_Logic/Logi/logMessage.php');
 session_start();
+
+// Ładowanie .env
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
 
 if (isset($_POST['email'])) {
     $email = $_POST['email'];
@@ -28,17 +33,17 @@ if (isset($_POST['email'])) {
             // Wysyłanie emaila z nowymi danymi do logowania za pomocą PHPMailer
             $mail = new PHPMailer(true);
             try {
-                // Ustawienia serwera
+                // Ustawienia serwera z .env
                 $mail->isSMTP();
-                $mail->Host = 'smtp.gmail.com'; // Ustaw serwer SMTP
+                $mail->Host = $_ENV['MAIL_HOST'];
                 $mail->SMTPAuth = true;
-                $mail->Username = ''; // Nazwa użytkownika SMTP
-                $mail->Password = ''; // Hasło SMTP
+                $mail->Username = $_ENV['MAIL_USERNAME'];
+                $mail->Password = $_ENV['MAIL_PASSWORD'];
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port = 587;
+                $mail->Port = $_ENV['MAIL_PORT'];
 
                 // Odbiorcy
-                $mail->setFrom('no-reply@substitutionplanner.com', 'Zastepstwa Przedszkole Zielonki');
+                $mail->setFrom($_ENV['MAIL_FROM'], $_ENV['MAIL_FROM_NAME']);
                 $mail->addAddress($email);
 
                 // Treść wiadomości
