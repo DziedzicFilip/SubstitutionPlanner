@@ -88,32 +88,34 @@ function displaySchedule($startDate = null) {
         }
 
         for ($i = 0; $i < 5; $i++) {
-            $dayOfWeek = $daysOfWeek[date('N', $currentDate) - 1];
-            $currentDateStr = date('Y-m-d', $currentDate);
-            echo '<td>';
-            if (isset($days[$dayOfWeek])) {
-    $uniqueEntries = [];
-    foreach ($days[$dayOfWeek] as $entry) {
-        $entryKey = $entry['imie'] . $entry['nazwisko'] . $entry['godzina_od'] . $entry['godzina_do'];
-        if (!in_array($entryKey, $uniqueEntries)) {
-            $uniqueEntries[] = $entryKey;
-            echo '<div class="user-box">';
-            echo '<strong>' . $entry['imie'] . ' ' . $entry['nazwisko'] . '</strong><br />' . $entry['godzina_od'] . ' - ' . $entry['godzina_do'];
-            // Dodaj przycisk Zmień z danymi do modala
-            echo '<button type="button" class="btn btn-sm btn-warning mt-2 edit-schedule-btn"
-                data-bs-toggle="modal"
-                data-bs-target="#editScheduleModal"
-                data-grupa="' . htmlspecialchars($group) . '"
-                data-dzien="' . htmlspecialchars($dayOfWeek) . '"
-                data-imie="' . htmlspecialchars($entry['imie']) . '"
-                data-nazwisko="' . htmlspecialchars($entry['nazwisko']) . '"
-                data-od="' . $entry['godzina_od'] . '"
-                data-do="' . $entry['godzina_do'] . '"
-            >Zmień</button>';
-            echo '</div>';
+    $dayOfWeek = $daysOfWeek[date('N', $currentDate) - 1];
+    $currentDateStr = date('Y-m-d', $currentDate);
+    echo '<td>';
+    if (isset($days[$dayOfWeek])) {
+        $uniqueEntries = [];
+        foreach ($days[$dayOfWeek] as $entry) {
+            $entryKey = $entry['imie'] . $entry['nazwisko'] . $entry['godzina_od'] . $entry['godzina_do'];
+            if (!in_array($entryKey, $uniqueEntries)) {
+                $uniqueEntries[] = $entryKey;
+                echo '<div class="user-box">';
+                echo '<strong>' . $entry['imie'] . ' ' . $entry['nazwisko'] . '</strong><br />' . $entry['godzina_od'] . ' - ' . $entry['godzina_do'];
+                // Dodaj przycisk Zmień tylko dla admina
+                if (isset($_SESSION['rola']) && $_SESSION['rola'] === 'admin') {
+                    echo '<button type="button" class="btn btn-sm btn-warning mt-2 edit-schedule-btn"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editScheduleModal"
+                        data-grupa="' . htmlspecialchars($group) . '"
+                        data-dzien="' . htmlspecialchars($dayOfWeek) . '"
+                        data-imie="' . htmlspecialchars($entry['imie']) . '"
+                        data-nazwisko="' . htmlspecialchars($entry['nazwisko']) . '"
+                        data-od="' . $entry['godzina_od'] . '"
+                        data-do="' . $entry['godzina_do'] . '"
+                    >Zmień</button>';
+                }
+                echo '</div>';
+            }
         }
     }
-}
             if (isset($groupedSubstitutions[$group][$currentDateStr])) {
                 foreach ($groupedSubstitutions[$group][$currentDateStr] as $entry) {
                     $style = $entry['status'] == 'DoAkceptacji' ? 'background-color: #ffcccc;' : 'background-color: #ffffcc;';
