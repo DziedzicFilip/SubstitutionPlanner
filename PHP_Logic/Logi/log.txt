@@ -137,3 +137,7 @@
 2025-09-12 16:08:28 | INFO | 27 | Zastępstwo zostało odrzucone.44
 2025-09-12 16:09:26 | INFO | Ania1 | Zalogowano
 2025-09-12 16:09:35 | INFO | 28 | Zastępstwo zostało zaakceptowane.44
+2025-10-01 13:45:28 | ERROR |  | Błędne dane logowania
+2025-10-01 13:46:23 | ERROR | 20 | Błędne dane logowania
+2025-10-01 13:46:30 | ERROR | 20 | Błędne dane logowania
+2025-10-01 13:46:43 | INFO | ZmianaWydarzenia | Zalogowano
