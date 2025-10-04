@@ -48,7 +48,7 @@ if (isset($_POST['email'])) {
 
                 // Treść wiadomości
                 $mail->isHTML(true);
-                $mail->Subject = 'Odzyskiwanie hasła';
+                $mail->Subject = 'Odzyskiwanie hasla';
                 $mail->Body    = "Twoje nowe dane do logowania:<br>Login: $login<br>Hasło: $newPassword";
 
                 $mail->send();
@@ -59,8 +59,8 @@ if (isset($_POST['email'])) {
                 logMessage('ERROR', 'Błąd podczas wysyłania emaila', $userId);
             }
         } else {
-            $_SESSION['error'] = "Wystąpił błąd podczas aktualizacji hasła.";
-            logMessage('ERROR', 'Błąd podczas aktualizacji hasła', $userId);
+            $_SESSION['error'] = "Wystąpił błąd podczas aktualizacji hasla.";
+            logMessage('ERROR', 'Błąd podczas aktualizacji hasla', $userId);
         }
     } else {
         $_SESSION['error'] = "Nie znaleziono użytkownika z podanym adresem email.";

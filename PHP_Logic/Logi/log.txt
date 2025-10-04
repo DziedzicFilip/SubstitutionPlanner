@@ -141,3 +141,11 @@
 2025-10-01 13:46:23 | ERROR | 20 | Błędne dane logowania
 2025-10-01 13:46:30 | ERROR | 20 | Błędne dane logowania
 2025-10-01 13:46:43 | INFO | ZmianaWydarzenia | Zalogowano
+2025-10-01 14:15:26 | INFO | 20 | Wysłano email z nowym hasłem
+2025-10-01 14:16:31 | INFO | AdminTEST | Zalogowano
+2025-10-04 18:23:06 | INFO | 20 | Wysłano email z nowym hasłem
+2025-10-04 19:03:52 | INFO | Asia1 | Zalogowano
+2025-10-04 19:04:31 | Error | 24 | Błędne obecne hasło przy zmianie loginu
+2025-10-04 19:04:39 | Info | 24 | Zmiana loginu
+2025-10-04 19:04:57 | Info | 24 | Zmiana hasła
+2025-10-04 19:06:26 | INFO | 24 | Filtrowanie danych o nadgodzinach
